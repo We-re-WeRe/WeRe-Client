@@ -1,5 +1,5 @@
-# WeRe-Front
+# WeRe-Client
 
-## member
+## Member
 name: 뀨니언 </br>
 name: CiViliZation IX
