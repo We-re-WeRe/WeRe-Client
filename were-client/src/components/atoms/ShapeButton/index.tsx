@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import clsx from "clsx";
 import Link from "next/link";
-
+import styles from "./index.module.scss";
 
 interface Props {
     children: ReactNode;
@@ -9,8 +9,8 @@ interface Props {
     onClick?: () => void;
     disabled?: boolean;
     type?: 'submit' | 'reset' | 'button';
-    shape: 'circle' | 'square' | 'radiusSquare';
     link?: string;
+    shape: 'circle';
 }
 
 const ShapeButton = ({ children, onClick, disabled, type, shape, link }: Props) => {
