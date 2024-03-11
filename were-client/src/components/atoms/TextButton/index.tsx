@@ -4,7 +4,6 @@ import Link from "next/link";
 
 interface Props {
     children: ReactNode;
-    className?: string;
     onClick?: () => void;
     disabled?: boolean;
     type?: 'submit' | 'reset' | 'button';
@@ -12,12 +11,12 @@ interface Props {
     size: 'small' | 'medium' | 'large';
 }
 
-const TextButton = ({ children, className, disabled, type, link, size }: Props) => {
+const TextButton = ({ children, onClick, disabled, type, link, size }: Props) => {
     if (link) {
         return (
             <Link
                 href={link}
-                className={clsx(className)}
+                className={clsx('button', [size ?? 'medium'])}
             >
                 {children}
             </Link>
@@ -28,6 +27,8 @@ const TextButton = ({ children, className, disabled, type, link, size }: Props) 
         <button
             type={type}
             disabled={disabled}
+            className={clsx('button', [size ?? 'medium'])}
+            onClick={onClick}
         >
             {children}
         </button>
