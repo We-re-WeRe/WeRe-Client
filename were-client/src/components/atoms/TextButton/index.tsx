@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import styles from "./index.module.scss";
 
 interface Props {
     children: ReactNode;
@@ -16,7 +17,7 @@ const TextButton = ({ children, onClick, disabled, type, link, size }: Props) =>
         return (
             <Link
                 href={link}
-                className={clsx('button', [size ?? 'medium'])}
+                className={clsx(styles.textButton, styles[size ?? 'medium'])}
             >
                 {children}
             </Link>
@@ -27,7 +28,7 @@ const TextButton = ({ children, onClick, disabled, type, link, size }: Props) =>
         <button
             type={type}
             disabled={disabled}
-            className={clsx('button', [size ?? 'medium'])}
+            className={clsx(styles.textButton, styles[size ?? 'medium'])}
             onClick={onClick}
         >
             {children}
