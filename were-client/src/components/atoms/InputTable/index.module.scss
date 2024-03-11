@@ -1,0 +1,23 @@
+.commonInput {
+    font-size: 16px;
+    color: #000;
+    
+    // Table Size
+    &.basic {
+        height: 30px;
+    }
+
+    &.eof {
+        height: 90px;
+    }
+
+    // Font Size
+    &.title {
+        font-size: 40px;
+    }
+
+    // Font Color
+    &.correct {
+        color: #fff;
+    }
+}
