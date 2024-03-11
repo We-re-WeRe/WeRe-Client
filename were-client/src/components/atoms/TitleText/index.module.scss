@@ -1,0 +1,22 @@
+.titleText {
+  font-weight: bold;
+
+  // size
+
+  &.medium {
+    font-size: 24px;
+  }
+
+  &.large {
+    font-size: 45px;
+  }
+
+  // color
+  &.white {
+    color: white;
+  }
+
+  &.black {
+    color: black;
+  }
+}

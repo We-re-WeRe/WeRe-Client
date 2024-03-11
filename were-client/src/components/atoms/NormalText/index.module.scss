@@ -1,0 +1,50 @@
+.normalText {
+  font-weight: normal;
+  display: block;
+
+  //size
+
+  &.xs {
+    font-size: 12px;
+  }
+
+  &.sm {
+    font-size: 14px;
+  }
+
+  &.md {
+    font-size: 16px;
+  }
+
+  &.lg {
+    font-size: 18px;
+  }
+
+  &.xg {
+    font-size: 20px;
+  }
+
+  //color
+  &.black {
+    color: black;
+  }
+
+  &.red {
+    color: "FF7878";
+  }
+
+  &.yellow {
+    color: "FFFD54";
+  }
+
+  //weight
+
+  &.bold {
+    font-weight: bold;
+  }
+
+  //underlined
+  &.underlined {
+    text-decoration: underline;
+  }
+}
