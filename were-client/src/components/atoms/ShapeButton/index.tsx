@@ -18,7 +18,7 @@ const ShapeButton = ({ children, onClick, disabled, type, shape, link }: Props) 
         return (
             <Link
                 href={link}
-                className=""
+                className={clsx('button', [shape ?? 'square'])}
             >
                 {children}
             </Link>
@@ -29,6 +29,7 @@ const ShapeButton = ({ children, onClick, disabled, type, shape, link }: Props) 
         <button
             type={type}
             disabled={disabled}
+            className={clsx('button', [shape ?? 'square'])}
             onClick={onClick}
         >
             {children}
