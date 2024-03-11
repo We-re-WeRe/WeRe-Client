@@ -1,0 +1,22 @@
+@import './reset';
+@import './base';
+@import './variables.scss';
+
+// Global Colors
+
+.black {
+    color:var(--color-black);
+}
+
+.red {
+    color:var(--color-red);
+}
+
+.yellow {
+    color:var(--color-yellow);
+}
+
+.white {
+    color:var(--color-white);
+}
+
