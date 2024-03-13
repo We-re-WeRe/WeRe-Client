@@ -9,7 +9,7 @@ interface Props {
     disabled?: boolean;
     type?: 'submit' | 'reset' | 'button';
     link?: string;
-    usage: 'thumbnail' | 'logo' | 'filter'
+    usage: 'thumbnail' | 'logo' | 'filter' | 'more'
 }
 
 const ImageButton = ({ children, onClick, disabled, type, link, usage }: Props) => {
