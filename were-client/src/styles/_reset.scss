@@ -1,7 +1,7 @@
-/* stylelint-disable */
-// http://meyerweb.com/eric/tools/css/reset/
-// v2.0 | 20110126
-// License: none (public domain)
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
 html,
 body,
@@ -82,23 +82,20 @@ section,
 summary,
 time,
 mark,
-dialog,
 audio,
 video {
-  width: initial;
-  height: initial;
-  padding: 0;
   margin: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
+  padding: 0;
   border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
 details,
-dialog,
 figcaption,
 figure,
 footer,
@@ -115,8 +112,7 @@ body {
 }
 
 ol,
-ul,
-li {
+ul {
   list-style: none;
 }
 
@@ -125,10 +121,10 @@ q {
   quotes: none;
 }
 
-blockquote::before,
-blockquote::after,
-q::before,
-q::after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: '';
   content: none;
 }
