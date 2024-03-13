@@ -13,9 +13,10 @@ interface Props {
     author: string;
     like: number;
     link: string;
+    userId: string;
 }
 
-const StorageBox = ({ image, title, author, like, link }: Props) => {
+const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
     return (
         <div className={clsx(styles.commonStorageBox)}>
             <div className={clsx(styles.overTitle)}>
@@ -24,13 +25,13 @@ const StorageBox = ({ image, title, author, like, link }: Props) => {
                     <ImageButton usage="thumbnail" imgSrc={image} link={link} />
                 </div>
                 {/* title */}
-                <TextButton size="medium">
+                <TextButton size="medium" link={link}>
                     {title}
                 </TextButton>
             </div>
             <div className={clsx(styles.underTitle)}>
                 {/* author */}
-                <TextButton size="medium">
+                <TextButton size="medium" link={userId}>
                     {author}
                 </TextButton>
                 {/* like */}
