@@ -2,24 +2,4 @@
     &:disabled {
         opacity: 0.4;
     }
-    
-    // Size
-    &.thumbnail {
-        width: 160px;
-        height: 200px;
-    }
-
-    &.logo {
-        width: 171px;
-        height: 58px;
-    }
-
-    &.filter {
-        width: 50px;
-        height: 50px;
-    }
-    &.more {
-        width: 5px;
-        height: 15px;
-    }
 }
