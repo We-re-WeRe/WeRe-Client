@@ -1,0 +1,16 @@
+.webtoonBox {
+}
+
+.webtoonBoxInfo {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 5px;
+  }
+  & .addInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+}
