@@ -23,7 +23,7 @@ const WebtoonBox = ({ title, author, stars, reviews, imageUrl, link }: Props) =>
         <TextButton size="medium" link={' '}>
           {title}
         </TextButton>
-        <TextButton size="small" link={author}>
+        <TextButton size="medium" link={author}>
           {author}
         </TextButton>
         <div className={clsx(styles.addInfo)}>
