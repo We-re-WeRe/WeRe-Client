@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { IconLike, IconReview, IconStar } from '@/../public/assets';
 import NormalText from '../../atoms/NormalText';
 import clsx from 'clsx';
 import styles from './index.module.scss';
 
+type TIcon = 'like' | 'star' | 'review';
+
 interface Props {
-  type: 'like' | 'star' | 'review';
+  type: TIcon;
   text: string | number;
   size: 'sm' | 'md';
 }
@@ -20,10 +22,17 @@ type TIconTextSize = {
   md: TSizeObj;
 };
 
-const Icon = {
-  star: <IconStar width={16} height={16} fill="#F9E000" />,
-  review: <IconReview width={16} height={16} fill="#000000" />,
-  like: <IconLike width={16} height={16} />,
+const Icon = (type: TIcon, size: number): ReactNode => {
+  switch (type) {
+    case 'like':
+      return <IconLike width={size} height={size} />;
+    case 'review':
+      return <IconReview width={size} height={size} fill="#000000" />;
+    case 'star':
+      return <IconStar width={size} height={size} fill="#F9E000" />;
+    default:
+      return;
+  }
 };
 
 const IconTextSize: TIconTextSize = {
@@ -40,7 +49,7 @@ const IconTextSize: TIconTextSize = {
 const IconText = ({ type, text, size }: Props) => {
   return (
     <div className={clsx(styles.iconText)}>
-      {Icon[type]}
+      {Icon(type, IconTextSize[size].icon)}
       <NormalText size={IconTextSize[size].text}>{text}</NormalText>
     </div>
   );
