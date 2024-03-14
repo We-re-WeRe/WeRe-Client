@@ -10,6 +10,10 @@
     font-weight: bold;
   }
 
+  & > a {
+    width: fit-content;
+  }
+
   & > * {
     margin-bottom: 5px;
   }
