@@ -1,0 +1,8 @@
+.iconText {
+  display: flex;
+  align-items: center;
+
+  & svg {
+    margin-right: 3px;
+  }
+}

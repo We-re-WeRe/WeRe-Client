@@ -1,14 +1,12 @@
 .textButton {
-    text-align: left;
-    
-    // Size
-    &.small {
-        font-size: 12px;
-    }
-    &.medium {
-        font-size: 16px;
-    }
-    &.large {
-        font-size: 20px;
-    }
+  // Size
+  &.small {
+    font-size: 12px;
+  }
+  &.medium {
+    font-size: 16px;
+  }
+  &.large {
+    font-size: 20px;
+  }
 }
