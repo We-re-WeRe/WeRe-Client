@@ -52,11 +52,11 @@ $ yarn test:cov
 ```
 
 ## 😁 Member
-- name: 채승규 </br>
-- name: 강성엽
+- Author: [csk6314](https://github.com/csk6314) </br>
+- Author: [PoeySK](https://github.com/PoeySK)
 
 ## 📝 License
 
-Nest is [MIT licensed](LICENSE).
+- [MIT licensed](LICENSE).
 
 Updated at 2024.03.15
