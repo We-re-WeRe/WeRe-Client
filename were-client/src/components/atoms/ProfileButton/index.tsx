@@ -3,13 +3,14 @@ import Link from "next/link";
 import React, { ReactNode } from "react";
 import styles from "./index.module.scss";
 import Image from "next/image";
+import defaultProfile from "@/../public/images/default-profile.png";
 
 interface Props {
     onClick?: () => void;
     disabled?: boolean;
     type?: 'submit' | 'reset' | 'button';
-    imgSrc: string;
-    link: string;
+    imgSrc?: string;
+    link?: string;
     usage: 'review' | 'header' | 'mypage' | 'storage'
 }
 
@@ -46,13 +47,14 @@ const ProfileButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) 
         return (
             <Link
                 href={link}
-                className={clsx(styles.imageButton, styles[usage])}
+                className={clsx(styles.profileButton, styles[usage])}
             >
                 <Image
-                    src={imgSrc}
+                    src={imgSrc ?? defaultProfile}
                     alt="profile"
                     width={usageSize[usage].width}
                     height={usageSize[usage].height}
+                    style={{ borderRadius: "50%", border: "1px solid #d9d9d9" }}
                 />
             </Link>
         );
@@ -62,14 +64,15 @@ const ProfileButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) 
         <button
             type={type}
             disabled={disabled}
-            className={clsx(styles.imageButton, styles[usage])}
+            className={clsx(styles.profileButton, styles[usage])}
             onClick={onClick}
         >
             <Image
-                src={imgSrc}
+                src={imgSrc ?? defaultProfile}
                 alt="profile"
                 width={usageSize[usage].width}
                 height={usageSize[usage].height}
+                style={{ borderRadius: "50%", border: "1px solid #d9d9d9" }}
             />
         </button>
     );
