@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
-import { IconLike, IconReview, IconStar } from '@/../public/assets';
+import { IconLike, IconReview, IconStar, IconFollower } from '@/../public/assets';
 import NormalText from '../../atoms/NormalText';
 import clsx from 'clsx';
 import styles from './index.module.scss';
 
-type TIcon = 'like' | 'star' | 'review';
+type TIcon = 'like' | 'star' | 'review' | 'follower';
 
 interface Props {
   type: TIcon;
@@ -30,6 +30,8 @@ const Icon = (type: TIcon, size: number): ReactNode => {
       return <IconReview width={size} height={size} fill="#000000" />;
     case 'star':
       return <IconStar width={size} height={size} fill="#F9E000" />;
+    case 'follower':
+      return <IconFollower width={size} height={size} fill="212121" />;
     default:
       return;
   }
