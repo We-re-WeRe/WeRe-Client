@@ -1,0 +1,18 @@
+.category {
+  width: 580px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #000;
+}
+.title {
+  margin-left: 27px;
+  margin-right: 12px;
+  margin-bottom: 5px;
+}
+
+.count {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+}
