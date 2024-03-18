@@ -1,36 +1,79 @@
 import clsx from "clsx";
 import Link from "next/link";
 import React, { ReactNode } from "react";
-import styles from './index.module.scss';
+import styles from "./index.module.scss";
+import Image from "next/image";
+import defaultProfile from "@/../public/images/default-profile.png";
 
 interface Props {
-    children?: ReactNode;
     onClick?: () => void;
     disabled?: boolean;
     type?: 'submit' | 'reset' | 'button';
+    imgSrc?: string;
     link?: string;
-    size: 'review' | 'header' | 'mypage' | 'storage';
+    usage: 'review' | 'header' | 'mypage' | 'storage'
 }
 
-const ProfileButton = ({ children, onClick, disabled, type, link, size }: Props) => {
+type typeName = 'review' | 'header' | 'mypage' | 'storage';
+
+type imgType = {
+    [k in typeName]: {
+        width: number;
+        height: number;
+    }
+}
+
+const usageSize: imgType = {
+    review: {
+        width: 11,
+        height: 11
+    },
+    header: {
+        width: 60,
+        height: 60
+    },
+    mypage: {
+        width: 202,
+        height: 202
+    },
+    storage: {
+        width: 113,
+        height: 113
+    }
+}
+
+const ProfileButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) => {
     if (link) {
         return (
             <Link
                 href={link}
-                className={clsx(styles.imageButton, styles[size ?? 'review'])}
+                className={clsx(styles.profileButton, styles[usage])}
             >
-                {children}
+                <Image
+                    src={imgSrc ?? defaultProfile}
+                    alt="profile"
+                    width={usageSize[usage].width}
+                    height={usageSize[usage].height}
+                    style={{ borderRadius: "50%", border: "1px solid #d9d9d9" }}
+                />
             </Link>
         );
     }
+
     return (
         <button
             type={type}
             disabled={disabled}
-            className={clsx(styles.profileButton, styles[size ?? 'review'])}
+            className={clsx(styles.profileButton, styles[usage])}
             onClick={onClick}
         >
-            {children}
+            <Image
+                src={imgSrc ?? defaultProfile}
+                alt="profile"
+                width={usageSize[usage].width}
+                height={usageSize[usage].height}
+                style={{ borderRadius: "50%", border: "1px solid #d9d9d9" }}
+            />
         </button>
     );
 }
