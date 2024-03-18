@@ -1,8 +1,7 @@
 import WebtoonBox from '@/components/molecules/WebtoonBox';
-import styles from './index.module.scss';
 import clsx from 'clsx';
 import React from 'react';
-import { link } from 'fs';
+import styles from './index.module.scss';
 
 interface IWebtoon {
   title: string;
@@ -35,22 +34,6 @@ const WebtoonList = ({ webtoons }: Props) => {
           imageUrl={webtoon.imageUrl}
         />
       ))}
-      <WebtoonBox
-        title="나노마신"
-        author="임건우"
-        stars={9.1}
-        reviews={121}
-        imageUrl="https://image.aladin.co.kr/product/14439/44/cover500/e862433886_2.jpg"
-        link="/h"
-      />
-      <WebtoonBox
-        title="나노마신"
-        author="임건우"
-        stars={9.1}
-        reviews={121}
-        imageUrl="https://image.aladin.co.kr/product/14439/44/cover500/e862433886_2.jpg"
-        link="/h"
-      />
     </div>
   );
 };
