@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import styles from './index.module.scss';
 
 interface Props {
   onClick?: () => void;
   disabled?: boolean;
   type?: 'submit' | 'reset' | 'button';
-  imgSrc: string;
-  link: string;
+  imgSrc: string | StaticImageData;
+  link?: string;
   usage: 'thumbnail' | 'logo' | 'filter' | 'more';
 }
 
