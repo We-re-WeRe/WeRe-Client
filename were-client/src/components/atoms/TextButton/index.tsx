@@ -10,12 +10,13 @@ interface Props {
   type?: 'button' | 'submit' | 'reset';
   link?: string;
   size: 'small' | 'medium' | 'large';
+  bold?: boolean;
 }
 
-const TextButton = ({ children, onClick, disabled, type, link, size }: Props) => {
+const TextButton = ({ children, onClick, disabled, type, link, size, bold }: Props) => {
   if (link) {
     return (
-      <Link href={link} className={clsx(styles.textButton, styles[size ?? 'medium'])}>
+      <Link href={link} className={clsx(styles.textButton, styles[size ?? 'medium'], { [styles.bold]: bold ?? false })}>
         {children}
       </Link>
     );
@@ -25,7 +26,7 @@ const TextButton = ({ children, onClick, disabled, type, link, size }: Props) =>
     <button
       type={type}
       disabled={disabled}
-      className={clsx(styles.textButton, styles[size ?? 'medium'])}
+      className={clsx(styles.textButton, styles[size ?? 'medium'], { [styles.bold]: bold ?? false })}
       onClick={onClick}
     >
       {children}
