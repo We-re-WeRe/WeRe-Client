@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
-import { IconLike, IconReview, IconStar } from '@/../public/assets';
+import clsx from 'clsx';
+import { IconLike, IconReview, IconStar, IconFollower } from '@/../public/assets';
 import NormalText from '../../atoms/NormalText';
 import styles from './index.module.scss';
 
