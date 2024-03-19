@@ -2,10 +2,14 @@
     width: 202px;
     height: 202px;
     border-radius: 50%;
-    position: absolute;
-    background-color: #fff;
+    display: flex;
 }
 
-.profileBox:hover {
+.profile {
+    position: relative;
+}
+
+.hoverProfile {
     position: absolute;
+    pointer-events: none;
 }
