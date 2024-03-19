@@ -1,0 +1,11 @@
+.enterpriseButtonList {
+  display: flex;
+
+  & > button:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  & > button > img {
+    border-radius: 20px;
+  }
+}
