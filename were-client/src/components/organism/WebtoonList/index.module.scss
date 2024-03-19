@@ -1,0 +1,13 @@
+.webtoonList {
+  display: grid;
+  grid-template-columns: repeat(4, 160px);
+  gap: 30px 64px;
+}
+
+.noWebtoons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 832px;
+  height: 200px;
+}

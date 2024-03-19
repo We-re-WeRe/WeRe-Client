@@ -1,10 +1,9 @@
 import ImageButton from '@/components/atoms/ImageButton';
-import NormalText from '@/components/atoms/NormalText';
 import TextButton from '@/components/atoms/TextButton';
+import IconText from '@/components/molecules/IconText';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './index.module.scss';
-import IconText from '@/components/molecules/IconText';
 
 interface Props {
   title: string;
@@ -18,7 +17,7 @@ interface Props {
 const WebtoonBox = ({ title, author, stars, reviews, imageUrl, link }: Props) => {
   return (
     <div>
-      <ImageButton usage="thumbnail" imgSrc={imageUrl} />
+      <ImageButton usage="thumbnail" imgSrc={imageUrl} link={link} />
       <div className={clsx(styles.webtoonBoxInfo)}>
         <TextButton size="medium" link={' '}>
           {title}
@@ -27,8 +26,8 @@ const WebtoonBox = ({ title, author, stars, reviews, imageUrl, link }: Props) =>
           {author}
         </TextButton>
         <div className={clsx(styles.addInfo)}>
-          <IconText type="star" text={stars} size="sm"></IconText>
-          <IconText type="review" text={reviews} size="sm"></IconText>
+          <IconText type="star" text={stars} size="sm" />
+          <IconText type="review" text={reviews} size="sm" />
         </div>
       </div>
     </div>

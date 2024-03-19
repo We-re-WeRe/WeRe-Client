@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
-import { IconLike, IconReview, IconStar, IconFollower } from '@/../public/assets';
+import { IconLike, IconReview, IconStar } from '@/../public/assets';
 import NormalText from '../../atoms/NormalText';
-import clsx from 'clsx';
 import styles from './index.module.scss';
 
 type TIcon = 'like' | 'star' | 'review' | 'follower';
@@ -33,7 +32,7 @@ const Icon = (type: TIcon, size: number): ReactNode => {
     case 'follower':
       return <IconFollower width={size} height={size} fill="212121" />;
     default:
-      return;
+      return <IconLike />;
   }
 };
 

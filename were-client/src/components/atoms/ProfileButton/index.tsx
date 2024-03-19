@@ -11,7 +11,7 @@ interface Props {
     type?: 'submit' | 'reset' | 'button';
     imgSrc?: string;
     link?: string;
-    usage: 'review' | 'header' | 'mypage' | 'storage'
+    usage: 'review' | 'header' | 'mypage' | 'storage';
 }
 
 type typeName = 'review' | 'header' | 'mypage' | 'storage';
@@ -20,27 +20,27 @@ type imgType = {
     [k in typeName]: {
         width: number;
         height: number;
-    }
-}
+    };
+};
 
 const usageSize: imgType = {
     review: {
         width: 11,
-        height: 11
+        height: 11,
     },
     header: {
         width: 60,
-        height: 60
+        height: 60,
     },
     mypage: {
         width: 202,
-        height: 202
+        height: 202,
     },
     storage: {
         width: 113,
-        height: 113
-    }
-}
+        height: 113,
+    },
+};
 
 const ProfileButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) => {
     if (link) {
@@ -58,7 +58,7 @@ const ProfileButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) 
                 />
             </Link>
         );
-    }
+    };
 
     return (
         <button
