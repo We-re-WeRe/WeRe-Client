@@ -52,6 +52,7 @@
     ],
     "jsx-a11y/click-events-have-key-events": "off",
     "no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": 0, // any 허용
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
