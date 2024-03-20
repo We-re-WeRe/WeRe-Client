@@ -14,7 +14,7 @@ interface Props {
 }
 
 const ProfileBox = ({ imgSrc, edit }: Props) => {
-  const [isHover, setIsHover] = useState<boolean>(false);
+  const [isHover, setIsHover] = useState<boolean>(true);
   const [profileImage, setProfileImage] = useState();
   const fileInput = useRef(null);
   if (!edit) {
@@ -49,8 +49,8 @@ const ProfileBox = ({ imgSrc, edit }: Props) => {
     // 마이페이지 프로필
     <div
       className={clsx(styles.profileBox)}
-      onMouseOver={() => onMouseOverProfile}
-      onFocus={() => onMouseOverProfile}
+      onMouseOver={onMouseOverProfile}
+      onFocus={onMouseOverProfile}
       onMouseLeave={onMouseLeaveProfile}
     >
       <div className={clsx(styles.profile)}>
