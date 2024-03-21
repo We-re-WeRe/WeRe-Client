@@ -14,8 +14,8 @@ interface Props {
 }
 
 const ProfileBox = ({ imgSrc, edit }: Props) => {
-  const [isHover, setIsHover] = useState<boolean>(true);
-  const [profileImage, setProfileImage] = useState();
+  const [isHover, setIsHover] = useState<boolean>(false);
+  const [profileImage, setProfileImage] = useState<string>('');
   const fileInput = useRef(null);
   if (!edit) {
     // 유저페이지 프로필
