@@ -1,0 +1,17 @@
+.storages {
+  width: 580px;
+}
+
+.emptyStorages {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.storageList {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 20px 10px;
+  justify-content: center;
+}
