@@ -9,18 +9,21 @@ interface Props {
   onClick?: () => void;
   size: 'small' | 'medium';
   link?: string;
+  tagRef?: React.LegacyRef<HTMLDivElement> | undefined;
 }
 
-const WebtoonTag = ({ tagName, onClick, size, link }: Props) => {
+const WebtoonTag = ({ tagName, onClick, size, link, tagRef }: Props) => {
   if (link) {
     return (
-      <Link href={link} className={clsx(styles.webtoonTag)}>
-        <NormalText size={size === 'small' ? 'md' : 'xl'}>#{tagName}</NormalText>
+      <Link href={link}>
+        <div className={clsx(styles.webtoonTag)} onClick={onClick} role="presentation" ref={tagRef}>
+          <NormalText size={size === 'small' ? 'md' : 'xl'}>#{tagName}</NormalText>
+        </div>
       </Link>
     );
   }
   return (
-    <div className={clsx(styles.webtoonTag)} onClick={onClick} role="presentation">
+    <div className={clsx(styles.webtoonTag)} onClick={onClick} role="presentation" ref={tagRef}>
       <NormalText size={size === 'small' ? 'md' : 'xl'}>#{tagName}</NormalText>
     </div>
   );
