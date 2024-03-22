@@ -5,4 +5,8 @@
   height: 26px;
   cursor: pointer;
   white-space: nowrap;
+
+  &.selected {
+    background-color: #2db3ff;
+  }
 }

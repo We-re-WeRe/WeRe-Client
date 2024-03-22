@@ -10,21 +10,36 @@ interface Props {
   size: 'small' | 'medium';
   link?: string;
   tagRef?: React.LegacyRef<HTMLDivElement> | undefined;
+  selected?: boolean;
 }
 
-const WebtoonTag = ({ tagName, onClick, size, link, tagRef }: Props) => {
+const WebtoonTag = ({ tagName, onClick, size, link, tagRef, selected }: Props) => {
   if (link) {
     return (
       <Link href={link}>
-        <div className={clsx(styles.webtoonTag)} onClick={onClick} role="presentation" ref={tagRef}>
-          <NormalText size={size === 'small' ? 'md' : 'xl'}>#{tagName}</NormalText>
+        <div
+          className={clsx(styles.webtoonTag, { [styles.selected]: selected ?? false })}
+          onClick={onClick}
+          role="presentation"
+          ref={tagRef}
+        >
+          <NormalText size={size === 'small' ? 'md' : 'xl'} color={selected ? 'white' : 'black'}>
+            #{tagName}
+          </NormalText>
         </div>
       </Link>
     );
   }
   return (
-    <div className={clsx(styles.webtoonTag)} onClick={onClick} role="presentation" ref={tagRef}>
-      <NormalText size={size === 'small' ? 'md' : 'xl'}>#{tagName}</NormalText>
+    <div
+      className={clsx(styles.webtoonTag, { [styles.selected]: selected ?? false })}
+      onClick={onClick}
+      role="presentation"
+      ref={tagRef}
+    >
+      <NormalText size={size === 'small' ? 'md' : 'xl'} color={selected ? 'white' : 'black'}>
+        #{tagName}
+      </NormalText>
     </div>
   );
 };
