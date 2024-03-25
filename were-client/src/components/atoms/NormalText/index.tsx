@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   bold?: boolean;
-  color?: 'black' | 'red' | 'yellow';
+  color?: 'black' | 'red' | 'yellow' | 'white';
   underline?: boolean;
   description?: boolean;
 }
