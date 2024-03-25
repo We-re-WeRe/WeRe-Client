@@ -19,29 +19,9 @@ const TagList = ({ size, tags }: Props) => {
   const tagListRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const tagsRef: RefObject<null[] | HTMLDivElement[]> = useRef<null[] | HTMLDivElement[]>([]);
   const tagScrollPoints = useRef<number[]>([]);
+  const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const [isOver, setIsOver] = useState<boolean>(true);
   const [scrollState, setScrollState] = useState<string>('start');
-
-  /**
-   * tagList의 스크롤 위치를 판단하여 scrollState를 설정해준다.
-   * @param current tagList의 ref값
-   * @returns
-   */
-  const handleScroll = (current: HTMLDivElement) => {
-    if (current) {
-      if (current.scrollLeft === 0) {
-        setScrollState('start');
-        return;
-      }
-
-      if (current.scrollLeft >= current.scrollWidth - current.clientWidth) {
-        setScrollState('end');
-        return;
-      }
-
-      setScrollState('else');
-    }
-  };
 
   /**
    * useEffect
@@ -50,14 +30,49 @@ const TagList = ({ size, tags }: Props) => {
    */
   useEffect(() => {
     const { current } = tagListRef;
+
+    /**
+     * tagList의 스크롤 위치를 판단하여 scrollState를 설정해준다.
+     * @returns
+     */
+    const handleScroll = () => {
+      if (current) {
+        if (current.scrollLeft === 0) {
+          setScrollState('start');
+          return;
+        }
+
+        if (current.scrollLeft >= current.scrollWidth - current.clientWidth) {
+          setScrollState('end');
+          return;
+        }
+
+        setScrollState('else');
+      }
+    };
+
+    /**
+     * scroll Event Throttling
+     */
+    const throttleScroll = () => {
+      if (!throttleTimeout.current) {
+        throttleTimeout.current = setTimeout(() => {
+          handleScroll();
+          throttleTimeout.current = null;
+        }, 100);
+      }
+    };
+
     if (current) {
-      const scrollFunc: () => void = () => handleScroll(current);
       const hasOverFlow = current.clientWidth < current.scrollWidth;
-      current.addEventListener('scroll', scrollFunc);
+      current.addEventListener('scroll', throttleScroll, { passive: true });
       setIsOver(hasOverFlow);
 
       return () => {
-        current.removeEventListener('scroll', scrollFunc);
+        current.removeEventListener('scroll', throttleScroll);
+        if (throttleTimeout.current) {
+          clearTimeout(throttleTimeout.current);
+        }
       };
     }
     return () => {};
@@ -100,7 +115,6 @@ const TagList = ({ size, tags }: Props) => {
       for (let i = 0; i < current.length; i += unit) {
         if (scrollLeft < current[i]) {
           tagListRef.current.scrollLeft = current[i];
-          console.log(tagListRef.current.scrollLeft, current[i]);
           return;
         }
       }
