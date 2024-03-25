@@ -2,14 +2,20 @@
 
 import WebtoonTag from '@/components/atoms/WebtoonTag';
 import clsx from 'clsx';
-import React, { RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
+
+interface ITag {
+  tagName: string;
+  link?: string;
+}
 
 interface Props {
   size: 'small' | 'medium';
+  tags: ITag[];
 }
 
-const TagList = () => {
+const TagList = ({ size, tags }: Props) => {
   const tagListRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const tagsRef: RefObject<null[] | HTMLDivElement[]> = useRef<null[] | HTMLDivElement[]>([]);
   const tagScrollPoints = useRef<number[]>([]);
@@ -34,7 +40,7 @@ const TagList = () => {
 
   // tag가 많아서 OverFlow난 경우 체크
   // Scroll 이벤트리스너 등록 / 삭제
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { current } = tagListRef;
     if (current) {
       const scrollFunc: () => void = () => handleScroll(current);
@@ -117,55 +123,17 @@ const TagList = () => {
         </div>
       )}
       <div className={clsx(styles.tagList)} ref={tagListRef}>
-        <WebtoonTag
-          size="small"
-          tagName="로맨스"
-          tagRef={ref => {
-            tagsRef.current![0] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="판타지"
-          tagRef={ref => {
-            tagsRef.current![1] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="여캐가이쁜"
-          tagRef={ref => {
-            tagsRef.current![2] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="무협"
-          tagRef={ref => {
-            tagsRef.current![3] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="주인공이잘생긴"
-          tagRef={ref => {
-            tagsRef.current![4] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="학교일진물"
-          tagRef={ref => {
-            tagsRef.current![5] = ref;
-          }}
-        />
-        <WebtoonTag
-          size="small"
-          tagName="복수극"
-          tagRef={ref => {
-            tagsRef.current![6] = ref;
-          }}
-        />
+        {tags.map((tag, idx) => (
+          <WebtoonTag
+            key={tag.tagName}
+            tagName={tag.tagName}
+            size={size}
+            selected={idx === 0 && true}
+            tagRef={ref => {
+              tagsRef.current![idx] = ref;
+            }}
+          />
+        ))}
       </div>
       {isOver && scrollState !== 'end' && (
         <div className={clsx(styles.overflow, styles.right)}>
