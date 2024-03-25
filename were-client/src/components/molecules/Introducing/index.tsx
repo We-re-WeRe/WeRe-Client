@@ -15,7 +15,7 @@ const Introducing = ({ nickname, follower, introduce }: Props) => {
   return (
     <div className={clsx(styles.introducing)}>
       <div className={clsx(styles.titlePart)}>
-        <TitleText size="large">{nickname}</TitleText>
+        <TitleText size="large">{nickname}님</TitleText>
       </div>
       <div className={clsx(styles.followerPart)}>
         <IconText type="follower" text={follower} size="sm" />

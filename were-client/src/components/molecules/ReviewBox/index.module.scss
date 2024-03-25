@@ -1,0 +1,18 @@
+.reviewBox {
+    display: flex;
+    margin: 20px
+}
+
+.rightContents {
+    width: 426px;
+    margin-left: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.underText {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
