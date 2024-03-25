@@ -22,6 +22,11 @@ const TagList = ({ size, tags }: Props) => {
   const [isOver, setIsOver] = useState<boolean>(true);
   const [scrollState, setScrollState] = useState<string>('start');
 
+  /**
+   * tagList의 스크롤 위치를 판단하여 scrollState를 설정해준다.
+   * @param current tagList의 ref값
+   * @returns
+   */
   const handleScroll = (current: HTMLDivElement) => {
     if (current) {
       if (current.scrollLeft === 0) {
@@ -38,8 +43,11 @@ const TagList = ({ size, tags }: Props) => {
     }
   };
 
-  // tag가 많아서 OverFlow난 경우 체크
-  // Scroll 이벤트리스너 등록 / 삭제
+  /**
+   * useEffect
+   * tagList의 overflow 판단하여 isOver 세팅
+   * tagList에 scrollEvent 추가
+   */
   useEffect(() => {
     const { current } = tagListRef;
     if (current) {
@@ -55,7 +63,10 @@ const TagList = ({ size, tags }: Props) => {
     return () => {};
   }, [tagListRef]);
 
-  // 각 태그의 스크롤 startPoint 설정
+  /**
+   * useEffect
+   * 각 태그의 스크롤 시작 포인트를 tagScrollPoints에 저장
+   */
   useEffect(() => {
     const { current } = tagsRef;
     if (current) {
@@ -71,6 +82,11 @@ const TagList = ({ size, tags }: Props) => {
     }
   }, [tagsRef]);
 
+  /**
+   * TagList를 오른쪽으로 스크롤 해주는 함수
+   * @param unit 스크롤 단위 (태그 수), 0 입력시 끝까지 스크롤
+   * @returns
+   */
   const moveRight = (unit: number) => {
     if (tagListRef.current !== null && tagsRef.current !== null) {
       const { current } = tagScrollPoints;
@@ -91,6 +107,11 @@ const TagList = ({ size, tags }: Props) => {
     }
   };
 
+  /**
+   * TagList를 왼쪽으로 스크롤 해주는 함수
+   * @param unit 스크롤 단위 (태그 수), 0 입력시 끝까지 스크롤
+   * @returns
+   */
   const moveLeft = (unit: number) => {
     if (tagListRef.current !== null && tagsRef.current !== null) {
       const { current } = tagScrollPoints;
