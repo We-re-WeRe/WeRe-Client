@@ -8,4 +8,12 @@
   & > button > img {
     border-radius: 20px;
   }
+
+  & > button {
+    opacity: 0.4;
+  }
+
+  & > button.selected {
+    opacity: 1;
+  }
 }

@@ -1,5 +1,7 @@
+'use client';
+
 import ImageButton from '@/components/atoms/ImageButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import naverLogo from '@/../public/images/naver-webtoon-logo.png';
 import kakaoLogo from '@/../public/images/kakao-webtoon-logo.png';
 import clsx from 'clsx';
@@ -19,10 +21,35 @@ const enterpriseList: TenterpriseList = [
 ];
 
 const EnterpriseButton = () => {
+  const [selectedEnterprise, setSelectedEnterprise] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    setSelectedEnterprise(enterpriseList.map(_ => true));
+  }, []);
+
+  const selectEnterprise = (id: number) => {
+    if (selectedEnterprise[id]) {
+      selectedEnterprise[id] = false;
+      setSelectedEnterprise([...selectedEnterprise]);
+      return;
+    }
+
+    selectedEnterprise[id] = true;
+    setSelectedEnterprise([...selectedEnterprise]);
+  };
+
   return (
     <div className={clsx(styles.enterpriseButtonList)}>
       {enterpriseList.map(enterprise => (
-        <ImageButton usage="filter" imgSrc={enterprise.image} key={enterprise.id} />
+        <ImageButton
+          usage="filter"
+          imgSrc={enterprise.image}
+          key={enterprise.id}
+          className={clsx({ [styles.selected]: selectedEnterprise[enterprise.id] })}
+          onClick={() => {
+            selectEnterprise(enterprise.id);
+          }}
+        />
       ))}
     </div>
   );
