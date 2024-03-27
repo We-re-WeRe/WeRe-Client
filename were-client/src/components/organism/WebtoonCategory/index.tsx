@@ -1,7 +1,7 @@
 import React from 'react';
 import EnterpriseButton from '@/components/molecules/EnterpriseButton';
 import DayFilter from '@/components/molecules/DayFilter';
-import TagList from '@/components/molecules/TagList';
+import ScrollTagList from '@/components/molecules/ScrollTagList';
 import clsx from 'clsx';
 import styles from './index.module.scss';
 
@@ -44,7 +44,7 @@ const WebtoonCategory = () => {
       <EnterpriseButton />
       <DayFilter />
       <div className={clsx(styles.divider)} />
-      <TagList size="small" tags={dummyTags} />
+      <ScrollTagList size="small" tags={dummyTags} />
     </div>
   );
 };
