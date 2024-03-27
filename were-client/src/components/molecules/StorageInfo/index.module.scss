@@ -1,0 +1,45 @@
+.storageInfo {
+  width: 800px;
+  background-color: #1e1e1e;
+
+  & .storagePublicSetting {
+    display: flex;
+  }
+
+  & .setting {
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    text-align: center;
+    align-content: center;
+    margin-left: 5px;
+    margin-bottom: 2px;
+
+    &.publicSet {
+      border: 1px solid #fff;
+    }
+
+    &.privateSet {
+      background-color: #fff;
+    }
+  }
+
+  & .storageTitle {
+    margin-bottom: 5px;
+  }
+
+  & .storageTags {
+    margin-bottom: 5px;
+  }
+
+  & .storageIntro {
+    width: 700px;
+    height: 50px;
+    margin-bottom: 20px;
+  }
+
+  & .storageInfoUnder {
+    display: flex;
+    justify-content: space-between;
+  }
+}
