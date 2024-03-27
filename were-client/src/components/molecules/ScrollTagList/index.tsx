@@ -4,7 +4,7 @@ import WebtoonTag from '@/components/atoms/WebtoonTag';
 import clsx from 'clsx';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
-import { LeftScrollButton, RightScrollButton } from './ScrollButton';
+import ScrollButton from './ScrollButton';
 
 interface ITag {
   tagName: string;
@@ -102,7 +102,9 @@ const ScrollTagList = ({ size, tags }: Props) => {
     <>
       {/* Left Scroll Button */}
       <div className={clsx(styles.tagBox)}>
-        {scrollState !== 'start' && <LeftScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} />}
+        {scrollState !== 'start' && (
+          <ScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} type="left" />
+        )}
         {/* TagList */}
         <div className={clsx(styles.tagList)} ref={tagListRef}>
           {tags.map((tag, idx) => (
@@ -119,7 +121,7 @@ const ScrollTagList = ({ size, tags }: Props) => {
         </div>
         {/* Right Scroll Button */}
         {isOver && scrollState !== 'end' && (
-          <RightScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} />
+          <ScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} type="right" />
         )}
       </div>
     </>

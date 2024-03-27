@@ -1,13 +1,17 @@
 import clsx from 'clsx';
-import { RefObject } from 'react';
+import React, { RefObject } from 'react';
 import styles from './index.module.scss';
 
-interface LProps {
+interface buttonProps {
   tagListRef: RefObject<HTMLDivElement>;
   tagScrollPoints: React.MutableRefObject<number[]>;
 }
 
-export const LeftScrollButton = ({ tagListRef, tagScrollPoints }: LProps) => {
+interface Props extends buttonProps {
+  type: 'left' | 'right';
+}
+
+const LeftScrollButton = ({ tagListRef, tagScrollPoints }: buttonProps) => {
   /**
    * TagList를 왼쪽으로 스크롤 해주는 함수
    * @param unit 스크롤 단위 (태그 수), 0 입력시 끝까지 스크롤
@@ -44,12 +48,7 @@ export const LeftScrollButton = ({ tagListRef, tagScrollPoints }: LProps) => {
   );
 };
 
-interface RProps {
-  tagListRef: RefObject<HTMLDivElement>;
-  tagScrollPoints: React.MutableRefObject<number[]>;
-}
-
-export const RightScrollButton = ({ tagListRef, tagScrollPoints }: RProps) => {
+const RightScrollButton = ({ tagListRef, tagScrollPoints }: buttonProps) => {
   /**
    * TagList를 오른쪽으로 스크롤 해주는 함수
    * @param unit 스크롤 단위 (태그 수), 0 입력시 끝까지 스크롤
@@ -87,3 +86,12 @@ export const RightScrollButton = ({ tagListRef, tagScrollPoints }: RProps) => {
     </div>
   );
 };
+
+const ScrollButton = ({ tagListRef, tagScrollPoints, type }: Props) => {
+  if (type === 'left') {
+    return <LeftScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} />;
+  }
+  return <RightScrollButton tagListRef={tagListRef} tagScrollPoints={tagScrollPoints} />;
+};
+
+export default ScrollButton;
