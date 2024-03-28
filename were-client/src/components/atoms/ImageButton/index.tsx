@@ -11,6 +11,7 @@ interface Props {
   imgSrc: string | StaticImageData;
   link?: string;
   usage: 'thumbnail' | 'logo' | 'filter' | 'more';
+  className?: string;
 }
 
 type typeName = 'thumbnail' | 'logo' | 'filter' | 'more';
@@ -41,17 +42,22 @@ const usageSize: imgType = {
   },
 };
 
-const ImageButton = ({ onClick, disabled, type, imgSrc, link, usage }: Props) => {
+const ImageButton = ({ onClick, disabled, type, imgSrc, link, usage, className }: Props) => {
   if (link) {
     return (
-      <Link href={link} className={clsx(styles.imageButton, styles[usage])}>
+      <Link href={link} className={clsx(styles.imageButton, styles[usage], className)}>
         <Image src={imgSrc} alt="no Image" width={usageSize[usage].width} height={usageSize[usage].height} />
       </Link>
     );
   }
 
   return (
-    <button type={type} disabled={disabled} className={clsx(styles.imageButton, styles[usage])} onClick={onClick}>
+    <button
+      type={type}
+      disabled={disabled}
+      className={clsx(styles.imageButton, styles[usage], className)}
+      onClick={onClick}
+    >
       <Image src={imgSrc} alt="no Image" width={usageSize[usage].width} height={usageSize[usage].height} />
     </button>
   );
