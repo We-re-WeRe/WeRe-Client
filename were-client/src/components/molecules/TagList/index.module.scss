@@ -1,52 +1,15 @@
 .tagList {
-  width: 430px;
-  display: flex;
-  overflow-x: scroll;
-  scroll-behavior: smooth;
-
-  & > div:not(:last-child) {
-    margin-right: 2px;
+  &.horizontal {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    column-gap: 10px;
   }
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.tagBox {
-  position: relative;
-  width: 530px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.overflow {
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-
-  &.left {
-    top: 0;
-    left: 0px;
-  }
-
-  &.right {
-    top: 0;
-    right: 0px;
-  }
-}
-
-.shader {
-  width: 60px;
-  height: 26px;
-  border-radius: 10px;
-
-  &.left {
-    //background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
-  }
-
-  &.right {
-    //background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
+  &.vertical {
+    display: flex;
+    width: 240px;
+    flex-wrap: wrap;
+    gap: 2px;
   }
 }
