@@ -41,7 +41,7 @@ const StorageInfo = ({ thumbnail, open, title, tagList, introducing, like, date 
           </div>
         </div>
         <div className={clsx(styles.storageTitle)}>
-          <TitleText size="large" color="white">
+          <TitleText size={title.trim().length >= 20 ? 'medium' : 'large'} color="white">
             {title}
           </TitleText>
         </div>
