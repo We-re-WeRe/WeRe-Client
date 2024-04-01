@@ -26,3 +26,17 @@
     background-color: var(--color-gray-2);
   }
 }
+
+.webtoonPopup {
+  position: relative;
+  width: fit-content;
+  & > div:first-child {
+    cursor: pointer;
+  }
+
+  & .popupInner {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+  }
+}
