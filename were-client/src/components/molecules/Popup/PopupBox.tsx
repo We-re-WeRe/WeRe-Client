@@ -4,42 +4,29 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import styles from './index.module.scss';
 
-type TItem = {
+export type TItem = {
   link: string;
   text: string;
   clickHandler?: () => void;
 };
-interface props {
+interface Props {
   items: TItem[];
   isShow: boolean;
 }
 
-const dummyItems = [
-  {
-    link: '',
-    text: '보러가기',
-  },
-  {
-    link: '',
-    text: '리뷰쓰기',
-  },
-  {
-    link: '',
-    text: '리뷰쓰기리뷰',
-  },
-];
-
-const PopupBox = () => {
+const PopupBox = ({ items, isShow }: Props) => {
   return (
-    <div className={clsx(styles.popupWrapper)}>
-      {dummyItems.map(item => (
-        <Link key={item.text} href={item.link}>
-          <div className={clsx(styles.popupItem)}>
-            <NormalText>{item.text}</NormalText>
-          </div>
-        </Link>
-      ))}
-    </div>
+    isShow && (
+      <div className={clsx(styles.popupWrapper)}>
+        {items.map(item => (
+          <Link key={item.text} href={item.link}>
+            <div className={clsx(styles.popupItem)} onClick={item.clickHandler} role="presentation">
+              <NormalText>{item.text}</NormalText>
+            </div>
+          </Link>
+        ))}
+      </div>
+    )
   );
 };
 
