@@ -38,7 +38,7 @@ const StorageInfo = ({ open, title, tagList, introducing, like, date }: Props) =
         </TitleText>
       </div>
       <div className={clsx(styles.storageTags)}>
-        <TagList size="small" tags={tagList} />
+        <TagList size="small" tags={tagList} type="storage" />
       </div>
       <div className={clsx(styles.storageIntro)}>
         <NormalText color="white">{introducing}</NormalText>
