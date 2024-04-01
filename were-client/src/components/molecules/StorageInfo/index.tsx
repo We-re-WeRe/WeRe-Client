@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import NormalText from '@/components/atoms/NormalText';
 import TitleText from '@/components/atoms/TitleText';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import styles from './index.module.scss';
 import TagList from '../TagList';
 import IconText from '../IconText';
@@ -14,7 +14,7 @@ interface TagInfo {
 }
 
 interface Props {
-  thumbnail: string;
+  thumbnail: string | StaticImageData;
   open: boolean;
   title: string;
   tagList: TagInfo[];
