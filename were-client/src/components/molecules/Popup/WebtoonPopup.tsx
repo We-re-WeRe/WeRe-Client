@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import IconButton from '@/components/atoms/IconButton';
 import PopupBox, { TItem } from './PopupBox';
 import styles from './index.module.scss';
-import { IconMenu } from '../../../../public/assets';
 
 const popupItems: TItem[] = [
   {
@@ -34,7 +34,7 @@ const WebtoonPopup = () => {
   return (
     <div className={clsx(styles.webtoonPopup)}>
       <div onClick={clickHandler} role="presentation">
-        <IconMenu width="32px" height="32px" fill="#000000" />
+        <IconButton size={32} type="menu" />
       </div>
       <div className={clsx(styles.popupInner)}>
         <PopupBox items={popupItems} isShow={isShow} />
