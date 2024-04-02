@@ -48,11 +48,28 @@ const IconTextSize: TIconTextSize = {
   },
 };
 
+const IconTextColor = (type: TIcon) => {
+  switch (type) {
+    case 'like':
+      return 'red';
+    case 'review':
+      return 'white';
+    case 'star':
+      return 'yellow';
+    case 'follower':
+      return 'black';
+    default:
+      return 'white';
+  }
+};
+
 const IconText = ({ type, text, size }: Props) => {
   return (
     <div className={clsx(styles.iconText)}>
       {Icon(type, IconTextSize[size].icon)}
-      <NormalText size={IconTextSize[size].text}>{text}</NormalText>
+      <NormalText size={IconTextSize[size].text} color={IconTextColor(type)}>
+        {text}
+      </NormalText>
     </div>
   );
 };
