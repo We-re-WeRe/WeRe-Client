@@ -1,9 +1,11 @@
 .tagList {
   &.horizontal {
     display: flex;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
+    flex-wrap: wrap;
     column-gap: 10px;
+    row-gap: 2px;
   }
 
   &.vertical {
