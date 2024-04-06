@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { IconBack, IconMenu } from '../../../../public/assets';
+import clsx from 'clsx';
+import styles from './index.module.scss';
+import { IconBack, IconMenu, IconStar } from '../../../../public/assets';
 
-type TIcon = 'menu' | 'back';
+type TIcon = 'menu' | 'back' | 'star' | 'blank-star';
 
 interface Props {
   size: number;
@@ -15,6 +17,10 @@ const Icon = (type: TIcon, size: number) => {
   switch (type) {
     case 'menu':
       return <IconMenu width={size} height={size} fill="#000000" />;
+    case 'star':
+      return <IconStar width={size} height={size} fill="#F9E000" />;
+    case 'blank-star':
+      return <IconStar width={size} height={size} fill="#D9D9D9" />;
     default:
       return <IconBack width={size} height={size} fill="#000000" />;
   }
@@ -25,7 +31,7 @@ const IconButton = ({ type, size, link, onClick }: Props) => {
     return <Link href={link}>{Icon(type, size)}</Link>;
   }
   return (
-    <div onClick={onClick} role="presentation">
+    <div className={clsx(styles.iconButton)} onClick={onClick} role="presentation">
       {Icon(type, size)}
     </div>
   );
