@@ -21,6 +21,10 @@ const Modal = ({ isShow, header, children, onClose, className }: Props) => {
   useEffect(() => {
     ref.current = document.getElementById('modal');
     setMounted(true);
+
+    return () => {
+      onClose();
+    };
   }, []);
 
   if (!ref.current || !mounted) return null;
