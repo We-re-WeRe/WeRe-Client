@@ -8,17 +8,21 @@ import styles from './index.module.scss';
 import IconText from '../IconText';
 import ReviewContent from './ReviewContent';
 
-interface Props {
-  thumbnail: string | StaticImageData;
-  title: string;
-  author: string;
-  like: number;
-  webtoonStar: number;
-  webtoonReview: string;
-  webtoonLike: number;
+interface IReview {
+  reviewStar: number;
+  reviewContent: string;
+  reviewLike: number;
 }
 
-const StorageWebtoonInfo = ({ thumbnail, title, author, like, webtoonStar, webtoonReview, webtoonLike }: Props) => {
+interface Props {
+  webtoonThumbnail: string | StaticImageData;
+  webtoonTitle: string;
+  webtoonAuthor: string;
+  webtoonLike: number;
+  reviewInfo: IReview;
+}
+
+const StorageWebtoonInfo = ({ webtoonThumbnail, webtoonTitle, webtoonAuthor, webtoonLike, reviewInfo }: Props) => {
   const [check, setCheck] = useState(false);
 
   /**
@@ -29,7 +33,7 @@ const StorageWebtoonInfo = ({ thumbnail, title, author, like, webtoonStar, webto
   };
 
   /**
-   * @param t : title
+   * @param t : webtoonTitle
    * @returns 제목 도출
    */
   const narrowTitle = (t: string) => {
@@ -44,21 +48,25 @@ const StorageWebtoonInfo = ({ thumbnail, title, author, like, webtoonStar, webto
     <div className={clsx(styles.storageWebtoonElement)}>
       <div className={clsx(styles.swInfo)} onClick={onClickInfo} role="button" tabIndex={0}>
         <div className={clsx(styles.swThumbnail)}>
-          <Image src={thumbnail} alt="thumbnail" width={50} height={50} />
+          <Image src={webtoonThumbnail} alt="thumbnail" width={50} height={50} />
         </div>
         <div className={clsx(styles.swTitle)}>
-          <NormalText>{narrowTitle(title)}</NormalText>
+          <NormalText>{narrowTitle(webtoonTitle)}</NormalText>
         </div>
         <div className={clsx(styles.swAuthor)}>
-          <NormalText>{author}</NormalText>
+          <NormalText>{webtoonAuthor}</NormalText>
         </div>
         <div className={clsx(styles.swLike)}>
-          <IconText type="like" text={like} size="sm" />
+          <IconText type="like" text={webtoonLike} size="sm" />
         </div>
       </div>
       <div className={clsx(styles.line)} />
       <div className={clsx(check ? styles.swReviewExpose : styles.swReviewHide)}>
-        <ReviewContent webtoonStar={webtoonStar} webtoonReview={webtoonReview} webtoonLike={webtoonLike} />
+        <ReviewContent
+          reviewStar={reviewInfo.reviewStar}
+          reviewContent={reviewInfo.reviewContent}
+          reviewLike={reviewInfo.reviewLike}
+        />
       </div>
     </div>
   );

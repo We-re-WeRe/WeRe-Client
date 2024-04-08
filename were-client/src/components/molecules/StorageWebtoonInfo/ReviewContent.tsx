@@ -5,20 +5,20 @@ import styles from './index.module.scss';
 import IconText from '../IconText';
 
 interface Props {
-  webtoonStar: number;
-  webtoonReview: string;
-  webtoonLike: number;
+  reviewStar: number;
+  reviewContent: string;
+  reviewLike: number;
 }
 
-const ReviewContent = ({ webtoonStar, webtoonReview, webtoonLike }: Props) => {
+const ReviewContent = ({ reviewStar, reviewContent, reviewLike }: Props) => {
   return (
     <div className={clsx(styles.reviewPart)}>
       <div className={clsx(styles.reviewTop)}>
-        <IconText type="star" text={webtoonStar} size="sm" />
+        <IconText type="star" text={reviewStar} size="sm" />
         <TextButton size="small">웹툰 보러가기 →</TextButton>
       </div>
-      <div className={clsx(styles.reviewMiddle)}>{webtoonReview}</div>
-      <IconText type="like" text={webtoonLike} size="sm" />
+      <div className={clsx(styles.reviewMiddle)}>{reviewContent}</div>
+      <IconText type="like" text={reviewLike} size="sm" />
     </div>
   );
 };
