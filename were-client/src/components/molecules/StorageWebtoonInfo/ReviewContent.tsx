@@ -8,14 +8,17 @@ interface Props {
   reviewStar: number;
   reviewContent: string;
   reviewLike: number;
+  webtoonLink: string;
 }
 
-const ReviewContent = ({ reviewStar, reviewContent, reviewLike }: Props) => {
+const ReviewContent = ({ reviewStar, reviewContent, reviewLike, webtoonLink }: Props) => {
   return (
     <div className={clsx(styles.reviewPart)}>
       <div className={clsx(styles.reviewTop)}>
         <IconText type="star" text={reviewStar} size="sm" />
-        <TextButton size="small">웹툰 보러가기 →</TextButton>
+        <TextButton size="small" link={webtoonLink}>
+          웹툰 보러가기 →
+        </TextButton>
       </div>
       <div className={clsx(styles.reviewMiddle)}>{reviewContent}</div>
       <IconText type="like" text={reviewLike} size="sm" />

@@ -12,6 +12,7 @@ interface IReview {
   reviewStar: number;
   reviewContent: string;
   reviewLike: number;
+  webtoonLink: string;
 }
 
 interface Props {
@@ -60,14 +61,15 @@ const StorageWebtoonInfo = ({ webtoonThumbnail, webtoonTitle, webtoonAuthor, web
           <IconText type="like" text={webtoonLike} size="sm" />
         </div>
       </div>
-      <div className={clsx(styles.line)} />
       <div className={clsx(check ? styles.swReviewExpose : styles.swReviewHide)}>
         <ReviewContent
           reviewStar={reviewInfo.reviewStar}
           reviewContent={reviewInfo.reviewContent}
           reviewLike={reviewInfo.reviewLike}
+          webtoonLink={reviewInfo.webtoonLink}
         />
       </div>
+      <div className={clsx(styles.line)} />
     </div>
   );
 };
