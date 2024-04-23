@@ -34,15 +34,15 @@ const StorageWebtoonInfo = ({ webtoonThumbnail, webtoonTitle, webtoonAuthor, web
   };
 
   /**
-   * @param t : webtoonTitle
+   * @param title : webtoonTitle
    * @returns 제목 도출
    */
-  const narrowTitle = (t: string) => {
-    if (t.length > 20) {
-      const temp = `${t.substr(0, 20)}...`;
+  const narrowTitle = (title: string) => {
+    if (title.length > 20) {
+      const temp = `${title.substr(0, 20)}...`;
       return temp;
     }
-    return t;
+    return title;
   };
 
   return (
