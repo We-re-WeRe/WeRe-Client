@@ -1,0 +1,13 @@
+.commonCategoryTitle {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 28px;
+  vertical-align: bottom;
+
+  & .title {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    grid-gap: 10px;
+    align-items: end;
+  }
+}
