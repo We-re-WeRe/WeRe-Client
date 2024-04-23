@@ -3,10 +3,11 @@
   background-color: var(--color-gray-2);
   padding: 5px 5px;
   height: 26px;
+  width: fit-content;
   cursor: pointer;
   white-space: nowrap;
 
   &.selected {
-    background-color: #2db3ff;
+    background-color: var(--color-blue);
   }
 }

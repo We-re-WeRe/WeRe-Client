@@ -1,0 +1,47 @@
+.addTag {
+  .inputWrapper {
+    position: relative;
+    color: var(--color-white);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .tagInput {
+      border-bottom: 1px solid var(--color-border-primary);
+      color: var(--color-white);
+      font-size: 16px;
+      padding-left: 15px;
+      padding-bottom: 5px;
+      width: 155px;
+      min-width: 155px;
+    }
+
+    .prefix {
+      position: absolute;
+      top: 1px;
+      left: 0;
+      font-size: 20px;
+    }
+  }
+
+  .addButton {
+    width: fit-content;
+    height: fit-content;
+    margin-left: 5px;
+    svg {
+      stroke: var(--color-white);
+      width: 24px;
+      height: 24px;
+
+      &:hover {
+        stroke: var(--color-blue);
+      }
+    }
+  }
+
+  .error {
+    color: var(--color-red-2);
+    font-size: 12px;
+    font-weight: normal;
+  }
+}

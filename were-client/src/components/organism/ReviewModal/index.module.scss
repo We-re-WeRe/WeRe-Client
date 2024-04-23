@@ -1,0 +1,115 @@
+.reviewDialog {
+  padding: 20px;
+  width: 600px;
+  .tagSection {
+    & > span {
+      margin: 6px 0;
+    }
+    & .tagList {
+      display: flex;
+      width: fit-content;
+      height: fit-content;
+      margin: 6px 0;
+      & .tagWrapper {
+        position: relative;
+        cursor: pointer;
+        min-width: 40px;
+        text-align: center;
+
+        & > div {
+          width: 100%;
+        }
+
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+
+        &:hover {
+          & > div {
+            animation: fadeOut 0.3s ease-in-out;
+
+            @keyframes fadeOut {
+              0% {
+                transform: translateY(0px);
+                opacity: 1;
+              }
+              100% {
+                transform: translateY(10px);
+                opacity: 0;
+              }
+            }
+          }
+          &::before {
+            content: '삭제';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background-color: var(--color-red);
+            color: var(--color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in-out;
+            z-index: 10;
+
+            @keyframes fadeIn {
+              0% {
+                opacity: 0;
+                top: -10px;
+              }
+              100% {
+                opacity: 1;
+                top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .reviewBox {
+    textarea {
+      resize: none;
+      width: 100%;
+      height: 90px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border-primary);
+      padding: 10px;
+      border-radius: 10px;
+      font: inherit;
+      color: white;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: var(--color-bg);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--color-gray-1);
+        border-radius: 10px;
+      }
+    }
+
+    span {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      color: var(--color-white);
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  .buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 6px;
+  }
+}
