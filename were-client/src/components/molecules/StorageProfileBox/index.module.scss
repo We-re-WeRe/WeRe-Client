@@ -1,0 +1,9 @@
+.storageProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .storageProfileImagePart {
+    margin-bottom: 20px;
+  }
+}
