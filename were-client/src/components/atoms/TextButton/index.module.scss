@@ -13,4 +13,20 @@
   &.bold {
     font-weight: bold;
   }
+
+  //design
+
+  &.primary {
+    background-color: var(--color-white);
+    color: var(--color-bg);
+    padding: 2px 24px;
+    border-radius: 5px;
+  }
+
+  &.inverse {
+    background-color: var(--color-bg);
+    color: var(--color-white);
+    padding: 2px 24px;
+    border-radius: 5px;
+  }
 }
