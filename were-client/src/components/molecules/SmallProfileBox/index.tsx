@@ -11,7 +11,7 @@ interface Props {
   follower: number;
 }
 
-const StorageProfileBox = ({ image, name, follower }: Props) => {
+const SmallProfileBox = ({ image, name, follower }: Props) => {
   return (
     <div className={clsx(styles.storageProfile)}>
       <div className={clsx(styles.storageProfileImagePart)}>
@@ -25,4 +25,4 @@ const StorageProfileBox = ({ image, name, follower }: Props) => {
   );
 };
 
-export default StorageProfileBox;
+export default SmallProfileBox;
