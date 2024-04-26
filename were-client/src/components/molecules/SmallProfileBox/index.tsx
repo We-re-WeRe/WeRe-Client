@@ -15,7 +15,7 @@ const SmallProfileBox = ({ image, name, follower }: Props) => {
   return (
     <div className={clsx(styles.storageProfile)}>
       <div className={clsx(styles.storageProfileImagePart)}>
-        <Image src={image} alt="profile" width={100} height={100} />
+        <Image src={image} alt="profile" width={100} height={100} style={{ borderRadius: '50%' }} />
       </div>
       <div className={clsx(styles.storageProfileTextPart)}>
         <NormalText>{name}</NormalText>
