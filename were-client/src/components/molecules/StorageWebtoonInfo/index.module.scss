@@ -1,0 +1,73 @@
+.storageWebtoonElement {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & .swInfo {
+    height: 50px;
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+
+    & .swThumbnail {
+      width: 50px;
+    }
+
+    & .swTitle {
+      width: 350px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    & .swAuthor {
+      width: 150px;
+    }
+
+    & .swLike {
+      width: 50px;
+    }
+  }
+
+  & .storageWebtoonEnter {
+    display: flex;
+    align-items: center;
+  }
+
+  & .line {
+    border: 1px solid #dfdfdf;
+    margin: 10px 0px;
+  }
+
+  & .swReviewExpose {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+
+    & .reviewPart {
+      display: flex;
+      flex-direction: column;
+
+      & .reviewTop {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      & .reviewMiddle {
+        width: 670px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  & .swReviewHide {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
