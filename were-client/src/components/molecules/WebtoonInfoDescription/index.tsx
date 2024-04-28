@@ -42,9 +42,19 @@ const WebtoonInfoDescription = () => {
         김부장
       </TitleText>
       <TagList
-        size="medium"
+        size="small"
         type="storage"
-        tags={[{ tagName: '먼치킨' }, { tagName: '아저씨' }, { tagName: '아빠복수극' }]}
+        tags={[
+          { tagName: '먼치킨' },
+          { tagName: '아저씨' },
+          { tagName: '아빠복수극' },
+          { tagName: '먼치킨2' },
+          { tagName: '아저씨3' },
+          { tagName: '아빠복수극4' },
+          { tagName: '먼치킨5' },
+          { tagName: '아저씨6' },
+          { tagName: '아빠복수극7' },
+        ]}
       />
       <div className={clsx(styles.authorSection)}>
         {/** 글/그림 */}
@@ -93,10 +103,13 @@ const WebtoonInfoDescription = () => {
           전체 이용가
         </NormalText>
       </div>
-      <NormalText
-        color="white"
-        bold
-      >{`인류를 구하고 홀로 희생한 영웅, 최강의 초인 서문엽. 죽었다고 알려진 그가 17년 후의 평화로운 세상에 돌연 귀환하면서 초인들의 스포츠 <배틀필드>에는 지각변동이 일어나기 시작한다. 본격 현대 판타지 X 스포츠 X 액션!`}</NormalText>
+      <NormalText color="white" description>
+        평생 욕심없이 살아온 소심한 윤리교사 전햇살, 그녀의 옆집에 욕망과 쾌락의 신이 이사왔다. 섹시한 외모에 치명적인
+        향기를 내뿜는 그의 이름은 ‘디오니소스’, 줄여서 디오. 디오가 신계 와인을 제조할 때 꼭 들어가야 하는 재료는 인간의
+        평생 이루지 못한 짙은 욕망이다. 그걸 가진 건 바로 햇살! 바라는 거라곤 그저 반복되는 평온한 일상 뿐, 여타 다른
+        꿈이나 욕망이라곤 1도 없이 살아온 햇살인데… 디오는 햇살의 깊은 곳의 욕망을 깨워내기 위해 신의 능력까지
+        사용해가며 그녀를 쉴새없이 귀찮게 굴기 시작한다.
+      </NormalText>
     </div>
   );
 };
