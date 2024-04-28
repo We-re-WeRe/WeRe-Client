@@ -1,0 +1,34 @@
+.webtoonInfoBackground {
+  width: 100%;
+  min-width: 1024px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .webtoonInfoWrapper {
+    display: flex;
+    width: 100%;
+    &::before {
+      content: '';
+      display: block;
+      flex: 1;
+    }
+    & .webtoonInfoArea {
+      display: flex;
+      column-gap: 24px;
+    }
+
+    & .userItemsArea {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > div {
+        @media only screen and (max-width: 1224px) {
+          display: none;
+        }
+      }
+    }
+  }
+}
