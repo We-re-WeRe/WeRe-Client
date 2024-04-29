@@ -21,6 +21,8 @@ const Icon = (type: TIcon, size: number) => {
       return <IconStar width={size} height={size} fill="#F9E000" />;
     case 'blank-star':
       return <IconStar width={size} height={size} fill="#D9D9D9" />;
+    case 'back':
+      return <IconBack width={size} height={size} fill="#ffffff" />;
     default:
       return <IconBack width={size} height={size} fill="#000000" />;
   }
