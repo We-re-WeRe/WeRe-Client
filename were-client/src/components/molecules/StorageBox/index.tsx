@@ -18,7 +18,7 @@ interface Props {
 const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
   return (
     <div className={clsx(styles.commonStorageBox)}>
-      <div className={clsx(styles.overTitle)}>
+      <div className={clsx(styles.topContents)}>
         {/* Image */}
         <div style={{ marginBottom: 10 }}>
           <ImageButton usage="thumbnail" imgSrc={image} link={link} />
@@ -28,7 +28,7 @@ const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
           {title}
         </TextButton>
       </div>
-      <div className={clsx(styles.underTitle)}>
+      <div className={clsx(styles.underContents)}>
         {/* author */}
         <TextButton size="medium" link={userId}>
           {author}
