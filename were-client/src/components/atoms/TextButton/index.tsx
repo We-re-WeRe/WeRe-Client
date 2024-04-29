@@ -17,7 +17,15 @@ interface Props {
 const TextButton = ({ children, onClick, disabled, type, link, size, bold, design }: Props) => {
   if (link) {
     return (
-      <Link href={link} className={clsx(styles.textButton, styles[size ?? 'medium'], { [styles.bold]: bold ?? false })}>
+      <Link
+        href={link}
+        className={clsx(
+          styles.textButton,
+          styles[size ?? 'medium'],
+          { [styles.bold]: bold ?? false },
+          styles[design ?? ''],
+        )}
+      >
         {children}
       </Link>
     );
