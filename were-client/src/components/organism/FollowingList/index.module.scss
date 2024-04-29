@@ -1,0 +1,15 @@
+.followingList {
+  width: 800px;
+
+  & .followings {
+    display: grid;
+    grid-template-columns: repeat(5, 160px);
+    gap: 20px 0px;
+  }
+
+  & .emptyFollowing {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
+}
