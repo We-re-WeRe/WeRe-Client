@@ -16,7 +16,7 @@ const WebtoonInfoUserItems = () => {
           setLike(!like);
         }}
       >
-        좋아요 ♥
+        좋아요 {like ? '♥' : '♡'}
       </button>
       <TextButton size="medium" design="primary">
         보러가기
