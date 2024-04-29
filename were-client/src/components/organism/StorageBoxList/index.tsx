@@ -2,6 +2,7 @@ import StorageBox from '@/components/molecules/StorageBox';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './index.module.scss';
+import { IconTagAdd } from '../../../../public/assets';
 
 interface IStorage {
   image: string;
@@ -14,13 +15,22 @@ interface IStorage {
 
 interface Props {
   storages?: IStorage[];
+  mypage?: boolean;
 }
 
-const StorageBoxList = ({ storages }: Props) => {
+const StorageBoxList = ({ storages, mypage }: Props) => {
   return (
     <div>
       {storages ? (
-        <div className={clsx(styles.storageList)}>
+        <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
+          {mypage && (
+            <div>
+              <div className={clsx(styles.makeStorage)}>
+                <IconTagAdd />
+              </div>
+              <div className={clsx(styles.makeStorageText)}>새 보관함</div>
+            </div>
+          )}
           {storages.map(storage => (
             <StorageBox
               key={storage.link}
