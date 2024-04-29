@@ -13,16 +13,17 @@ interface ReviewInfo {
 
 interface Props {
   reviews?: ReviewInfo[];
+  mypage?: boolean;
 }
 
-const ReviewBoxList = ({ reviews }: Props) => {
+const ReviewBoxList = ({ reviews, mypage }: Props) => {
   return (
     <div>
       {reviews ? (
-        <div className={clsx(styles.reviewList)}>
+        <div className={clsx(mypage ? styles.mypageReviewList : styles.userReviewList)}>
           {reviews.map(review => (
             <ReviewBox
-              key={review.link}
+              key={review.comment}
               star={review.star}
               comment={review.comment}
               like={review.like}
