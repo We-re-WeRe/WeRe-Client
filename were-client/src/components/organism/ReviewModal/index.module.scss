@@ -107,9 +107,26 @@
   }
   .buttonWrapper {
     width: 100%;
+    height: 24px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-top: 6px;
+
+    & > .buttonArea {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 200px;
+      column-gap: 10px;
+      & > button {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+    }
   }
 }
