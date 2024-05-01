@@ -2,9 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import ImageButton from '@/components/atoms/ImageButton';
 import NormalText from '@/components/atoms/NormalText';
-import LIKE_HEART from '@/../public/assets/like.svg';
 import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
+import IconText from '../IconText';
 
 interface Props {
   image: string;
@@ -35,8 +35,7 @@ const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
         </TextButton>
         {/* like */}
         <NormalText size="md">
-          <LIKE_HEART width={15} height={15} />
-          {like}
+          <IconText type="like" text={like} size="sm" />
         </NormalText>
       </div>
     </div>

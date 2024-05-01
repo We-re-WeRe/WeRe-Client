@@ -29,4 +29,11 @@
     padding: 2px 24px;
     border-radius: 5px;
   }
+
+  &.privacy {
+    padding: 2px 24px;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    border-radius: 5px;
+  }
 }

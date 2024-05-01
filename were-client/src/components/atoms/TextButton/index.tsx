@@ -11,7 +11,7 @@ interface Props {
   link?: string;
   size: 'small' | 'medium' | 'large';
   bold?: boolean;
-  design?: 'none' | 'primary' | 'inverse';
+  design?: 'none' | 'primary' | 'inverse' | 'privacy';
 }
 
 const TextButton = ({ children, onClick, disabled, type, link, size, bold, design }: Props) => {

@@ -1,8 +1,12 @@
+'use client';
+
 import StorageBox from '@/components/molecules/StorageBox';
 import clsx from 'clsx';
 import React from 'react';
+import useNewStorageModal from '../NewStorageModal/useNewStorageModal';
 import styles from './index.module.scss';
 import { IconTagAdd } from '../../../../public/assets';
+import NewStorageModal from '../NewStorageModal';
 
 interface IStorage {
   image: string;
@@ -19,12 +23,14 @@ interface Props {
 }
 
 const StorageBoxList = ({ storages, mypage }: Props) => {
+  const { openModal } = useNewStorageModal();
+
   return (
     <div>
       {storages ? (
         <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
           {mypage && (
-            <div>
+            <div onClick={openModal} role="presentation">
               <div className={clsx(styles.makeStorage)}>
                 <IconTagAdd />
               </div>
@@ -46,6 +52,7 @@ const StorageBoxList = ({ storages, mypage }: Props) => {
       ) : (
         <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
       )}
+      <NewStorageModal />
     </div>
   );
 };
