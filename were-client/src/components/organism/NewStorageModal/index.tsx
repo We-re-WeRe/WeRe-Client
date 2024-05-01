@@ -16,12 +16,16 @@ import { IconPrivate, IconPublic } from '../../../../public/assets';
 const NewStorageModal = () => {
   const { isShow, closeModal } = useNewStorageModal();
   const [tags, setTags] = useState<string[]>([]);
-  const [privacy, setPrivacy] = useState<boolean>();
+  const [privacy, setPrivacy] = useState<boolean | undefined>(undefined);
   const NewStorageTextareaRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
   const NewStroageInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
-  const onClickPrivacy = () => {
-    setPrivacy(!privacy);
+  const onClickPrivacy = (isPrivacy: boolean) => {
+    if (privacy === undefined) {
+      setPrivacy(isPrivacy);
+    } else {
+      setPrivacy(!privacy);
+    }
   };
 
   const deleteTag = (target: string) => {
@@ -67,13 +71,13 @@ const NewStorageModal = () => {
         <div className={clsx(styles.privacySection)}>
           <NormalText color="white">공개 설정</NormalText>
           <div className={clsx(styles.buttonSection)}>
-            <div className={clsx(styles.publicButton, privacy ? styles.clickedButton : '')}>
-              <TextButton size="small" design="privacy" onClick={onClickPrivacy}>
+            <div className={clsx(styles.publicButton, privacy === true && styles.clickedButton)}>
+              <TextButton size="small" design="privacy" onClick={() => onClickPrivacy(true)}>
                 <IconPublic /> Public
               </TextButton>
             </div>
-            <div className={clsx(styles.privateButton, privacy ? '' : styles.clickedButton)}>
-              <TextButton size="small" design="privacy" onClick={onClickPrivacy}>
+            <div className={clsx(styles.privateButton, privacy === false && styles.clickedButton)}>
+              <TextButton size="small" design="privacy" onClick={() => onClickPrivacy(false)}>
                 <IconPrivate /> Private
               </TextButton>
             </div>
@@ -81,19 +85,21 @@ const NewStorageModal = () => {
         </div>
       </div>
       <div className={clsx(styles.buttonWrapper)}>
-        <TextButton
-          type="button"
-          size="medium"
-          design="inverse"
-          onClick={() => {
-            closeModal();
-          }}
-        >
-          취소
-        </TextButton>
-        <TextButton size="medium" design="primary">
-          만들기
-        </TextButton>
+        <div className={clsx(styles.buttonArea)}>
+          <TextButton
+            type="button"
+            size="medium"
+            design="inverse"
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            취소
+          </TextButton>
+          <TextButton size="medium" design="primary">
+            만들기
+          </TextButton>
+        </div>
       </div>
     </Modal>
   );

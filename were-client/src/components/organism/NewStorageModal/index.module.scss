@@ -122,6 +122,10 @@
   }
 
   & .privacySection {
+    path {
+      fill: var(--color-white);
+    }
+
     & .buttonSection {
       width: 100%;
       display: flex;
@@ -129,27 +133,45 @@
 
       & .publicButton {
         margin-right: 5px;
-
-        &.clickedButton {
-          color: var(--color-bg);
-          background-color: var(--color-white);
-        }
       }
+      & .clickedButton {
+        border-radius: 5px;
 
-      & .privateButton {
-        &.clickedButton {
+        & > button {
           color: var(--color-bg);
           background-color: var(--color-white);
+          path {
+            fill: var(--color-black);
+          }
         }
       }
     }
   }
 
-  & .buttonWrapper {
+  .buttonWrapper {
     width: 100%;
+    height: 24px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-top: 6px;
+
+    & > .buttonArea {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 200px;
+      column-gap: 10px;
+
+      & > button {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border: 1px solid var(--color-white);
+      }
+    }
   }
 }

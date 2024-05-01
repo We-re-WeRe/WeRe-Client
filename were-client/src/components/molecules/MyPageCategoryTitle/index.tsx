@@ -19,15 +19,16 @@ const MyPageCategoryTitle = ({ tapStates, link, onClickTitle }: Props) => {
     <div className={clsx(styles.commonCategoryTitle)}>
       <div className={clsx(styles.title)}>
         {tapStates.map((tapState, index) => (
-          <TextButton
-            key={tapState.category}
-            size={tapStates[index].selected ? 'large' : 'small'}
-            bold={tapStates[index].selected}
-            link={link}
-            onClick={() => onClickTitle(index)}
-          >
-            {tapState.category}
-          </TextButton>
+          <div key={tapState.category} className={clsx(styles.tapTitle)}>
+            <TextButton
+              size={tapStates[index].selected ? 'large' : 'small'}
+              bold={tapStates[index].selected}
+              link={link}
+              onClick={() => onClickTitle(index)}
+            >
+              {tapState.category}
+            </TextButton>
+          </div>
         ))}
       </div>
     </div>

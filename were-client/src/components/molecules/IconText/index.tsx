@@ -31,7 +31,7 @@ const Icon = (type: TIcon, size: number): ReactNode => {
     case 'star':
       return <IconStar width={size} height={size} fill="#F9E000" />;
     case 'follower':
-      return <IconFollower width={size} height={size} fill="212121" />;
+      return <IconFollower width={size} height={size} fill="#000000" />;
     default:
       return <IconLike />;
   }
@@ -57,7 +57,7 @@ const IconTextColor = (type: TIcon) => {
     case 'star':
       return 'yellow';
     case 'follower':
-      return 'black';
+      return 'white';
     default:
       return 'white';
   }

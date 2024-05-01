@@ -1,4 +1,4 @@
-import React, { ChangeEvent, RefObject, useEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import Modal from '@/components/molecules/Modal';
 import clsx from 'clsx';
 import Stars from '@/components/molecules/Stars';

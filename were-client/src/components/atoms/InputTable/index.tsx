@@ -1,17 +1,16 @@
 'use client';
 
-import React, { ChangeEvent, RefObject, useState } from 'react';
+import React, { ChangeEvent, useState, InputHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import styles from './index.module.scss';
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: 'text' | 'password';
   maxLength: number;
   placeholder: string;
-  ref: RefObject<HTMLInputElement>;
 }
 
-const InputTable = ({ type, maxLength, placeholder, ref }: Props) => {
+const InputTable = React.forwardRef<HTMLInputElement, Props>(({ type, maxLength, placeholder }, ref) => {
   const [text, setText] = useState<string>('');
   const [textLen, setTextLen] = useState<number>(0);
 
@@ -41,6 +40,6 @@ const InputTable = ({ type, maxLength, placeholder, ref }: Props) => {
       </p>
     </div>
   );
-};
+});
 
 export default InputTable;

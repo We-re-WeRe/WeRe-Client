@@ -16,10 +16,12 @@ const FollowingProfileBox = ({ image, name, follower, link }: Props) => {
   return (
     <div className={clsx(styles.commonFollowingProfileBox)}>
       <ProfileButton usage="storage" imgSrc={image} />
-      <TextButton size="small" link={link}>
-        {name}
-      </TextButton>
-      <IconText type="follower" text={follower} size="sm" />
+      <div className={clsx(styles.profileTextSection)}>
+        <TextButton size="small" link={link}>
+          {name}
+        </TextButton>
+        <IconText type="follower" text={follower} size="sm" />
+      </div>
     </div>
   );
 };
