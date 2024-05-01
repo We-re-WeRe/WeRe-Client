@@ -1,14 +1,21 @@
 .commonStorageBox {
-    width: 160px;
+  width: 160px;
 }
 
 .overTitle {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3px;
 }
 
-.underTitle{
+.underTitle {
+  display: flex;
+  justify-content: space-between;
+
+  & .likeArea {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2px;
+  }
 }
