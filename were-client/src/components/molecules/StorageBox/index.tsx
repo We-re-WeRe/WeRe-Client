@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import ImageButton from '@/components/atoms/ImageButton';
 import NormalText from '@/components/atoms/NormalText';
+import LIKE_HEART from '@/../public/assets/like.svg';
 import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
 import IconText from '../IconText';
@@ -24,19 +25,24 @@ const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
           <ImageButton usage="thumbnail" imgSrc={image} link={link} />
         </div>
         {/* title */}
-        <TextButton size="medium" link={link}>
-          {title}
-        </TextButton>
+        <div>
+          <TextButton size="medium" link={link}>
+            {title}
+          </TextButton>
+        </div>
       </div>
-      <div className={clsx(styles.underContents)}>
+      <div className={clsx(styles.underTitle)}>
         {/* author */}
         <TextButton size="medium" link={userId}>
           {author}
         </TextButton>
         {/* like */}
-        <NormalText size="md">
-          <IconText type="like" text={like} size="sm" />
-        </NormalText>
+        <div className={clsx(styles.likeArea)}>
+          <LIKE_HEART width={15} height={15} />
+          <NormalText size="md" color="white">
+            {like}
+          </NormalText>
+        </div>
       </div>
     </div>
   );

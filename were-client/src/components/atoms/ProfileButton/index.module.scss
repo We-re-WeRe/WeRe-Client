@@ -1,23 +1,22 @@
 .profileButton {
+  // Size
+  &.review {
+    width: 24px;
+    height: 24px;
+  }
 
-    // Size
-    &.review {
-        width: 11px;
-        height: 11px;
-    }
+  &.header {
+    width: 60px;
+    height: 60px;
+  }
 
-    &.header {
-        width: 60px;
-        height: 60px;
-    }
+  &.storage {
+    width: 113px;
+    height: 113px;
+  }
 
-    &.storage {
-        width: 113px;
-        height: 113px;
-    }
-
-    &.mypage {
-        width: 202px;
-        height: 202px;
-    }
+  &.mypage {
+    width: 202px;
+    height: 202px;
+  }
 }

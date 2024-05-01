@@ -51,12 +51,14 @@ const ReviewModal = () => {
       />
 
       <div className={clsx(styles.buttonWrapper)}>
-        <TextButton size="medium" design="inverse">
-          취소
-        </TextButton>
-        <TextButton size="medium" design="primary">
-          만들기
-        </TextButton>
+        <div className={clsx(styles.buttonArea)}>
+          <TextButton size="medium" design="inverse">
+            취소
+          </TextButton>
+          <TextButton size="medium" design="primary">
+            만들기
+          </TextButton>
+        </div>
       </div>
     </Modal>
   );

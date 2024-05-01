@@ -25,8 +25,8 @@ type imgType = {
 
 const usageSize: imgType = {
   review: {
-    width: 11,
-    height: 11,
+    width: 24,
+    height: 24,
   },
   header: {
     width: 60,

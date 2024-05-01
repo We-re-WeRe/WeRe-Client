@@ -2,13 +2,20 @@
   width: 160px;
 }
 
-.topContents {
+.overTitle {
   display: flex;
   flex-direction: column;
   margin-bottom: 3px;
 }
 
-.underContents {
+.underTitle {
   display: flex;
   justify-content: space-between;
+
+  & .likeArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2px;
+  }
 }

@@ -1,0 +1,57 @@
+.webtoonInfoDescription {
+  width: 800px;
+
+  & > div:nth-of-type(1) {
+    margin: 10px 0;
+  }
+
+  & .authorSection {
+    display: flex;
+    margin-bottom: 10px;
+    & > .classifyAuthors {
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+
+      & > span {
+        display: flex;
+        column-gap: 4px;
+        justify-content: center;
+        align-items: center;
+
+        &:last-child {
+          color: var(--color-gray-1);
+        }
+      }
+
+      & a {
+        color: var(--color-white);
+        text-decoration: underline;
+
+        &:hover {
+          color: var(--color-blue);
+        }
+      }
+
+      &:nth-last-child(2)::after {
+        content: '';
+        display: block;
+        height: 10px;
+        width: 2px;
+        background-color: var(--color-gray-1);
+      }
+
+      &::after {
+        content: '/';
+        font-size: 12px;
+        color: var(--color-gray-1);
+        margin: 0px 10px;
+      }
+    }
+  }
+
+  & > p {
+    line-height: 20px;
+    font-weight: 300;
+  }
+}
