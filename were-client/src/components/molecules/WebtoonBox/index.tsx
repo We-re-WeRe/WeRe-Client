@@ -8,8 +8,8 @@ import styles from './index.module.scss';
 interface Props {
   title: string;
   author: string;
-  stars: number;
-  reviews: number;
+  stars?: number;
+  reviews?: number;
   imageUrl: string;
   link: string;
 }
@@ -25,10 +25,12 @@ const WebtoonBox = ({ title, author, stars, reviews, imageUrl, link }: Props) =>
         <TextButton size="medium" link={author}>
           {author}
         </TextButton>
-        <div className={clsx(styles.addInfo)}>
-          <IconText type="star" text={stars} size="sm" />
-          <IconText type="review" text={reviews} size="sm" />
-        </div>
+        {reviews && stars && (
+          <div className={clsx(styles.addInfo)}>
+            <IconText type="star" text={stars} size="sm" />
+            <IconText type="review" text={reviews} size="sm" />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,41 @@
+.emptyStorages {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.storageList {
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 20px 10px;
+  justify-content: center;
+}
+
+.mypageStorageList {
+  display: grid;
+  grid-template-columns: repeat(4, 160px);
+  gap: 20px 10px;
+
+  & .makeStorage {
+    width: 160px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-gray-2);
+    margin-right: 20px;
+    margin-bottom: 10px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-black);
+    }
+  }
+
+  & .makeStorageText {
+    display: flex;
+    justify-content: center;
+    color: var(--color-white);
+  }
+}

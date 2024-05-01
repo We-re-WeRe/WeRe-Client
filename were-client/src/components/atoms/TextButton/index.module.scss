@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   width: fit-content;
+  color: var(--color-white);
 
   // Size
   &.small {
@@ -30,6 +31,13 @@
   &.inverse {
     background-color: var(--color-bg);
     color: var(--color-white);
+    border-radius: 5px;
+  }
+
+  &.privacy {
+    padding: 2px 24px;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
     border-radius: 5px;
   }
 }

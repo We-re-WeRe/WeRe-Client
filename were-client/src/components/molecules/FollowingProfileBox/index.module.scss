@@ -1,0 +1,16 @@
+.commonFollowingProfileBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  path {
+    fill: var(--color-white);
+  }
+
+  & .profileTextSection {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

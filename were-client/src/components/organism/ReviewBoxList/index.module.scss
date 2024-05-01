@@ -1,0 +1,14 @@
+.emptyReviews {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.userReviewList {
+  margin-top: 20px;
+}
+
+.mypageReviewList {
+  display: grid;
+  grid-template-columns: repeat(2, 560px);
+}

@@ -20,7 +20,9 @@ const ReviewBox = ({ star, comment, like, thumbnail, link }: Props) => {
       <Image src={thumbnail} alt="" width={80} height={100} />
       <div className={clsx(styles.rightContents)}>
         <IconText type="star" text={star} size="sm" />
-        <NormalText size="sm">{comment}</NormalText>
+        <NormalText size="sm" color="white">
+          {comment}
+        </NormalText>
         <div className={clsx(styles.underText)}>
           <IconText type="like" text={like} size="sm" />
           <TextButton size="small" link={link}>
