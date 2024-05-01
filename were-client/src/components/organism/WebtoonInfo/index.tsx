@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import CanvasImage from '@/lib/CanvasImage';
 import ColorThief from '@/lib/ColorThief';
 import WebtoonInfoUserItems from '@/components/molecules/WebtoonInfoUserItems';
+import IconButton from '@/components/atoms/IconButton';
 import styles from './index.module.scss';
 import testImage from '../../../../public/images/test3.jpg';
 
@@ -41,6 +42,15 @@ const WebtoonInfo = () => {
       }}
     >
       <div className={clsx(styles.webtoonInfoWrapper)}>
+        <div className={clsx(styles.leftSection)}>
+          <IconButton
+            size={36}
+            type="back"
+            onClick={() => {
+              window.history.go(-1);
+            }}
+          />
+        </div>
         <div className={clsx(styles.webtoonInfoArea)}>
           <NextImage src={testImage} alt="" width={WEBTOON_IMAGE_SIZE.width} height={WEBTOON_IMAGE_SIZE.height} />
           <WebtoonInfoDescription />

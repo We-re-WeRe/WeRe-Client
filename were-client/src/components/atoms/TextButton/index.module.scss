@@ -1,4 +1,9 @@
 .textButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
   // Size
   &.small {
     font-size: 12px;

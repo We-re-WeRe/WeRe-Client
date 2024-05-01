@@ -24,9 +24,11 @@ const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
           <ImageButton usage="thumbnail" imgSrc={image} link={link} />
         </div>
         {/* title */}
-        <TextButton size="medium" link={link}>
-          {title}
-        </TextButton>
+        <div>
+          <TextButton size="medium" link={link}>
+            {title}
+          </TextButton>
+        </div>
       </div>
       <div className={clsx(styles.underTitle)}>
         {/* author */}
@@ -34,10 +36,12 @@ const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
           {author}
         </TextButton>
         {/* like */}
-        <NormalText size="md">
+        <div className={clsx(styles.likeArea)}>
           <LIKE_HEART width={15} height={15} />
-          {like}
-        </NormalText>
+          <NormalText size="md" color="white">
+            {like}
+          </NormalText>
+        </div>
       </div>
     </div>
   );
