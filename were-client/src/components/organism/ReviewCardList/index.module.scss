@@ -4,11 +4,8 @@
   justify-content: center;
 }
 
-.userReviewList {
-  margin-top: 20px;
-}
-
 .mypageReviewList {
   display: grid;
-  grid-template-columns: repeat(2, 560px);
+  grid-template-columns: repeat(2, 500px);
+  row-gap: 10px;
 }
