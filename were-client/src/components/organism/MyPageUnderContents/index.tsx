@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import StorageBoxList from '../StorageBoxList';
 import styles from './index.module.scss';
-import ReviewBoxList from '../ReviewBoxList';
+import ReviewCardList from '../ReviewCardList';
 import WebtoonList from '../WebtoonList';
 import FollowingList from '../FollowingList';
 
@@ -17,13 +17,23 @@ interface IStorage {
   link: string;
   userId: string;
 }
+interface ITag {
+  tagName: string;
+  link?: string;
+}
 
 interface IReview {
-  star: number;
-  comment: string;
-  like: number;
-  thumbnail: string;
-  link: string;
+  thumbnailImage?: string;
+  profileImage?: string;
+  title?: string;
+  nickname?: string;
+  userID?: string;
+  webtoonID?: string;
+  date: string;
+  starRate: number;
+  review: string;
+  reviewTags: ITag[];
+  likes: number;
 }
 
 interface IWebtoon {
@@ -82,7 +92,7 @@ const MyPageUnderContents = ({ link, storages, reviews, likeWebtoons, followings
       <MyPageCategoryTitle tapStates={tapStates} link={link} onClickTitle={(i: number) => onClickTitle(i)} />
       <div className={clsx(styles.selectedContents)}>
         {preIndex === 0 && <StorageBoxList storages={storages} mypage />}
-        {preIndex === 1 && <ReviewBoxList reviews={reviews} mypage />}
+        {preIndex === 1 && <ReviewCardList reviews={reviews} mypage />}
         {preIndex === 2 && <WebtoonList webtoons={likeWebtoons} />}
         {preIndex === 3 && <FollowingList profiles={followings} />}
       </div>

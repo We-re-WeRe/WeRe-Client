@@ -9,6 +9,11 @@
   row-gap: 3px;
   height: fit-content;
 
+  & .reviewHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+
   & .profileArea {
     display: flex;
     align-items: center;
@@ -32,6 +37,11 @@
     font-weight: 300;
     flex: 1;
     line-height: 20px;
+  }
+
+  & .tagContents {
+    display: flex;
+    margin-top: 5px;
   }
 
   & .likeArea {
