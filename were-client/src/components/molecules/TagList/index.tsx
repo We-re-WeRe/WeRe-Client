@@ -11,12 +11,18 @@ interface ITag {
 interface Props {
   size: 'small' | 'medium';
   tags: ITag[];
-  type: 'storage' | 'webtoon';
+  type: 'storage' | 'webtoon' | 'review';
 }
 
 const TagList = ({ size, tags, type }: Props) => {
   return (
-    <div className={clsx(styles.tagList, type === 'storage' ? styles.horizontal : styles.vertical)}>
+    <div
+      className={clsx(
+        styles.tagList,
+        type === 'webtoon' ? styles.vertical : styles.horizontal,
+        type === 'review' ? styles.reviewGap : styles.storageGap,
+      )}
+    >
       {tags.map(tag => (
         <WebtoonTag key={tag.tagName} tagName={tag.tagName} size={size} />
       ))}
