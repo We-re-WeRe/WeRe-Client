@@ -61,6 +61,7 @@
     ],
     "no-param-reassign": ["error", { "props": false }],
     "react/jsx-props-no-spreading": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "import/no-cycle": "off"
   }
 }
