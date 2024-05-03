@@ -9,3 +9,10 @@
   grid-template-columns: repeat(2, 500px);
   row-gap: 10px;
 }
+
+.userReviewList {
+  display: grid;
+  grid-template-columns: repeat(1, 500px);
+  row-gap: 5px;
+  justify-content: center;
+}
