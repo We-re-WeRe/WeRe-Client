@@ -92,7 +92,7 @@ const MyPageUnderContents = ({ link, storages, reviews, likeWebtoons, followings
       <MyPageCategoryTitle tapStates={tapStates} link={link} onClickTitle={(i: number) => onClickTitle(i)} />
       <div className={clsx(styles.selectedContents)}>
         {preIndex === 0 && <StorageBoxList storages={storages} mypage />}
-        {preIndex === 1 && <ReviewCardList reviews={reviews} />}
+        {preIndex === 1 && <ReviewCardList reviews={reviews} mypage />}
         {preIndex === 2 && <WebtoonList webtoons={likeWebtoons} />}
         {preIndex === 3 && <FollowingList profiles={followings} />}
       </div>
