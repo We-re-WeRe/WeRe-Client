@@ -38,7 +38,7 @@ const ReviewModal = () => {
         <div className={clsx(styles.tagList)}>
           {tags.map(tag => (
             <div key={tag} onClick={() => deleteTag(tag)} role="presentation" className={clsx(styles.tagWrapper)}>
-              <WebtoonTag tagName={tag} size="small" />
+              <WebtoonTag tagName={tag} size="medium" />
             </div>
           ))}
         </div>

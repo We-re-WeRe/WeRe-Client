@@ -46,7 +46,7 @@ const StorageInfo = ({ thumbnail, open, title, tagList, introducing, like, date 
           </TitleText>
         </div>
         <div className={clsx(styles.storageTags)}>
-          <TagList size="small" tags={tagList} type="storage" />
+          <TagList size="medium" tags={tagList} type="storage" />
         </div>
         <div className={clsx(styles.storageIntro)}>
           <NormalText color="white">{introducing}</NormalText>
