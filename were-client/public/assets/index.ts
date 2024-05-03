@@ -9,6 +9,7 @@ import IconLock from './lock.svg';
 import IconTagAdd from './tagAdd.svg';
 import IconPublic from './public.svg';
 import IconPrivate from './private.svg';
+import IconShortcut from './shortcut.svg';
 
 export {
   IconLike,
@@ -22,4 +23,5 @@ export {
   IconTagAdd,
   IconPublic,
   IconPrivate,
+  IconShortcut,
 };
