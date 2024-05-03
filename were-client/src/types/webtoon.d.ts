@@ -1,0 +1,29 @@
+import { IWebtoonReview } from './review';
+import { IStorage } from './storage';
+import { ITag } from './tag';
+
+export interface IWebtoonBase {
+  id: number;
+  title: string;
+  imageURL: string;
+  author: string[];
+  painter: string[];
+}
+
+export interface IWebtoon extends IWebtoonBase {
+  totalStarPoint: number;
+  reviewCount: number;
+}
+
+export interface IWebtoonDetail extends IWebtoon {
+  webtoonURL: string;
+  providingCompany: string;
+  day: string;
+  genre: string;
+  explain: string;
+  viewCount: number;
+  totalLikes: number;
+  tags: ITag[];
+  storages: IStorage[];
+  reviews: IWebtoonReview[];
+}
