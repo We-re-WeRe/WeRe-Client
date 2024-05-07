@@ -6,19 +6,21 @@ import styles from './index.module.scss';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   type?: 'text' | 'password';
-  maxLength: number;
+  maxLength?: number;
   placeholder: string;
 }
 
-const InputTable = React.forwardRef<HTMLInputElement, Props>(({ type, maxLength, placeholder }, ref) => {
+const InputTable = React.forwardRef<HTMLInputElement, Props>(({ type, maxLength, placeholder, ...attr }, ref) => {
   const [text, setText] = useState<string>('');
   const [textLen, setTextLen] = useState<number>(0);
 
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > maxLength) {
-      e.target.value = e.target.value.slice(0, maxLength);
+    if (maxLength) {
+      if (e.target.value.length > maxLength) {
+        e.target.value = e.target.value.slice(0, maxLength);
+      }
+      setTextLen(e.target.value.length);
     }
-    setTextLen(e.target.value.length);
     setText(e.target.value);
   };
   return (
@@ -30,14 +32,17 @@ const InputTable = React.forwardRef<HTMLInputElement, Props>(({ type, maxLength,
         maxLength={maxLength}
         onChange={onChangeText}
         ref={ref}
+        {...attr}
         required
       />
       <span />
-      <p>
-        <span>
-          {textLen}/{maxLength}
-        </span>
-      </p>
+      {maxLength && (
+        <p>
+          <span>
+            {textLen}/{maxLength}
+          </span>
+        </p>
+      )}
     </div>
   );
 });

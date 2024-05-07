@@ -9,6 +9,9 @@ import IconLock from './lock.svg';
 import IconTagAdd from './tagAdd.svg';
 import IconPublic from './public.svg';
 import IconPrivate from './private.svg';
+import IconSearch from './search.svg';
+import IconLogout from './logout.svg';
+import IconUser from './user.svg';
 import IconShortcut from './shortcut.svg';
 import IconEdit from './edit.svg';
 
@@ -24,6 +27,9 @@ export {
   IconTagAdd,
   IconPublic,
   IconPrivate,
+  IconSearch,
+  IconUser,
+  IconLogout,
   IconShortcut,
   IconEdit,
 };
