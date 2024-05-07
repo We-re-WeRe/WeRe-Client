@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import styles from './index.module.scss';
-import { IconBack, IconMenu, IconStar, IconShortcut } from '../../../../public/assets';
+import { IconBack, IconMenu, IconStar, IconShortcut, IconEdit } from '../../../../public/assets';
 
-type TIcon = 'menu' | 'back' | 'star' | 'blank-star' | 'shortcut';
+type TIcon = 'menu' | 'back' | 'star' | 'blank-star' | 'shortcut' | 'edit';
 
 interface Props {
   size: number;
@@ -25,6 +25,8 @@ const Icon = (type: TIcon, size: number) => {
       return <IconBack width={size} height={size} fill="#ffffff" />;
     case 'shortcut':
       return <IconShortcut width={size} height={size} fill="#D9D9D9" />;
+    case 'edit':
+      return <IconEdit width={size} height={size} fill="#000000" />;
     default:
       return <IconBack width={size} height={size} fill="#000000" />;
   }
