@@ -29,8 +29,8 @@ const usageSize: imgType = {
     height: 24,
   },
   header: {
-    width: 60,
-    height: 60,
+    width: 48,
+    height: 48,
   },
   mypage: {
     width: 202,
