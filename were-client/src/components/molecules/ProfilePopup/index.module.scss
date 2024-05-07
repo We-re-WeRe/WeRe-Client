@@ -13,13 +13,17 @@
   text-align: center;
   user-select: none;
   cursor: pointer;
-
-  & > a {
-    width: 100%;
-  }
-
+  width: 120px;
   & .popupItem {
-    padding: 15px 30px;
+    padding: 15px 10px;
+    border-radius: 10px;
+    width: 100%;
+
+    & > div {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   & .popupItem:hover {
@@ -27,16 +31,15 @@
   }
 }
 
-.webtoonPopup {
+.profilePopup {
   position: relative;
-  width: fit-content;
   & > div:first-child {
     cursor: pointer;
   }
 
-  & .popupInner {
+  & > div:last-child {
     position: absolute;
-    top: 24px;
-    left: 24px;
+    top: 55px;
+    right: 0px;
   }
 }
