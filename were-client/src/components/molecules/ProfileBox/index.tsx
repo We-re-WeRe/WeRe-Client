@@ -2,21 +2,24 @@
 
 import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import ProfileButton from '@/components/atoms/ProfileButton';
 import clickProfile from '@/../public/images/hover-profile.png';
 import defaultProfile from '@/../public/images/default-profile.png';
+import { read } from 'fs';
+import { headers } from 'next/headers';
 import styles from './index.module.scss';
 
 interface Props {
-  imgSrc?: string;
+  imgSrc?: string | StaticImageData;
   edit: boolean; // 마이페이지 프로필 -> true, 유저페이지 프로필 -> false
 }
 
 const ProfileBox = ({ imgSrc, edit }: Props) => {
   const [isHover, setIsHover] = useState<boolean>(false);
-  const [profileImage, setProfileImage] = useState<string>('');
+  const [profileImage, setProfileImage] = useState<string | StaticImageData | undefined>(imgSrc);
   const fileInput = useRef(null);
+
   if (!edit) {
     // 유저페이지 프로필
     return (
@@ -27,13 +30,28 @@ const ProfileBox = ({ imgSrc, edit }: Props) => {
   }
 
   /** 파일 업로드 */
-  const onClickUpload = async (e: any) => {
-    const file = e.target.files[0]; // 이미지 단 1개만 받음
+  const onClickUpload = async (event: any) => {
+    const file = event.target.files[0]; // 이미지 단 1개만 받음
     if (!file) return;
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    // 마이페이지 개발시 진행
+    // read.onLoad = (e: any) => {
+    //   if (reader.readyState === 2) {
+    //     setProfileImage(e.target.result);
+    //   }
+    // };
+
+    // const formData = new FormData();
+    // formData.append('image', file);
+
+    // try {
+    //   const imageRes = await.('').post('/image', formData, {
+    //     headers: {"Content-type": "multipart/form-data"}
+    //   })
+    // } catch (error: any) {
+    //   console.error(error.response)
+    // }
   };
 
   /** 마우스 오버 */
@@ -54,13 +72,13 @@ const ProfileBox = ({ imgSrc, edit }: Props) => {
       onMouseLeave={onMouseLeaveProfile}
     >
       <div className={clsx(styles.profile)}>
-        <ProfileButton usage="mypage" type="button" imgSrc={imgSrc} />
+        {isHover && (
+          <div className={clsx(styles.hoverProfile)}>
+            <Image src={clickProfile} alt="" width={202} height={202} />
+          </div>
+        )}
+        <ProfileButton usage="mypage" imgSrc={imgSrc} onClick={() => onClickUpload} />
       </div>
-      {isHover && (
-        <div className={clsx(styles.hoverProfile)}>
-          <Image src={clickProfile} alt="" width={202} height={202} />
-        </div>
-      )}
     </div>
   );
 };

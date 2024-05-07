@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import defaultProfile from '@/../public/images/default-profile.png';
 import styles from './index.module.scss';
 
@@ -9,7 +9,7 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   type?: 'submit' | 'reset' | 'button';
-  imgSrc?: string;
+  imgSrc?: string | StaticImageData;
   link?: string;
   usage: 'review' | 'header' | 'mypage' | 'storage';
 }
