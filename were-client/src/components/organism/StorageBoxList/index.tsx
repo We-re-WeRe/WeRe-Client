@@ -50,7 +50,18 @@ const StorageBoxList = ({ storages, mypage }: Props) => {
           ))}
         </div>
       ) : (
-        <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
+        <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
+          {mypage ? (
+            <div onClick={openModal} role="presentation">
+              <div className={clsx(styles.makeStorage)}>
+                <IconTagAdd />
+              </div>
+              <div className={clsx(styles.makeStorageText)}>새 보관함</div>
+            </div>
+          ) : (
+            <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
+          )}
+        </div>
       )}
       <NewStorageModal />
     </div>
