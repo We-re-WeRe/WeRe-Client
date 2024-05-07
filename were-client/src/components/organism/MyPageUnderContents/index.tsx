@@ -58,7 +58,6 @@ interface ITapState {
 }
 
 interface Props {
-  link: string;
   storages?: IStorage[];
   reviews?: IReview[];
   likeWebtoons?: IWebtoon[];
@@ -67,7 +66,7 @@ interface Props {
 
 let preIndex = 0;
 
-const MyPageUnderContents = ({ link, storages, reviews, likeWebtoons, followings }: Props) => {
+const MyPageUnderContents = ({ storages, reviews, likeWebtoons, followings }: Props) => {
   const [tapStates, setTapStates] = useState<ITapState[]>([
     { category: '보관함', selected: true },
     { category: '리뷰', selected: false },
@@ -89,7 +88,7 @@ const MyPageUnderContents = ({ link, storages, reviews, likeWebtoons, followings
 
   return (
     <div className={clsx(styles.commonMyPageUnderContents)}>
-      <MyPageCategoryTitle tapStates={tapStates} link={link} onClickTitle={(i: number) => onClickTitle(i)} />
+      <MyPageCategoryTitle tapStates={tapStates} onClickTitle={(i: number) => onClickTitle(i)} />
       <div className={clsx(styles.selectedContents)}>
         {preIndex === 0 && <StorageBoxList storages={storages} mypage />}
         {preIndex === 1 && <ReviewCardList reviews={reviews} mypage />}
