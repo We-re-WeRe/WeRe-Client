@@ -1,0 +1,23 @@
+.navigationBar {
+  display: flex;
+  column-gap: 20px;
+  & > li {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    letter-spacing: 6px;
+    color: var(--color-white);
+    padding-left: 5px;
+    &.logo {
+      font-size: 48px;
+      letter-spacing: 12px;
+      transform: translateY(-10px);
+      padding-left: 10px;
+    }
+
+    &.active {
+      font-weight: bold;
+      border-bottom: 2px solid white;
+    }
+  }
+}
