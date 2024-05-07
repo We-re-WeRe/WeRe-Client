@@ -1,0 +1,21 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  & > div {
+    // transition: all 0.5s ease-in;
+  }
+
+  & input {
+    animation: fades 0.3s ease-out;
+    @keyframes fades {
+      0% {
+        width: 0px;
+      }
+      100% {
+        width: 200px;
+      }
+    }
+  }
+}
