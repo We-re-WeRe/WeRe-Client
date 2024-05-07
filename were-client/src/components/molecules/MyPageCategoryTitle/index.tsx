@@ -10,11 +10,10 @@ interface ITapState {
 
 interface Props {
   tapStates: ITapState[];
-  link: string;
   onClickTitle: (index: number) => void;
 }
 
-const MyPageCategoryTitle = ({ tapStates, link, onClickTitle }: Props) => {
+const MyPageCategoryTitle = ({ tapStates, onClickTitle }: Props) => {
   return (
     <div className={clsx(styles.commonCategoryTitle)}>
       <div className={clsx(styles.title)}>
@@ -23,7 +22,6 @@ const MyPageCategoryTitle = ({ tapStates, link, onClickTitle }: Props) => {
             <TextButton
               size={tapStates[index].selected ? 'large' : 'small'}
               bold={tapStates[index].selected}
-              link={link}
               onClick={() => onClickTitle(index)}
             >
               {tapState.category}
