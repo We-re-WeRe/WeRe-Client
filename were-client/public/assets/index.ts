@@ -12,6 +12,7 @@ import IconPrivate from './private.svg';
 import IconSearch from './search.svg';
 import IconLogout from './logout.svg';
 import IconUser from './user.svg';
+import IconShortcut from './shortcut.svg';
 
 export {
   IconLike,
@@ -28,4 +29,5 @@ export {
   IconSearch,
   IconUser,
   IconLogout,
+  IconShortcut,
 };

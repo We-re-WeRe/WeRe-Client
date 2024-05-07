@@ -6,6 +6,14 @@
     flex-wrap: wrap;
     column-gap: 10px;
     row-gap: 2px;
+
+    &.reviewGap {
+      column-gap: 5px;
+    }
+
+    &.storageGap {
+      column-gap: 10px;
+    }
   }
 
   &.vertical {

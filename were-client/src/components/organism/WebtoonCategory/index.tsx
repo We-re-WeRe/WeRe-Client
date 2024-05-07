@@ -44,7 +44,7 @@ const WebtoonCategory = () => {
       <EnterpriseButton />
       <DayFilter />
       <div className={clsx(styles.divider)} />
-      <ScrollTagList size="small" tags={dummyTags} />
+      <ScrollTagList size="medium" tags={dummyTags} />
     </div>
   );
 };

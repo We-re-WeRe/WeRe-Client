@@ -42,7 +42,7 @@ const WebtoonInfoDescription = () => {
         김부장
       </TitleText>
       <TagList
-        size="small"
+        size="medium"
         type="storage"
         tags={[
           { tagName: '먼치킨' },

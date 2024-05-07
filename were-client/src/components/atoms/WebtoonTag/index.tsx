@@ -23,7 +23,7 @@ const WebtoonTag = ({ tagName, onClick, size, link, tagRef, selected }: Props) =
           role="presentation"
           ref={tagRef}
         >
-          <NormalText size={size === 'small' ? 'md' : 'xl'} color={selected ? 'white' : 'black'}>
+          <NormalText size={size === 'small' ? 'sm' : 'md'} color={selected ? 'white' : 'black'}>
             #{tagName}
           </NormalText>
         </div>
@@ -37,7 +37,7 @@ const WebtoonTag = ({ tagName, onClick, size, link, tagRef, selected }: Props) =
       role="presentation"
       ref={tagRef}
     >
-      <NormalText size={size === 'small' ? 'md' : 'xl'} color={selected ? 'white' : 'black'}>
+      <NormalText size={size === 'small' ? 'sm' : 'md'} color={selected ? 'white' : 'black'}>
         #{tagName}
       </NormalText>
     </div>
