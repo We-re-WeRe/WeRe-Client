@@ -1,15 +1,15 @@
 .profileBox {
-    width: 202px;
-    height: 202px;
-    border-radius: 50%;
-    display: flex;
-}
+  width: 202px;
+  height: 202px;
+  border-radius: 50%;
+  display: flex;
 
-.profile {
+  .profile {
     position: relative;
-}
 
-.hoverProfile {
-    position: absolute;
-    pointer-events: none;
+    & .hoverProfile {
+      position: absolute;
+      pointer-events: none;
+    }
+  }
 }

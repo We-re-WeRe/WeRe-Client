@@ -1,0 +1,112 @@
+.overall {
+  background-color: var(--color-gray-1);
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .profileSection {
+    margin-right: 25px;
+  }
+
+  & .textSection {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & .topSection {
+      display: flex;
+      align-items: end;
+
+      .buttonWrapper {
+        width: 50%;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+
+        & > .buttonArea {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100px;
+          column-gap: 5px;
+
+          & > button {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            border: 1px solid var(--color-white);
+          }
+        }
+      }
+    }
+
+    & .followerSection {
+      margin: 10px 0;
+    }
+
+    & .mypageModify {
+      textarea {
+        resize: none;
+        width: 100%;
+
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-border-primary);
+        padding: 10px;
+        border-radius: 10px;
+        font: inherit;
+        color: white;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: var(--color-bg);
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--color-gray-1);
+          border-radius: 10px;
+        }
+      }
+
+      span {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: var(--color-white);
+        width: 100%;
+        font-size: 12px;
+      }
+
+      &.nicknameModify {
+        textarea {
+          font-size: 24px;
+        }
+      }
+
+      &.introduceModify {
+        textarea {
+          height: 90px;
+        }
+      }
+    }
+  }
+
+  & .pointSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 100px;
+
+    & .pointValue {
+      margin-top: 5px;
+    }
+  }
+}
