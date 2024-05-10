@@ -10,6 +10,8 @@ import IconTagAdd from './tagAdd.svg';
 import IconPublic from './public.svg';
 import IconPrivate from './private.svg';
 import IconShortcut from './shortcut.svg';
+import IconDelete from './delete.svg';
+import IconDeleteHover from './deleteHover.svg';
 
 export {
   IconLike,
@@ -24,4 +26,6 @@ export {
   IconPublic,
   IconPrivate,
   IconShortcut,
+  IconDelete,
+  IconDeleteHover,
 };
