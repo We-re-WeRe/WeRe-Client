@@ -3,10 +3,14 @@
   min-width: 1024px;
   height: 100px;
   position: sticky;
-  top: 0;
+  top: -1px;
   //background-color: black;
   z-index: 20;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  background-color: var(--color-bg);
+
+  &.scrolling {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
   .header {
     display: flex;
     justify-content: space-between;
