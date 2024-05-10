@@ -27,7 +27,7 @@ const Icon = (type: TIcon, size: number): ReactNode => {
     case 'like':
       return <IconLike width={size} height={size} />;
     case 'review':
-      return <IconReview width={size} height={size} fill="#000000" />;
+      return <IconReview width={size} height={size} fill="#ffffff" />;
     case 'star':
       return <IconStar width={size} height={size} fill="#F9E000" />;
     case 'follower':
