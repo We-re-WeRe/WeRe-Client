@@ -2,24 +2,24 @@
 
 import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import DAYS from '@/constant/day';
 import { getToday } from '@/util/date';
+import { useSearchParams } from 'next/navigation';
 import styles from './index.module.scss';
 
 const DayFilter = () => {
-  const [current, setCurrent] = useState<string>(getToday().id);
+  const param = useSearchParams();
+  const today = param.get('tab') ? param.get('tab') : getToday().id;
 
   return (
     <div className={clsx(styles.dayFilter)}>
       {DAYS.map(day => (
         <TextButton
           key={day.id}
-          size={current === day.id ? 'large' : 'medium'}
-          bold={current === day.id}
-          onClick={() => {
-            setCurrent(day.id);
-          }}
+          size={today === day.id ? 'large' : 'medium'}
+          bold={today === day.id}
+          link={`/webtoon/?tab=${day.id}`}
         >
           {day.text}
         </TextButton>
