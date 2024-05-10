@@ -20,10 +20,18 @@ interface Props {
   webtoonTitle: string;
   webtoonAuthor: string;
   webtoonLike: number;
-  reviewInfo: IReview;
+  reviewInfo?: IReview;
+  reviewShow?: boolean;
 }
 
-const StorageWebtoonInfo = ({ webtoonThumbnail, webtoonTitle, webtoonAuthor, webtoonLike, reviewInfo }: Props) => {
+const StorageWebtoonInfo = ({
+  webtoonThumbnail,
+  webtoonTitle,
+  webtoonAuthor,
+  webtoonLike,
+  reviewInfo,
+  reviewShow,
+}: Props) => {
   const [check, setCheck] = useState(false);
 
   /**
@@ -61,14 +69,20 @@ const StorageWebtoonInfo = ({ webtoonThumbnail, webtoonTitle, webtoonAuthor, web
           <IconText type="like" text={webtoonLike} size="sm" />
         </div>
       </div>
-      <div className={clsx(check ? styles.swReviewExpose : styles.swReviewHide)}>
-        <ReviewContent
-          reviewStar={reviewInfo.reviewStar}
-          reviewContent={reviewInfo.reviewContent}
-          reviewLike={reviewInfo.reviewLike}
-          webtoonLink={reviewInfo.webtoonLink}
-        />
-      </div>
+      {reviewShow && (
+        <div className={clsx(check ? styles.swReviewExpose : styles.swReviewHide)}>
+          {reviewInfo ? (
+            <ReviewContent
+              reviewStar={reviewInfo.reviewStar}
+              reviewContent={reviewInfo.reviewContent}
+              reviewLike={reviewInfo.reviewLike}
+              webtoonLink={reviewInfo.webtoonLink}
+            />
+          ) : (
+            <div>작성된 리뷰가 없습니다.</div>
+          )}
+        </div>
+      )}
       <div className={clsx(styles.line)} />
     </div>
   );
