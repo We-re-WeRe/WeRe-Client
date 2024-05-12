@@ -16,28 +16,33 @@ interface IWebtoon {
   webtoonTitle: string;
   webtoonAuthor: string;
   webtoonLike: number;
-  webtoonReviewInfo: IWebtoonReview;
+  webtoonReviewInfo?: IWebtoonReview;
 }
 
 interface Props {
   webtoonInfos?: IWebtoon[];
+  edit: boolean;
 }
 
-const StorageWebtoonInfoList = ({ webtoonInfos }: Props) => {
+const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
   return (
     <div className={clsx(styles.swiList)}>
       {webtoonInfos ? (
-        <div className={clsx(styles.swiListElement)}>
-          {webtoonInfos.map(webtoonInfo => (
-            <StorageWebtoonInfo
-              key={webtoonInfo.webtoonTitle}
-              webtoonThumbnail={webtoonInfo.webtoonThumbnail}
-              webtoonTitle={webtoonInfo.webtoonTitle}
-              webtoonAuthor={webtoonInfo.webtoonAuthor}
-              webtoonLike={webtoonInfo.webtoonLike}
-              reviewInfo={webtoonInfo.webtoonReviewInfo}
-            />
-          ))}
+        <div>
+          <div className={clsx(styles.swiListElement)}>
+            {webtoonInfos.map(webtoonInfo => (
+              <div className={clsx(styles.edittingDesign)} key={webtoonInfo.webtoonAuthor}>
+                <StorageWebtoonInfo
+                  webtoonThumbnail={webtoonInfo.webtoonThumbnail}
+                  webtoonTitle={webtoonInfo.webtoonTitle}
+                  webtoonAuthor={webtoonInfo.webtoonAuthor}
+                  webtoonLike={webtoonInfo.webtoonLike}
+                  reviewInfo={webtoonInfo.webtoonReviewInfo}
+                  reviewShow={!edit}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className={clsx(styles.emptySWIList)}>보관함에 저장된 웹툰이 없습니다.</div>

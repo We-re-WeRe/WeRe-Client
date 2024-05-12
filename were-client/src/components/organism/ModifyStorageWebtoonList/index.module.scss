@@ -1,0 +1,65 @@
+.modifySection {
+  display: flex;
+  flex-direction: column;
+
+  & .topSection {
+    display: flex;
+    width: 730px;
+    & .allCheckboxWrapper {
+      display: flex;
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    .buttonWrapper {
+      width: 100%;
+      height: 16px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      & > .buttonArea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 150px;
+        column-gap: 5px;
+
+        & > button {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          border: solid 1px var(--color-black);
+        }
+      }
+    }
+  }
+
+  input {
+    appearance: checkbox;
+    margin-right: 10px;
+  }
+}
+
+.webtoonInfoList {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+
+  & .webtoonInfoElement {
+    display: flex;
+    align-items: center;
+  }
+
+  input[type='checkbox'] {
+    margin-bottom: 20px;
+  }
+
+  & .deleteIcon {
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
+}

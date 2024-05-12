@@ -5,3 +5,13 @@
     align-items: center;
   }
 }
+
+.edittingDesign {
+  display: flex;
+  align-items: center;
+
+  & .deleteIcon {
+    margin-left: 10px;
+    padding-bottom: 20px;
+  }
+}
