@@ -29,6 +29,7 @@ interface Props {
   isHover: boolean[];
   handleIconOver: (index: number) => void;
   handleIconLeave: (index: number) => void;
+  handleDeleteClick: (webtoonId: string) => void;
   getItemStyle: (isDragging: boolean, draggableStyle: any) => React.CSSProperties;
   selectWebtoons: IWebtoon[];
   handleWebtoonToggle: (webtoon: IWebtoon) => void;
@@ -40,6 +41,7 @@ const DraggableItem = ({
   isHover,
   handleIconOver,
   handleIconLeave,
+  handleDeleteClick,
   getItemStyle,
   selectWebtoons,
   handleWebtoonToggle,
@@ -74,7 +76,7 @@ const DraggableItem = ({
           >
             {isHover[index] ? (
               <div className={clsx(styles.hoverDelete)}>
-                <IconButton size={26} type="delete" />
+                <IconButton size={26} type="delete" onClick={() => handleDeleteClick(webtoonInfo.webtoonId)} />
               </div>
             ) : (
               <div>

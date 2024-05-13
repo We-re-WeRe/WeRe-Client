@@ -59,6 +59,11 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     setIsHover(tmp);
   };
 
+  const handleDeleteClick = (webtoonId: string) => {
+    setWebtoonInfoState(webtoonInfoState.filter(webtoon => webtoon.webtoonId !== webtoonId));
+  };
+
+  /** 전체 선택 */
   const handleSelectAll = () => {
     if (isAllSelected) {
       setSelectWebtoons([]);
@@ -68,6 +73,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     setIsAllSelected(!isAllSelected);
   };
 
+  /** 개별 선택 */
   const handleWebtoonToggle = (webtoon: IWebtoon) => {
     const isSelected = selectWebtoons.some(item => item === webtoon);
 
@@ -78,6 +84,13 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     }
   };
 
+  const handleDeleteButton = () => {
+    const updatedWebtoonInfoState = webtoonInfoState.filter(webtoon => !selectWebtoons.includes(webtoon));
+    setWebtoonInfoState(updatedWebtoonInfoState);
+    setSelectWebtoons([]); // 선택 해제
+  };
+
+  /** 드래그 후 재배열 */
   const reorder = (list: IWebtoon[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -85,6 +98,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     return result;
   };
 
+  /** 드래그 기능 */
   const handleDragEnd = (result: any) => {
     if (!result.destination) {
       return;
@@ -95,6 +109,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     setWebtoonInfoState(newItem);
   };
 
+  /** 전체 선택 상태 관리 */
   useEffect(() => {
     setIsAllSelected(selectWebtoons.length === webtoonInfos.length);
   }, [selectWebtoons, webtoonInfos]);
@@ -113,7 +128,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
             <TextButton size="small" design="inverse">
               취소
             </TextButton>
-            <TextButton size="small" design="primary">
+            <TextButton size="small" design="primary" onClick={handleDeleteButton}>
               선택 삭제
             </TextButton>
           </div>
@@ -136,6 +151,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
                   isHover={isHover}
                   handleIconOver={handleIconOver}
                   handleIconLeave={handleIconLeave}
+                  handleDeleteClick={handleDeleteClick}
                   getItemStyle={getItemStyle}
                   selectWebtoons={selectWebtoons} // selectWebtoons 전달
                   handleWebtoonToggle={handleWebtoonToggle} // handleWebtoonToggle 전달
