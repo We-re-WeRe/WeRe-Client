@@ -1,17 +1,28 @@
-.swiList {
+.swiListWrapper {
   & .emptySWIList {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-}
 
-.edittingDesign {
-  display: flex;
-  align-items: center;
+  & .swiList {
+    display: flex;
+    flex-direction: column;
 
-  & .deleteIcon {
-    margin-left: 10px;
-    padding-bottom: 20px;
+    & .swiListElement {
+      display: flex;
+      align-items: center;
+
+      input[type='checkbox'] {
+        margin-bottom: 20px;
+        margin-right: 10px;
+      }
+    }
+
+    & .swiListElement:hover {
+      input[type='checkbox'] {
+        appearance: checkbox;
+      }
+    }
   }
 }

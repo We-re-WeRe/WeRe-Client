@@ -26,20 +26,21 @@ interface IWebtoon {
 
 interface Props {
   webtoonInfos: IWebtoon[];
+  selectIndex: number;
+  handleCompleteButton: () => void;
 }
 
-const getListStyle = (isDraggingOver: any) => ({
-  background: isDraggingOver ? 'var(--color-bg)' : 'var(--color-gray-2)',
-});
-
-const getItemStyle = (isDragging: any, draggableStyle: any) => ({
+/**
+ * 드래그 시 스타일
+ * @param draggableStyle : 드래그 중 스타일
+ * @returns 기본 드래그 스타일 적용
+ */
+const getItemStyle = (draggableStyle: any) => ({
   userSelect: 'none',
-  width: '100%',
-  background: isDragging ? 'var(--color-gray-2)' : 'var(--color-gray-1)',
   ...draggableStyle,
 });
 
-const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
+const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteButton }: Props) => {
   const [webtoonInfoState, setWebtoonInfoState] = useState<IWebtoon[]>(webtoonInfos);
   const [isHover, setIsHover] = useState<boolean[]>([]);
   const [selectWebtoons, setSelectWebtoons] = useState<IWebtoon[]>([]);
@@ -59,6 +60,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     setIsHover(tmp);
   };
 
+  /** 개별 아이콘 클릭 시 삭제 기능 */
   const handleDeleteClick = (webtoonId: string) => {
     setWebtoonInfoState(webtoonInfoState.filter(webtoon => webtoon.webtoonId !== webtoonId));
   };
@@ -84,6 +86,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     }
   };
 
+  /** 선택 삭제 버튼 기능 */
   const handleDeleteButton = () => {
     const updatedWebtoonInfoState = webtoonInfoState.filter(webtoon => !selectWebtoons.includes(webtoon));
     setWebtoonInfoState(updatedWebtoonInfoState);
@@ -98,7 +101,13 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
     return result;
   };
 
-  /** 드래그 기능 */
+  /**
+   * 드래그 기능
+   * @param result : 드래그 후 놔둘 위치
+   * @returns
+   * 해당 위치가 드래그가 가능한 위치면 배치
+   * 아니면 원위치
+   */
   const handleDragEnd = (result: any) => {
     if (!result.destination) {
       return;
@@ -110,6 +119,16 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
   };
 
   /** 전체 선택 상태 관리 */
+  useEffect(() => {
+    if (selectIndex >= 0 && selectIndex < webtoonInfos.length) {
+      const selectedWebtoon = webtoonInfos[selectIndex];
+      setSelectWebtoons([selectedWebtoon]);
+    } else {
+      setSelectWebtoons([]);
+    }
+  }, [selectIndex, webtoonInfos]);
+
+  /** 선택하고 들어온 index 관리 */
   useEffect(() => {
     setIsAllSelected(selectWebtoons.length === webtoonInfos.length);
   }, [selectWebtoons, webtoonInfos]);
@@ -136,13 +155,8 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
       </div>
       <DragDropContext onDragEnd={(result: any) => handleDragEnd(result)}>
         <Droppable droppableId="droppableId">
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-              className={clsx(styles.webtoonInfoList)}
-            >
+          {provided => (
+            <div {...provided.droppableProps} ref={provided.innerRef} className={clsx(styles.webtoonInfoList)}>
               {webtoonInfoState.map((webtoonInfo, index) => (
                 <DraggableItem
                   key={webtoonInfo.webtoonId}
@@ -153,8 +167,8 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
                   handleIconLeave={handleIconLeave}
                   handleDeleteClick={handleDeleteClick}
                   getItemStyle={getItemStyle}
-                  selectWebtoons={selectWebtoons} // selectWebtoons 전달
-                  handleWebtoonToggle={handleWebtoonToggle} // handleWebtoonToggle 전달
+                  selectWebtoons={selectWebtoons}
+                  handleWebtoonToggle={handleWebtoonToggle}
                 />
               ))}
               {provided.placeholder}
@@ -162,6 +176,11 @@ const ModifyStorageWebtoonList = ({ webtoonInfos }: Props) => {
           )}
         </Droppable>
       </DragDropContext>
+      <div className={styles.completeButton}>
+        <TextButton size="small" design="primary" onClick={handleCompleteButton}>
+          완료
+        </TextButton>
+      </div>
     </div>
   );
 };

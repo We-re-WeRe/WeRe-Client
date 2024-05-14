@@ -1,8 +1,11 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { StaticImageData } from 'next/image';
 import StorageWebtoonInfo from '@/components/molecules/StorageWebtoonInfo';
 import styles from './index.module.scss';
+import ModifyStorageWebtoonList from '../ModifyStorageWebtoonList';
 
 interface IWebtoonReview {
   reviewStar: number;
@@ -25,27 +28,50 @@ interface Props {
 }
 
 const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
+  const [isCheck, setIsCheck] = useState<boolean>(false);
+  const [selectIndex, setSelectIndex] = useState<number>(-1);
+
+  const handleCheckboxChange = (index: number) => {
+    setSelectIndex(index);
+    setIsCheck(true);
+  };
+
+  const handleCompleteButton = () => {
+    setIsCheck(false);
+  };
+
   return (
-    <div className={clsx(styles.swiList)}>
-      {webtoonInfos ? (
-        <div>
-          <div className={clsx(styles.swiListElement)}>
-            {webtoonInfos.map(webtoonInfo => (
-              <div className={clsx(styles.edittingDesign)} key={webtoonInfo.webtoonAuthor}>
-                <StorageWebtoonInfo
-                  webtoonThumbnail={webtoonInfo.webtoonThumbnail}
-                  webtoonTitle={webtoonInfo.webtoonTitle}
-                  webtoonAuthor={webtoonInfo.webtoonAuthor}
-                  webtoonLike={webtoonInfo.webtoonLike}
-                  reviewInfo={webtoonInfo.webtoonReviewInfo}
-                  reviewShow={!edit}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+    <div>
+      {isCheck ? (
+        <ModifyStorageWebtoonList
+          webtoonInfos={webtoonInfos}
+          selectIndex={selectIndex}
+          handleCompleteButton={handleCompleteButton}
+        />
       ) : (
-        <div className={clsx(styles.emptySWIList)}>보관함에 저장된 웹툰이 없습니다.</div>
+        <div className={styles.swiListWrapper}>
+          {webtoonInfos ? (
+            <div className={clsx(styles.swiList)}>
+              {webtoonInfos.map((webtoonInfo, index) => (
+                <div key={webtoonInfo.webtoonAuthor} className={clsx(styles.swiListElement)}>
+                  <div className={clsx(styles.hoverCheckbox)}>
+                    <input type="checkbox" onChange={() => handleCheckboxChange(index)} />
+                  </div>
+                  <StorageWebtoonInfo
+                    webtoonThumbnail={webtoonInfo.webtoonThumbnail}
+                    webtoonTitle={webtoonInfo.webtoonTitle}
+                    webtoonAuthor={webtoonInfo.webtoonAuthor}
+                    webtoonLike={webtoonInfo.webtoonLike}
+                    reviewInfo={webtoonInfo.webtoonReviewInfo}
+                    reviewShow={!edit}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={clsx(styles.emptySWIList)}>보관함에 저장된 웹툰이 없습니다.</div>
+          )}
+        </div>
       )}
     </div>
   );

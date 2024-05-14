@@ -30,7 +30,7 @@ interface Props {
   handleIconOver: (index: number) => void;
   handleIconLeave: (index: number) => void;
   handleDeleteClick: (webtoonId: string) => void;
-  getItemStyle: (isDragging: boolean, draggableStyle: any) => React.CSSProperties;
+  getItemStyle: (draggableStyle: any) => React.CSSProperties;
   selectWebtoons: IWebtoon[];
   handleWebtoonToggle: (webtoon: IWebtoon) => void;
 }
@@ -48,12 +48,12 @@ const DraggableItem = ({
 }: Props) => {
   return (
     <Draggable key={webtoonInfo.webtoonId} draggableId={webtoonInfo.webtoonId} index={index}>
-      {(provided, snapshot) => (
+      {provided => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+          style={getItemStyle(provided.draggableProps.style)}
           className={clsx(styles.webtoonInfoElement)}
         >
           <input

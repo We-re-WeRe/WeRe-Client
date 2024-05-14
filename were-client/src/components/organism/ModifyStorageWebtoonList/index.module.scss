@@ -1,4 +1,5 @@
 .modifySection {
+  width: 800px;
   display: flex;
   flex-direction: column;
 
@@ -41,6 +42,18 @@
   input {
     appearance: checkbox;
     margin-right: 10px;
+  }
+
+  & .completeButton {
+    width: 730px;
+    height: 16px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    & > button {
+      width: 50px;
+      border: solid 1px var(--color-black);
+    }
   }
 }
 
