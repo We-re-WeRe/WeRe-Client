@@ -23,9 +23,7 @@ const TagList = ({ size, tags, type }: Props) => {
         type === 'review' ? styles.reviewGap : styles.storageGap,
       )}
     >
-      {tags.map(tag => (
-        <WebtoonTag key={tag.tagName} tagName={tag.tagName} size={size} />
-      ))}
+      {tags && tags.map(tag => <WebtoonTag key={tag.tagName} tagName={tag.tagName} size={size} />)}
     </div>
   );
 };
