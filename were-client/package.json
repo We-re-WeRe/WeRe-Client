@@ -1,6 +1,6 @@
 {
   "name": "were-client",
-  "version": "0.1.0",
+  "version": "v1.22.22",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -19,6 +19,7 @@
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
