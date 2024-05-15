@@ -1,8 +1,13 @@
+@use 'src/styles/mixins' as m;
+
 .webtoonListTemplate {
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 45px;
+  @include m.wrapperBox;
+  & .templateWrapper {
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+  }
 }

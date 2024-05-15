@@ -1,0 +1,29 @@
+.storageListItem {
+  .itemButton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 10px;
+    width: 100%;
+
+    & .itemDescription {
+      flex: 1;
+      text-align: start;
+      overflow: hidden;
+      & > span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      & > span:last-child {
+        margin-top: 5px;
+        color: var(--color-border-primary);
+      }
+    }
+
+    &:hover {
+      background-color: var(--color-item-hover);
+    }
+  }
+}

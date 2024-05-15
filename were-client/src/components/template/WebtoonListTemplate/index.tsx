@@ -215,8 +215,10 @@ const webtoons = [
 const WebtoonListTemplate = () => {
   return (
     <div className={clsx(styles.webtoonListTemplate)}>
-      <WebtoonCategory />
-      <WebtoonList webtoons={webtoons} />
+      <div className={clsx(styles.templateWrapper)}>
+        <WebtoonCategory />
+        <WebtoonList webtoons={webtoons} />
+      </div>
     </div>
   );
 };
