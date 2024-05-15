@@ -1,3 +1,5 @@
+import ReviewModal from '@/components/organism/ReviewModal';
+import StorageListModal from '@/components/organism/StorageListModal';
 import WebtoonInfo from '@/components/organism/WebtoonInfo';
 import WebtoonInfoContent from '@/components/organism/WebtoonInfoContent';
 import React from 'react';
@@ -7,6 +9,8 @@ const WebtoonInfoTemplate = () => {
     <div>
       <WebtoonInfo />
       <WebtoonInfoContent />
+      <ReviewModal />
+      <StorageListModal />
     </div>
   );
 };
