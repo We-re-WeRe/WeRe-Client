@@ -51,6 +51,12 @@
       }
     ],
     "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "some": ["nesting", "id"]
+      }
+    ],
     "no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": 0, // any 허용
     "@typescript-eslint/no-unused-vars": [

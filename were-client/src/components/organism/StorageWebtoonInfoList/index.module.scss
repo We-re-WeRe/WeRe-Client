@@ -1,7 +1,28 @@
-.swiList {
+.swiListWrapper {
   & .emptySWIList {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  & .swiList {
+    display: flex;
+    flex-direction: column;
+
+    & .swiListElement {
+      display: flex;
+      align-items: center;
+
+      input[type='checkbox'] {
+        margin-bottom: 20px;
+        margin-right: 10px;
+      }
+    }
+
+    & .swiListElement:hover {
+      input[type='checkbox'] {
+        appearance: checkbox;
+      }
+    }
   }
 }

@@ -13,6 +13,8 @@ import IconSearch from './search.svg';
 import IconLogout from './logout.svg';
 import IconUser from './user.svg';
 import IconShortcut from './shortcut.svg';
+import IconDelete from './delete.svg';
+import IconDeleteHover from './deleteHover.svg';
 import IconEdit from './edit.svg';
 
 export {
@@ -31,5 +33,7 @@ export {
   IconUser,
   IconLogout,
   IconShortcut,
+  IconDelete,
+  IconDeleteHover,
   IconEdit,
 };
