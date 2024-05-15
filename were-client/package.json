@@ -1,6 +1,6 @@
 {
   "name": "were-client",
-  "version": "v1.22.22",
+  "version": "1.22.21",
   "private": true,
   "scripts": {
     "dev": "next dev",
