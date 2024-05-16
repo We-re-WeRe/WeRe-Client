@@ -16,6 +16,15 @@ import IconShortcut from './shortcut.svg';
 import IconDelete from './delete.svg';
 import IconDeleteHover from './deleteHover.svg';
 import IconEdit from './edit.svg';
+import IconGmail from './social-login/btn_gmail.svg';
+import IconKakao from './social-login/btn_kakao.svg';
+import IconNaver from './social-login/btn_naver.svg';
+
+const SOCIAL_LOGIN_ICONS = {
+  GMAIL: IconGmail,
+  KAKAO: IconKakao,
+  NAVER: IconNaver,
+} as const;
 
 export {
   IconLike,
@@ -36,4 +45,5 @@ export {
   IconDelete,
   IconDeleteHover,
   IconEdit,
+  SOCIAL_LOGIN_ICONS,
 };

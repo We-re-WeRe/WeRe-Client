@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR as NotoSansKR } from 'next/font/google';
 import '../styles/globals.scss';
 import Header from '@/components/organism/Layout/Header';
+import LayoutProvider from './LayoutProvider';
 
 const inter = NotoSansKR({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -18,8 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <Header />
-        {children}
+        <LayoutProvider>{children}</LayoutProvider>
         <div id="modal" />
       </body>
     </html>
