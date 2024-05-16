@@ -1,6 +1,7 @@
 import React from 'react';
 import TextButton from '@/components/atoms/TextButton';
 import NormalText from '@/components/atoms/NormalText';
+import LoginInput from '@/components/atoms/LoginInput';
 import styles from './index.module.scss';
 
 const LoginForm = () => {
@@ -8,14 +9,8 @@ const LoginForm = () => {
     <form className={styles.loginForm}>
       <div className={styles.formWrapper}>
         <div className={styles.idPwWrapper}>
-          <div className={styles.inputWrapper}>
-            <label htmlFor="login_id">아이디</label>
-            <input className={styles.loginInput} id="login_id" placeholder="아이디를 입력해주세요." />
-          </div>
-          <div className={styles.inputWrapper}>
-            <label htmlFor="login_pw">비밀번호</label>
-            <input className={styles.loginInput} id="login_pw" placeholder="비밀번호를 입력해주세요." type="password" />
-          </div>
+          <LoginInput id="login_id" labelText="아이디" placeholder="아이디를 입력해주세요." />
+          <LoginInput id="login_password" labelText="비밀번호" placeholder="비밀번호를 입력해주세요" type="password" />
         </div>
         <div className={styles.validWrapper}>
           <NormalText size="xs">Error</NormalText>

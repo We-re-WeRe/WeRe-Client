@@ -43,26 +43,6 @@
   }
 }
 
-.inputWrapper {
-  background-color: var(--color-white);
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  & > label {
-    width: 0;
-    height: 0;
-    font-size: 1px;
-    color: transparent;
-    text-indent: -9999;
-    position: absolute;
-  }
-  & .loginInput {
-    padding: 9px 12px;
-    width: 100%;
-  }
-}
-
 .loginButton {
   display: block;
   background-color: var(--color-white);
