@@ -6,13 +6,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
 }
 
-const LoginInput = ({ labelText, id, ...attr }: Props) => {
+const LoginInput = React.forwardRef<HTMLInputElement, Props>(({ labelText, id, ...attr }, ref) => {
   return (
     <div className={styles.inputWrapper}>
       <label htmlFor={id}>{labelText}</label>
-      <input className={styles.loginInput} id={id} {...attr} />
+      <input className={styles.loginInput} id={id} ref={ref} {...attr} />
     </div>
   );
-};
+});
 
 export default LoginInput;
