@@ -2,7 +2,9 @@ import SmallProfileBox from '@/components/molecules/SmallProfileBox';
 import StorageInfo from '@/components/molecules/StorageInfo';
 import StorageWebtoonInfoList from '@/components/organism/StorageWebtoonInfoList';
 import { StaticImageData } from 'next/image';
-import React from 'react';
+import ColorThief from '@/lib/ColorThief';
+import CanvasImage from '@/lib/CanvasImage';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 
 interface ITag {
@@ -11,7 +13,7 @@ interface ITag {
 }
 
 interface IInfo {
-  thumbnail: string | StaticImageData;
+  thumbnail: StaticImageData;
   open: boolean;
   title: string;
   tagList: ITag[];
@@ -42,6 +44,12 @@ interface IWebtoon {
   webtoonReviewInfo?: IWebtoonReview;
 }
 
+interface IColor {
+  r: number;
+  g: number;
+  b: number;
+}
+
 interface Props {
   info: IInfo;
   profile: IProfile;
@@ -49,9 +57,27 @@ interface Props {
 }
 
 const StorageInfoTemplate = ({ info, profile, webtoons }: Props) => {
+  const [colors, setColors] = useState<IColor[]>([]);
+  useEffect(() => {
+    const image = new Image();
+    image.src = info.thumbnail.src;
+
+    image.onload = () => {
+      setColors(ColorThief.getPalette(new CanvasImage(image), 2));
+    };
+  }, [info.thumbnail.src]);
+
   return (
     <div className={styles.storageInfoContent}>
-      <div className={styles.topContentWrapper}>
+      <div
+        className={styles.topContentWrapper}
+        style={{
+          background:
+            colors.length > 0
+              ? `linear-gradient(135deg, rgb(${colors[0].r / 2},${colors[0].g / 2},${colors[0].b / 2}) 0%,rgb(${colors[1].r / 2},${colors[1].g / 2},${colors[1].b / 2}) 100%)`
+              : '',
+        }}
+      >
         <StorageInfo
           thumbnail={info.thumbnail}
           open={info.open}

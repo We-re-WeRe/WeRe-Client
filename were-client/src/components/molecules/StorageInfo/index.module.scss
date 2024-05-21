@@ -1,7 +1,8 @@
 .storageInfo {
   width: fit-content;
-  background-color: #1e1e1e;
+  height: 300px;
   display: flex;
+  align-items: center;
 
   & .imagePart {
     width: 200px;
