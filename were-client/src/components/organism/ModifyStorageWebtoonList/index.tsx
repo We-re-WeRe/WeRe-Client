@@ -28,6 +28,7 @@ interface Props {
   webtoonInfos: IWebtoon[];
   selectIndex: number;
   handleCompleteButton: () => void;
+  handleCancelButton: () => void;
 }
 
 /**
@@ -40,7 +41,7 @@ const getItemStyle = (draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteButton }: Props) => {
+const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteButton, handleCancelButton }: Props) => {
   const [webtoonInfoState, setWebtoonInfoState] = useState<IWebtoon[]>(webtoonInfos);
   const [isHover, setIsHover] = useState<boolean[]>([]);
   const [selectWebtoons, setSelectWebtoons] = useState<IWebtoon[]>([]);
@@ -144,7 +145,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
         </div>
         <div className={clsx(styles.buttonWrapper)}>
           <div className={clsx(styles.buttonArea)}>
-            <TextButton size="small" design="inverse">
+            <TextButton size="small" design="inverse" onClick={handleCancelButton}>
               취소
             </TextButton>
             <TextButton size="small" design="primary" onClick={handleDeleteButton}>

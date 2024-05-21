@@ -20,9 +20,20 @@ interface Props {
   title: string;
   tagList?: ITag[];
   introduce: string;
+  handleCancelButton: () => void;
+  handleCompleteButton: () => void;
 }
 
-const ModifyStorageInfo = ({ id, imageURL, privacy, title, tagList, introduce }: Props) => {
+const ModifyStorageInfo = ({
+  id,
+  imageURL,
+  privacy,
+  title,
+  tagList,
+  introduce,
+  handleCancelButton,
+  handleCompleteButton,
+}: Props) => {
   const [tags, setTags] = useState<string[]>([]);
   const [privacySetting, setPrivacySetting] = useState<boolean>(privacy);
   const StorageTitleRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
@@ -82,10 +93,10 @@ const ModifyStorageInfo = ({ id, imageURL, privacy, title, tagList, introduce }:
       </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.buttonArea}>
-          <TextButton type="button" size="medium" design="inverse">
+          <TextButton type="button" size="medium" design="inverse" onClick={handleCancelButton}>
             취소
           </TextButton>
-          <TextButton size="medium" design="primary">
+          <TextButton size="medium" design="primary" onClick={handleCompleteButton}>
             완료
           </TextButton>
         </div>

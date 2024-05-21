@@ -31,12 +31,30 @@ const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [selectIndex, setSelectIndex] = useState<number>(-1);
 
+  /**
+   *
+   * @param index : 클릭한 webtoon
+   *
+   * 선택한 웹툰의 checkbox가 표시되고 수정 컴포넌트로 바뀜.
+   */
   const handleCheckboxChange = (index: number) => {
     setSelectIndex(index);
     setIsCheck(true);
   };
 
+  /**
+   * 완료 버튼
+   * 클릭 시 삭제가 완료된 상태로 돌아감.
+   */
   const handleCompleteButton = () => {
+    setIsCheck(false);
+  };
+
+  /**
+   * 취소 버튼
+   * 클릭 시 삭제가 되지않은 원상태로 돌아감.
+   */
+  const handleCancelButton = () => {
     setIsCheck(false);
   };
 
@@ -47,6 +65,7 @@ const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
           webtoonInfos={webtoonInfos}
           selectIndex={selectIndex}
           handleCompleteButton={handleCompleteButton}
+          handleCancelButton={handleCancelButton}
         />
       ) : (
         <div className={styles.swiListWrapper}>
@@ -57,14 +76,16 @@ const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
                   <div className={clsx(styles.hoverCheckbox)}>
                     <input type="checkbox" onChange={() => handleCheckboxChange(index)} />
                   </div>
-                  <StorageWebtoonInfo
-                    webtoonThumbnail={webtoonInfo.webtoonThumbnail}
-                    webtoonTitle={webtoonInfo.webtoonTitle}
-                    webtoonAuthor={webtoonInfo.webtoonAuthor}
-                    webtoonLike={webtoonInfo.webtoonLike}
-                    reviewInfo={webtoonInfo.webtoonReviewInfo}
-                    reviewShow={!edit}
-                  />
+                  <div className={styles.webtoonContainer}>
+                    <StorageWebtoonInfo
+                      webtoonThumbnail={webtoonInfo.webtoonThumbnail}
+                      webtoonTitle={webtoonInfo.webtoonTitle}
+                      webtoonAuthor={webtoonInfo.webtoonAuthor}
+                      webtoonLike={webtoonInfo.webtoonLike}
+                      reviewInfo={webtoonInfo.webtoonReviewInfo}
+                      reviewShow={!edit}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
