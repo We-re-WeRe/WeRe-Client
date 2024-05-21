@@ -42,7 +42,13 @@
     }
 
     & .storageTitle {
+      display: flex;
+      align-items: end;
       margin-bottom: 5px;
+
+      path {
+        stroke: var(--color-white);
+      }
     }
 
     & .storageTags {
