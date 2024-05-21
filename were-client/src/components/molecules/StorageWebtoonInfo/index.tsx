@@ -79,7 +79,7 @@ const StorageWebtoonInfo = ({
               webtoonLink={reviewInfo.webtoonLink}
             />
           ) : (
-            <div>작성된 리뷰가 없습니다.</div>
+            <div className={styles.emptyReview}>작성된 리뷰가 없습니다.</div>
           )}
         </div>
       )}
