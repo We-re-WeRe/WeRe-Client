@@ -8,14 +8,21 @@
   & .swiList {
     display: flex;
     flex-direction: column;
+    width: 800px;
+    height: 450px;
+    overflow-y: auto;
 
     & .swiListElement {
       display: flex;
       align-items: center;
 
-      input[type='checkbox'] {
+      & .hoverCheckbox {
+        width: 0px; // 위치 고정
         margin-bottom: 20px;
-        margin-right: 10px;
+      }
+
+      & .webtoonContainer {
+        margin-left: 20px;
       }
     }
 
@@ -24,5 +31,20 @@
         appearance: checkbox;
       }
     }
+  }
+
+  & .swiList::-webkit-scrollbar {
+    width: 5px;
+  }
+  & .swiList::-webkit-scrollbar-track {
+    background-color: none;
+    border-radius: 5px;
+  }
+  & .swiList::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-1);
+    border-radius: 5px;
+  }
+  & .swiList::-webkit-scrollbar-button {
+    display: none;
   }
 }
