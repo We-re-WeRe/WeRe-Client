@@ -1,0 +1,23 @@
+@use 'src/styles/mixins' as m;
+
+.storageInfoContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include m.wrapperBox;
+
+  & .topContentWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  & .bottomContentsWrapper {
+    display: flex;
+
+    & .profileContent {
+      margin-right: 100px;
+    }
+  }
+}
