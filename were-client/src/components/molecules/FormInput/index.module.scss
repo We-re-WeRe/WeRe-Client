@@ -1,0 +1,94 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+
+  & > span {
+    margin: 0px 0px 5px 5px;
+  }
+
+  & .validWrapper {
+    margin: 5px 0px 0px 5px;
+    & > span {
+      color: var(--color-red-2);
+    }
+  }
+}
+
+.inputRow {
+  background-color: var(--color-white);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  display: table;
+
+  & > label {
+    width: 0;
+    height: 0;
+    font-size: 1px;
+    color: transparent;
+    text-indent: -9999;
+    position: absolute;
+  }
+
+  & .joinInput {
+    display: table-cell;
+    padding: 11px 12px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  & .inputIcon {
+    display: table-cell;
+    padding: 4px 0px 0 10px;
+    vertical-align: middle;
+    width: 24px;
+  }
+  & .inputCheck {
+    display: table-cell;
+    padding: 4px 10px 0 10px;
+    vertical-align: middle;
+    width: 24px;
+  }
+  & .hideButton {
+    display: table-cell;
+    padding: 4px 10px 0 10px;
+    vertical-align: middle;
+    width: 24px;
+    cursor: pointer;
+  }
+}
+
+.genderInputWrapper {
+  width: 100%;
+  border-radius: 5px;
+  padding: 4px;
+  border: 1px solid var(--color-white);
+  display: table;
+  table-layout: fixed;
+  border-spacing: 5px;
+  & > .radioItem {
+    display: table-cell;
+
+    input[type='radio'] {
+      width: 0px;
+      height: 0px;
+      position: absolute;
+
+      & + label {
+        display: block;
+        border-radius: 5px;
+        background-color: var(--color-white);
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+        cursor: pointer;
+      }
+
+      &:checked + label {
+        background: var(--color-blue);
+
+        color: var(--color-white);
+      }
+    }
+  }
+}
