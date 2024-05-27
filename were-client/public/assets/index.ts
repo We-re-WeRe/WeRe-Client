@@ -19,6 +19,8 @@ import IconEdit from './edit.svg';
 import IconGmail from './social-login/btn_gmail.svg';
 import IconKakao from './social-login/btn_kakao.svg';
 import IconNaver from './social-login/btn_naver.svg';
+import IconEyeOpen from './eye-open.svg';
+import IconEyeClose from './eye-close.svg';
 
 const SOCIAL_LOGIN_ICONS = {
   GMAIL: IconGmail,
@@ -45,5 +47,7 @@ export {
   IconDelete,
   IconDeleteHover,
   IconEdit,
+  IconEyeOpen,
+  IconEyeClose,
   SOCIAL_LOGIN_ICONS,
 };
