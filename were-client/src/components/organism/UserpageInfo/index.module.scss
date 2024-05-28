@@ -1,10 +1,14 @@
 .userpageInfo {
-    display: flex;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-gray-1);
+  height: 300px;
 
-.userpageIntro {
-    width: 380px;
+  & .userpageIntro {
+    width: 400px;
     margin-left: 25px;
     display: flex;
     align-items: center;
+  }
 }
