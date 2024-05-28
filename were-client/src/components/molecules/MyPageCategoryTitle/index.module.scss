@@ -10,6 +10,21 @@
     grid-gap: 10px;
     align-items: end;
 
+    &.scrollTitle {
+      position: fixed;
+      top: 200px;
+      right: 100px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      row-gap: 20px;
+      border: 1px solid var(--color-gray-2);
+      border-radius: 5px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
     & .tapTitle {
       display: flex;
       justify-content: center;
