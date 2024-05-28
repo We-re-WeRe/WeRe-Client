@@ -59,7 +59,7 @@ interface Props {
   followings?: IProfile[];
 }
 
-const MypageTemplate = ({
+const MyPageTemplate = ({
   image,
   nickname,
   follower,
@@ -78,4 +78,4 @@ const MypageTemplate = ({
   );
 };
 
-export default MypageTemplate;
+export default MyPageTemplate;
