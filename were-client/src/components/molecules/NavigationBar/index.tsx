@@ -18,7 +18,7 @@ interface INavi {
 const NAV_LIST: INavi[] = [
   { text: '웹툰추천', link: '/collection' },
   { text: 'WeRe', link: '/', isMain: true },
-  { text: '전체웹툰', link: '/all' },
+  { text: '전체웹툰', link: '/webtoon' },
 ];
 
 const NavigationBar = () => {

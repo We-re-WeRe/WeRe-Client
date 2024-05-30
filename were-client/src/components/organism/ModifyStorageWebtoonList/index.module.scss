@@ -1,0 +1,96 @@
+.modifySection {
+  width: 830px;
+  display: flex;
+  flex-direction: column;
+
+  & .topSection {
+    display: flex;
+    width: 730px;
+    & .allCheckboxWrapper {
+      display: flex;
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    .buttonWrapper {
+      width: 100%;
+      height: 16px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      & > .buttonArea {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 150px;
+        column-gap: 5px;
+
+        & > button {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          border: solid 1px var(--color-black);
+        }
+      }
+    }
+  }
+
+  input {
+    appearance: checkbox;
+    margin-right: 10px;
+  }
+
+  & .completeButton {
+    width: 730px;
+    height: 16px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    & > button {
+      width: 50px;
+      border: solid 1px var(--color-black);
+    }
+  }
+}
+
+.webtoonInfoList {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  height: 450px;
+  overflow-y: auto;
+
+  & .webtoonInfoElement {
+    display: flex;
+    align-items: center;
+  }
+
+  input[type='checkbox'] {
+    margin-bottom: 20px;
+  }
+
+  & .deleteIcon {
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
+}
+
+.webtoonInfoList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.webtoonInfoList::-webkit-scrollbar-track {
+  background-color: none;
+  border-radius: 5px;
+}
+.webtoonInfoList::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-1);
+  border-radius: 5px;
+}
+.webtoonInfoList::-webkit-scrollbar-button {
+  display: none;
+}

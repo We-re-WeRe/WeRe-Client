@@ -1,0 +1,21 @@
+.storageListModal {
+  width: 400px;
+  & h2 {
+    padding: 10px;
+  }
+  & .storageListSection {
+    border-top: 1px solid var(--color-border-primary);
+    & > span:first-child {
+      margin: 0 0 10px 10px;
+    }
+    padding: 10px 0;
+  }
+
+  & .noStorageText {
+    color: var(--color-gray-1);
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 50px;
+  }
+}

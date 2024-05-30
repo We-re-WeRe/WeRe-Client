@@ -2,11 +2,14 @@ import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import useReviewModal from '@/components/organism/ReviewModal/useReviewModal';
+import useStorageListModal from '@/components/organism/StorageListModal/useStorageListModal';
 import styles from './index.module.scss';
+import { IconTagAdd } from '../../../../public/assets';
 
 const WebtoonInfoUserItems = () => {
   const [like, setLike] = useState(false);
   const { openModal } = useReviewModal();
+  const { openModal: openStorageModal } = useStorageListModal();
   return (
     <div className={clsx(styles.webtoonInfoUserItems)}>
       <button
@@ -25,6 +28,10 @@ const WebtoonInfoUserItems = () => {
       <TextButton size="medium" design="primary" onClick={openModal}>
         리뷰쓰기
       </TextButton>
+      <button className={clsx(styles.addStorageButton)} onClick={openStorageModal}>
+        보관함 저장
+        <IconTagAdd />
+      </button>
       <div className={clsx(styles.userItemsBackground)} />
     </div>
   );

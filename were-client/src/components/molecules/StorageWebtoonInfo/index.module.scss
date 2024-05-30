@@ -46,6 +46,13 @@
     opacity: 1;
     visibility: visible;
     height: auto;
+    min-height: 50px;
+
+    & .emptyReview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     & .reviewPart {
       display: flex;

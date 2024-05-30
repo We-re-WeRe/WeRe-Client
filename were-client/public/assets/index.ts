@@ -13,7 +13,20 @@ import IconSearch from './search.svg';
 import IconLogout from './logout.svg';
 import IconUser from './user.svg';
 import IconShortcut from './shortcut.svg';
+import IconDelete from './delete.svg';
+import IconDeleteHover from './deleteHover.svg';
 import IconEdit from './edit.svg';
+import IconGmail from './social-login/btn_gmail.svg';
+import IconKakao from './social-login/btn_kakao.svg';
+import IconNaver from './social-login/btn_naver.svg';
+import IconEyeOpen from './eye-open.svg';
+import IconEyeClose from './eye-close.svg';
+
+const SOCIAL_LOGIN_ICONS = {
+  GMAIL: IconGmail,
+  KAKAO: IconKakao,
+  NAVER: IconNaver,
+} as const;
 
 export {
   IconLike,
@@ -31,5 +44,10 @@ export {
   IconUser,
   IconLogout,
   IconShortcut,
+  IconDelete,
+  IconDeleteHover,
   IconEdit,
+  IconEyeOpen,
+  IconEyeClose,
+  SOCIAL_LOGIN_ICONS,
 };
