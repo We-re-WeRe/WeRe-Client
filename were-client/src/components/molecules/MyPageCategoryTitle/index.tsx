@@ -16,6 +16,10 @@ interface Props {
 const MyPageCategoryTitle = ({ tapStates, onClickTitle }: Props) => {
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const [transSide, setTransSide] = useState<boolean>(false);
+
+  /**
+   * 스크롤 시 탭 카테고리가 사이드로 옮겨짐
+   */
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 400 && !transSide) {
@@ -46,7 +50,7 @@ const MyPageCategoryTitle = ({ tapStates, onClickTitle }: Props) => {
     <div className={clsx(styles.commonCategoryTitle)}>
       <div className={clsx(styles.title, { [styles.scrollTitle]: transSide })}>
         {tapStates.map((tapState, index) => (
-          <div key={tapState.category} className={clsx(styles.tapTitle)}>
+          <div key={tapState.category} className={clsx(styles.tapTitle, { [styles.tapClick]: tapState.selected })}>
             <TextButton
               size={tapStates[index].selected ? 'large' : 'small'}
               bold={tapStates[index].selected}

@@ -14,20 +14,42 @@
       position: fixed;
       top: 200px;
       right: 100px;
-      padding: 10px;
+      width: 110px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      row-gap: 20px;
+      row-gap: 10px;
       border: 1px solid var(--color-gray-2);
+      background-color: var(--color-bg);
       border-radius: 5px;
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
       z-index: 1000;
+
+      & .tapClick {
+        width: 110px;
+        padding: 5px 24px;
+        background-color: var(--color-red);
+        border: 1px solid var(--color-gray-2);
+        border-radius: 5px;
+
+        &:hover {
+          button {
+            color: white;
+          }
+        }
+      }
     }
 
     & .tapTitle {
+      padding: 10px 0;
       display: flex;
       justify-content: center;
+
+      &:hover {
+        button {
+          color: var(--color-gray-1);
+        }
+      }
     }
   }
 }
