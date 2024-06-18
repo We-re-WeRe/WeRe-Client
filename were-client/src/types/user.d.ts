@@ -8,3 +8,17 @@ export interface IUser extends IUserBase {
   totalFollowers: number;
   introduceMe: string;
 }
+
+export interface IUserLogin {
+  account: string;
+  password: string;
+}
+
+export interface IUserSignUp extends IUserLogin {
+  user: {
+    nickname: string;
+    name: string;
+    sex: string;
+    birth: Date;
+  };
+}

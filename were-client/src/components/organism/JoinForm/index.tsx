@@ -1,6 +1,7 @@
 import { LabeledInput, RadioInput } from '@/components/molecules/FormInput';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { signUpApi } from '@/service/auth';
 import styles from './index.module.scss';
 
 type GenderType = 'male' | 'female';
@@ -8,21 +9,21 @@ interface IForm {
   id: string;
   pw: string;
   pwCheck: string;
-  realName: string;
+  name: string;
   sex: GenderType;
-  birthDate: string;
+  birth: string;
   nickname: string;
 }
 
 const JoinForm = () => {
-  const { control, handleSubmit } = useForm<IForm>({
+  const { control, handleSubmit, watch } = useForm<IForm>({
     defaultValues: {
       id: '',
       pw: '',
       pwCheck: '',
-      realName: '',
+      name: '',
       sex: 'male',
-      birthDate: '',
+      birth: '',
       nickname: '',
     },
     mode: 'onBlur',
@@ -30,10 +31,22 @@ const JoinForm = () => {
   });
 
   const onSubmit: SubmitHandler<IForm> = data => {
-    console.log(data.sex, data.nickname);
+    const user = {
+      nickname: data.nickname,
+      sex: data.sex,
+      birth: new Date(data.birth),
+      name: data.name,
+    };
+    signUpApi({ account: data.id, password: data.pw, user });
   };
   return (
-    <div className={styles.formWrapper}>
+    <div
+      role="presentation"
+      className={styles.formWrapper}
+      onMouseDown={() => {
+        console.log(document.cookie);
+      }}
+    >
       <form className={styles.formBox}>
         <div className={styles.inputsWrapper}>
           <LabeledInput
@@ -57,14 +70,11 @@ const JoinForm = () => {
             name="pwCheck"
             control={control}
             inputAttr={{ id: 'join_pw_check' }}
+            rules={{
+              validate: value => value === watch('pw') || '비밀번호가 일치하지 않습니다.',
+            }}
           />
-          <LabeledInput
-            type="none"
-            labelText="이름"
-            name="realName"
-            control={control}
-            inputAttr={{ id: 'join_name' }}
-          />
+          <LabeledInput type="none" labelText="이름" name="name" control={control} inputAttr={{ id: 'join_name' }} />
           <div className={styles.formRow}>
             <RadioInput
               labelText="성별"
@@ -76,7 +86,7 @@ const JoinForm = () => {
               type="none"
               labelText="생일"
               control={control}
-              name="birthDate"
+              name="birth"
               inputAttr={{ id: 'join_birthdate' }}
             />
           </div>

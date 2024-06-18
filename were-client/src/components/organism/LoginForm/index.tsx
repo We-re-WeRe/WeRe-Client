@@ -5,6 +5,8 @@ import TextButton from '@/components/atoms/TextButton';
 import NormalText from '@/components/atoms/NormalText';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FormInput, PasswordInput } from '@/components/molecules/FormInput';
+import { loginApi } from '@/service/auth';
+import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
 
 interface LoginSchema {
@@ -19,9 +21,16 @@ const LoginForm = () => {
       pw: '',
     },
   });
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<LoginSchema> = data => {
-    console.log(data.id, data.pw);
+  const onSubmit: SubmitHandler<LoginSchema> = async data => {
+    loginApi({ account: data.id, password: data.pw })
+      .then(() => {
+        router.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
