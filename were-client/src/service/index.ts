@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getNewAccessToken } from './auth';
+import { getNewAccessToken } from './token';
 
 let isTokenRefreshing = false;
 
