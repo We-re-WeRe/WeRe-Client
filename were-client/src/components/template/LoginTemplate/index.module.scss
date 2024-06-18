@@ -1,46 +1,24 @@
-.templateWrapper {
-  height: 100vh;
-  .backgroundImage {
-    position: absolute;
-    top: 0;
-    left: 0;
+.loginWrapper {
+  min-width: 400px;
+
+  & .divider {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7)), url('/images/login-background.png');
-    background-size: cover;
-    z-index: -1000;
+    height: 1px;
+    background-color: var(--color-border-primary);
+    margin: 0 0 30px 0;
   }
+}
 
-  .loginTemplate {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 20px 0;
+  margin-bottom: 30px;
 
-    & .loginWrapper {
-      min-width: 400px;
-
-      & .logoWrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 0 20px 0;
-        margin-bottom: 30px;
-
-        & > h1 {
-          color: var(--color-white);
-          font-size: 48px;
-          letter-spacing: 14px;
-        }
-      }
-
-      & .divider {
-        width: 100%;
-        height: 1px;
-        background-color: var(--color-border-primary);
-        margin: 0 0 30px 0;
-      }
-    }
+  & > h1 {
+    color: var(--color-white);
+    font-size: 48px;
+    letter-spacing: 14px;
   }
 }

@@ -1,0 +1,37 @@
+.collectionContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .collectionCategory {
+    margin-bottom: 10px;
+  }
+
+  & .collectionItems {
+    display: flex;
+    column-gap: 20px;
+    width: 850px;
+    height: calc(100% + 50px);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  & .collectionItems::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  & .collectionItems::-webkit-scrollbar-track {
+    background-color: none;
+    border-radius: 5px;
+  }
+
+  & .collectionItems::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-1);
+    border-radius: 5px;
+  }
+
+  & .collectionItems::-webkit-scrollbar-button {
+    display: none;
+  }
+}

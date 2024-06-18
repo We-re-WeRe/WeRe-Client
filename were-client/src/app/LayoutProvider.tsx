@@ -6,10 +6,11 @@ import Header from '@/components/organism/Layout/Header';
 
 const LayoutProvider = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = usePathname();
+  const noHeaderPage = pathname === '/login' || pathname === '/join';
 
   return (
     <>
-      {pathname !== '/login' && <Header />}
+      {!noHeaderPage && <Header />}
       {children}
     </>
   );

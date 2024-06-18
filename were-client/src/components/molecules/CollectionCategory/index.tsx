@@ -1,20 +1,19 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import TitleText from '@/components/atoms/TitleText';
 import clsx from 'clsx';
 import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
 
 interface Props {
-  children: ReactNode;
   name: string;
   link: string;
 }
 
-const StorageCategory = ({ children, name, link }: Props) => {
+const CollectionCategory = ({ name, link }: Props) => {
   return (
-    <div className={clsx(styles.categoryName, styles[name])}>
+    <div className={clsx(styles.categoryName)}>
       <TitleText size="large" color="black">
-        {children}
+        {name}
       </TitleText>
       <TextButton size="small" link={link}>
         더보기
@@ -23,4 +22,4 @@ const StorageCategory = ({ children, name, link }: Props) => {
   );
 };
 
-export default StorageCategory;
+export default CollectionCategory;

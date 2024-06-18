@@ -3,8 +3,10 @@
 import React from 'react';
 import TextButton from '@/components/atoms/TextButton';
 import NormalText from '@/components/atoms/NormalText';
-import LoginInput from '@/components/atoms/LoginInput';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormInput, PasswordInput } from '@/components/molecules/FormInput';
+import { loginApi } from '@/service/auth';
+import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
 
 interface LoginSchema {
@@ -13,23 +15,39 @@ interface LoginSchema {
 }
 
 const LoginForm = () => {
-  const { handleSubmit, register } = useForm<LoginSchema>();
+  const { handleSubmit, control } = useForm<LoginSchema>({
+    defaultValues: {
+      id: '',
+      pw: '',
+    },
+  });
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<LoginSchema> = data => {
-    console.log(data.id, data.pw);
+  const onSubmit: SubmitHandler<LoginSchema> = async data => {
+    loginApi({ account: data.id, password: data.pw })
+      .then(() => {
+        router.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.formWrapper}>
         <div className={styles.idPwWrapper}>
-          <LoginInput {...register('id')} id="login_id" labelText="아이디" placeholder="아이디를 입력해주세요." />
-          <LoginInput
-            {...register('pw')}
-            id="login_password"
+          <FormInput
+            labelText="아이디"
+            name="id"
+            inputAttr={{ id: 'login_id', placeholder: '아이디를 입력해주세요.' }}
+            control={control}
+          />
+          <PasswordInput
             labelText="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            type="password"
+            name="pw"
+            inputAttr={{ id: 'login_password', placeholder: '비밀번호를 입력해주세요.' }}
+            control={control}
           />
         </div>
         <div className={styles.validWrapper}>
