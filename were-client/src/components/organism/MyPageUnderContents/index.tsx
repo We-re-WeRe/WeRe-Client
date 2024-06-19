@@ -88,7 +88,9 @@ const MyPageUnderContents = ({ storages, reviews, likeWebtoons, followings }: Pr
 
   return (
     <div className={clsx(styles.commonMyPageUnderContents)}>
-      <MyPageCategoryTitle tapStates={tapStates} onClickTitle={(i: number) => onClickTitle(i)} />
+      <div className={styles.tapContent}>
+        <MyPageCategoryTitle tapStates={tapStates} onClickTitle={(i: number) => onClickTitle(i)} />
+      </div>
       <div className={clsx(styles.selectedContents)}>
         {preIndex === 0 && <StorageBoxList storages={storages} mypage />}
         {preIndex === 1 && <ReviewCardList reviews={reviews} mypage />}

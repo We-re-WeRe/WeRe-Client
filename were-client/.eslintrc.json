@@ -68,6 +68,10 @@
     "no-param-reassign": ["error", { "props": false }],
     "react/jsx-props-no-spreading": "off",
     "react/display-name": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "import/prefer-default-export": [
+      "off",
+      { "target": "single" } // default is "single"
+    ]
   }
 }
