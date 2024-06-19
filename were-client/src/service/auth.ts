@@ -1,8 +1,8 @@
 import { IUserLogin, IUserSignUp } from '@/types/user';
 import apiBe from '.';
 
-export const signUpApi = async ({ account, password, user }: IUserSignUp) => {
-  apiBe
+export const signUpApi = async ({ account, password, user }: IUserSignUp): Promise<string> => {
+  const token = await apiBe
     .post(
       '/auth/signon',
       {
@@ -15,15 +15,23 @@ export const signUpApi = async ({ account, password, user }: IUserSignUp) => {
       },
     )
     .then(res => {
-      console.log(res.data);
+      const { accessToken } = res.data;
+      apiBe.interceptors.request.use(config => {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+        return config;
+      });
+      console.log(res);
+      return accessToken;
     })
     .catch(err => {
-      console.log(err);
+      return Promise.reject(err);
     });
+
+  return token;
 };
 
-export const loginApi = async ({ account, password }: IUserLogin) => {
-  const result = apiBe
+export const loginApi = async ({ account, password }: IUserLogin): Promise<string> => {
+  const token = apiBe
     .post(
       '/auth/login/local',
       { account, password },
@@ -37,12 +45,11 @@ export const loginApi = async ({ account, password }: IUserLogin) => {
         config.headers.Authorization = `Bearer ${accessToken}`;
         return config;
       });
-      console.log(res.data);
-      return res;
+      return accessToken;
     })
     .catch(err => {
       return Promise.reject(err);
     });
 
-  return result;
+  return token;
 };
