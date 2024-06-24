@@ -19,3 +19,12 @@ export const getPointHistory = async (): Promise<IPoint> => {
   console.log(pointHistory);
   return pointHistory;
 };
+
+export const createPoint = async (data: Omit<IPointBase, 'userId'>): Promise<AxiosResponse> => {
+  const response = await apiBe
+    .post(`/points`, data)
+    .then(res => res)
+    .catch(err => Promise.reject(err));
+  console.log(response);
+  return response;
+};
