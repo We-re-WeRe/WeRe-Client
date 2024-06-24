@@ -18,10 +18,7 @@ export interface IStorageCreate extends IStorageBase, MetaData {
 
 export interface IStorage extends IStorageBase {
   id: number;
-  like: {
-    isLike: boolean;
-    count: number;
-  };
+  like: ILike;
 }
 
 export interface IStorageDetail extends IStorage, MetaData {

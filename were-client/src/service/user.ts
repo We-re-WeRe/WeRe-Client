@@ -29,5 +29,3 @@ export const getUserCheck = async (nickname: string): Promise<boolean> => {
 
   return userCheck;
 };
-
-export const B = '';

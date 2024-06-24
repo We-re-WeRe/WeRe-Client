@@ -8,5 +8,3 @@ export const getPointsSum = async (): Promise<IPointSum> => {
     .catch(err => Promise.reject(err));
   return pointSum;
 };
-
-export const B = '';

@@ -45,5 +45,3 @@ export const getNewWebtoons = async (): Promise<IWebtoon[]> => {
 
   return newWebtoons;
 };
-
-export const B = '';

@@ -23,5 +23,3 @@ export const getNewAccessToken = async () => {
   });
   return accessToken;
 };
-
-export const A = 0;

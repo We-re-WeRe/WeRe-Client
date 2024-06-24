@@ -8,5 +8,3 @@ export const getStoragesListUser = async (id?: number): Promise<IStorage[]> => {
     .catch(err => Promise.reject(err));
   return userStorage;
 };
-
-export const B = '';
