@@ -1,6 +1,6 @@
 export interface IPointBase {
   userId: number;
-  mount: number;
+  mount?: number;
   reason: string;
 }
 
