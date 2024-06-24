@@ -10,6 +10,15 @@ export const getWebtoons = async (day: string, company: string): Promise<IWebtoo
   return webtoons;
 };
 
+export const getWebtoonsLiked = async (): Promise<IWebtoon[]> => {
+  const webtoonsLiked = await apiBe
+    .get(`/webtoons/list/liked`)
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+
+  return webtoonsLiked;
+};
+
 export const getWebtoonDetail = async (id: number): Promise<IWebtoonDetail> => {
   const webtoonDetail = await apiBe
     .get(`/webtoons/detail?id=${id}`)

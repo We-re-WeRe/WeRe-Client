@@ -4,42 +4,43 @@ import ImageButton from '@/components/atoms/ImageButton';
 import NormalText from '@/components/atoms/NormalText';
 import LIKE_HEART from '@/../public/assets/like.svg';
 import TextButton from '@/components/atoms/TextButton';
+import { IStorage } from '@/types/storage';
+import { Test } from '@/../public/images/test3.jpg';
 import styles from './index.module.scss';
 
 interface Props {
-  image: string;
-  title: string;
-  author: string;
-  like: number;
-  link: string;
-  userId: string;
+  storage: IStorage & {
+    author?: string;
+  };
 }
 
-const StorageBox = ({ image, title, author, like, link, userId }: Props) => {
+const StorageBox = ({ storage }: Props) => {
   return (
     <div className={clsx(styles.commonStorageBox)}>
       <div className={clsx(styles.overTitle)}>
         {/* Image */}
         <div style={{ marginBottom: 10 }}>
-          <ImageButton usage="thumbnail" imgSrc={image} link={link} />
+          <ImageButton usage="thumbnail" imgSrc={storage.imageURL ? storage.imageURL : Test} link={`${storage.id}`} />
         </div>
         {/* title */}
         <div>
-          <TextButton size="medium" link={link}>
-            {title}
+          <TextButton size="medium" link={`${storage.id}`}>
+            {storage.name}
           </TextButton>
         </div>
       </div>
       <div className={clsx(styles.underTitle)}>
         {/* author */}
-        <TextButton size="medium" link={userId}>
-          {author}
-        </TextButton>
+        {storage.author && (
+          <TextButton size="medium" link="">
+            {storage.author}
+          </TextButton>
+        )}
         {/* like */}
         <div className={clsx(styles.likeArea)}>
           <LIKE_HEART width={15} height={15} />
           <NormalText size="md" color="white">
-            {like}
+            {storage.like.count}
           </NormalText>
         </div>
       </div>

@@ -1,49 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { IUserReview } from '@/types/review';
 import ReviewCard from '@/components/molecules/ReviewCard';
+import { getReviewsListUserMyPage } from '@/service/review';
 import styles from './index.module.scss';
 
-interface ITag {
-  tagName: string;
-  link?: string;
-}
-
-interface IReview {
-  thumbnailImage?: string;
-  profileImage?: string;
-  title?: string;
-  nickname?: string;
-  userID?: string;
-  webtoonID?: string;
-  date: string;
-  starRate: number;
-  review: string;
-  reviewTags: ITag[];
-  likes: number;
-}
-
 interface Props {
-  reviews?: IReview[];
+  id?: number;
+  setCount?: (count: number) => void;
   mypage?: boolean;
 }
 
-const ReviewCardList = ({ reviews, mypage }: Props) => {
+const ReviewCardList = ({ id, setCount, mypage }: Props) => {
+  const [reviews, setReviews] = useState<IUserReview[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const reviewsData = await getReviewsListUserMyPage();
+      setReviews(reviewsData);
+      // userpage 경우
+      if (setCount) {
+        setCount(reviewsData.length);
+      }
+    };
+    fetchData();
+  }, [id, setCount]);
+
   return (
     <div>
       {reviews ? (
         <div className={clsx(mypage ? styles.mypageReviewList : styles.userReviewList)}>
           {reviews.map(review => (
-            <ReviewCard
-              key={review.userID || review.webtoonID}
-              thumbnailImage={review.thumbnailImage}
-              title={review.title}
-              webtoonID={review.webtoonID}
-              date={review.date}
-              starRate={review.starRate}
-              review={review.review}
-              reviewTags={review.reviewTags}
-              likes={review.likes}
-            />
+            <ReviewCard key={review.id} userReview={review} />
           ))}
         </div>
       ) : (

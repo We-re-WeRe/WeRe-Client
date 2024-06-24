@@ -1,12 +1,8 @@
 import WebtoonTag from '@/components/atoms/WebtoonTag';
+import { ITag } from '@/types/tag';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './index.module.scss';
-
-interface ITag {
-  tagName: string;
-  link?: string;
-}
 
 interface Props {
   size: 'small' | 'medium';
@@ -23,7 +19,7 @@ const TagList = ({ size, tags, type }: Props) => {
         type === 'review' ? styles.reviewGap : styles.storageGap,
       )}
     >
-      {tags && tags.map(tag => <WebtoonTag key={tag.tagName} tagName={tag.tagName} size={size} />)}
+      {tags && tags.map(tag => <WebtoonTag key={tag.id} tagName={tag.contents} size={size} />)}
     </div>
   );
 };

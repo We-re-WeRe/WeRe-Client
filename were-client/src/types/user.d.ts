@@ -7,6 +7,8 @@ export interface IUserBase {
 export interface IUser extends IUserBase {
   totalFollowers: number;
   introduceMe: string;
+  isMine: boolean;
+  isFollowing: boolean;
 }
 
 export interface IUserLogin {
