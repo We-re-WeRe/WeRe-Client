@@ -28,3 +28,12 @@ export const createPoint = async (data: Omit<IPointBase, 'userId'>): Promise<Axi
   console.log(response);
   return response;
 };
+
+export const deletePoint = async (pointId: number): Promise<AxiosResponse> => {
+  const response = await apiBe
+    .delete(`/points?id=${pointId}`)
+    .then(res => res)
+    .catch(err => Promise.reject(err));
+  console.log(response);
+  return response;
+};
