@@ -15,7 +15,6 @@ export interface IReviewPatch extends IReviewBase {
 
 // review 생성
 export interface IReviewCreate extends IReviewBase {
-  userId: number;
   webtoonId: number;
 }
 
