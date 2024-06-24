@@ -13,7 +13,6 @@ apiBe.interceptors.response.use(
   response => response,
   // Response Error
   async error => {
-    console.clear();
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 401) {
         if (!isTokenRefreshing) {
