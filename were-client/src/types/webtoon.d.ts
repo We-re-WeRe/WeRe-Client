@@ -22,7 +22,7 @@ export interface IWebtoonDetail extends IWebtoon {
   genre: string;
   explain: string;
   viewCount: number;
-  totalLikes: number;
+  like: ILike;
   tags: ITag[];
   storages: IStorage[];
   reviews: IWebtoonReview[];

@@ -19,10 +19,7 @@ export interface IReviewCreate extends IReviewBase {
 }
 
 export interface IReview extends IReviewPatch {
-  like: {
-    isLike: boolean;
-    count: number;
-  };
+  like: ILike;
   createdAt: Date;
 }
 
