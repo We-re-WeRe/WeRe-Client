@@ -33,8 +33,3 @@ export const deleteReview = async (reviewId:number): Promise<AxiosResponse> => {
     .catch(err => Promise.reject(err));
   return response;
 };
-
-
-
-
-export const B = '';

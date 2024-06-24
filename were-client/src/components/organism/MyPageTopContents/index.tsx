@@ -1,28 +1,41 @@
 'use client';
 
-import React, { RefObject, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import IconText from '@/components/molecules/IconText';
 import IconButton from '@/components/atoms/IconButton';
 import TitleText from '@/components/atoms/TitleText';
 import NormalText from '@/components/atoms/NormalText';
 import ProfileBox from '@/components/molecules/ProfileBox';
-import { StaticImageData } from 'next/image';
 import TextButton from '@/components/atoms/TextButton';
 import LimitedInput from '@/components/molecules/LimitedInput';
+import { getUserDetailMyPage } from '@/service/user';
+import { getPointsSum } from '@/service/point';
+import { IUser } from '@/types/user';
+import { IPointSum } from '@/types/point';
 import styles from './index.module.scss';
 
-interface Props {
-  image?: string | StaticImageData;
-  nickname: string;
-  follower: number;
-  introduce: string;
-  point: number;
-}
-
-const MyPageTopContents = ({ image, nickname, follower, introduce, point }: Props) => {
+const MyPageTopContents = () => {
   const [editCheck, setEditCheck] = useState<boolean>(false);
-
+  const [user, setUser] = useState<IUser>({
+    id: 0,
+    imageURL: '',
+    nickname: 'string',
+    introduceMe: 'string',
+    totalFollowers: 0,
+    isMine: true,
+    isFollowing: true,
+  });
+  const [point, setPoint] = useState<IPointSum>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const userData = await getUserDetailMyPage();
+      const pointData = await getPointsSum();
+      setUser(userData);
+      setPoint(pointData);
+    };
+    fetchData();
+  }, [user, point]);
   const MyPageNicknameRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
   const MyPageIntroduceRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
 
@@ -38,12 +51,12 @@ const MyPageTopContents = ({ image, nickname, follower, introduce, point }: Prop
   return (
     <div className={clsx(styles.overall)}>
       <div className={clsx(styles.profileSection)}>
-        <ProfileBox imgSrc={image} edit />
+        <ProfileBox imgSrc={user.imageURL} edit />
       </div>
       {!editCheck ? (
         <div className={clsx(styles.textSection)}>
           <div className={clsx(styles.topSection)}>
-            <TitleText size="large">{nickname}</TitleText>
+            <TitleText size="large">{user.nickname}</TitleText>
             <IconButton
               size={24}
               type="edit"
@@ -53,15 +66,20 @@ const MyPageTopContents = ({ image, nickname, follower, introduce, point }: Prop
             />
           </div>
           <div className={clsx(styles.followerSection)}>
-            <IconText type="follower" text={follower} size="sm" />
+            <IconText type="follower" text={user.totalFollowers} size="sm" />
           </div>
-          <div className={clsx(styles.introSection)}>{introduce}</div>
+          <div className={clsx(styles.introSection)}>{user.introduceMe}</div>
         </div>
       ) : (
         <div className={clsx(styles.textSection)}>
           <div className={clsx(styles.topSection)}>
             <div className={clsx(styles.mypageModify, styles.nicknameModify)}>
-              <LimitedInput maxLength={12} className="titleInput" initialValue={nickname} ref={MyPageNicknameRef} />
+              <LimitedInput
+                maxLength={12}
+                className="titleInput"
+                initialValue={user.nickname}
+                ref={MyPageNicknameRef}
+              />
             </div>
             <div className={clsx(styles.buttonWrapper)}>
               <div className={clsx(styles.buttonArea)}>
@@ -81,10 +99,15 @@ const MyPageTopContents = ({ image, nickname, follower, introduce, point }: Prop
             </div>
           </div>
           <div className={clsx(styles.followerSection)}>
-            <IconText type="follower" text={follower} size="sm" />
+            <IconText type="follower" text={user.totalFollowers} size="sm" />
           </div>
           <div className={clsx(styles.mypageModify, styles.introduceModify)}>
-            <LimitedInput maxLength={50} className="titleInput" initialValue={introduce} ref={MyPageIntroduceRef} />
+            <LimitedInput
+              maxLength={50}
+              className="titleInput"
+              initialValue={user.introduceMe}
+              ref={MyPageIntroduceRef}
+            />
           </div>
         </div>
       )}
@@ -92,9 +115,11 @@ const MyPageTopContents = ({ image, nickname, follower, introduce, point }: Prop
         <NormalText size="lg" bold>
           포인트
         </NormalText>
-        <div className={clsx(styles.pointValue)}>
-          <TitleText size="medium">{point}wc</TitleText>
-        </div>
+        {point && (
+          <div className={clsx(styles.pointValue)}>
+            <TitleText size="medium">{point.totalPoint}wc</TitleText>
+          </div>
+        )}
       </div>
     </div>
   );

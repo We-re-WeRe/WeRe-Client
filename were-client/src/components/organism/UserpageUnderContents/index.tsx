@@ -1,53 +1,37 @@
+'use client';
+
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState } from 'react';
 import CategoryTitle from '@/components/molecules/CategoryTitle';
 import StorageBoxList from '../StorageBoxList';
 import ReviewCardList from '../ReviewCardList';
 import styles from './index.module.scss';
 
-interface ITag {
-  tagName: string;
-  link?: string;
-}
-
-interface IReview {
-  thumbnailImage?: string;
-  profileImage?: string;
-  title?: string;
-  nickname?: string;
-  userID?: string;
-  webtoonID?: string;
-  date: string;
-  starRate: number;
-  review: string;
-  reviewTags: ITag[];
-  likes: number;
-}
-
-interface IStorage {
-  image: string;
-  title: string;
-  author: string;
-  like: number;
-  link: string;
-  userId: string;
-}
-
 interface Props {
-  reviews: IReview[];
-  storages: IStorage[];
+  id: number;
 }
 
-const UserpageUnderContents = ({ reviews, storages }: Props) => {
+const UserpageUnderContents = ({ id }: Props) => {
+  const [sCount, setSCount] = useState<number>(0);
+  const [rCount, setRCount] = useState<number>(0);
+
+  const handleSetStoragesCount = (count: number) => {
+    setSCount(count);
+  };
+
+  const handleSetReviewsCount = (count: number) => {
+    setRCount(count);
+  };
+
   return (
     <div className={clsx(styles.overall)}>
       <div className={clsx(styles.storageSection)}>
-        <CategoryTitle category="보관함" count={reviews.length} />
-        <StorageBoxList storages={storages} />
+        <CategoryTitle category="보관함" count={sCount} />
+        <StorageBoxList id={id} setCount={handleSetStoragesCount} />
       </div>
       <div className={clsx(styles.reviewSection)}>
-        <CategoryTitle category="리뷰" count={storages.length} />
-        <ReviewCardList reviews={reviews} />
+        <CategoryTitle category="리뷰" count={rCount} />
+        <ReviewCardList id={id} setCount={handleSetReviewsCount} />
       </div>
     </div>
   );

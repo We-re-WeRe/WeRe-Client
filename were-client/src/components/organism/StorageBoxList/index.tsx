@@ -2,28 +2,34 @@
 
 import StorageBox from '@/components/molecules/StorageBox';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { IStorage } from '@/types/storage';
+import { getStoragesListUser } from '@/service/storage';
 import useNewStorageModal from '../NewStorageModal/useNewStorageModal';
 import styles from './index.module.scss';
 import { IconTagAdd } from '../../../../public/assets';
 import NewStorageModal from '../NewStorageModal';
 
-interface IStorage {
-  image: string;
-  title: string;
-  author: string;
-  like: number;
-  link: string;
-  userId: string;
-}
-
 interface Props {
-  storages?: IStorage[];
+  id?: number;
+  setCount?: (count: number) => void;
   mypage?: boolean;
 }
 
-const StorageBoxList = ({ storages, mypage }: Props) => {
+const StorageBoxList = ({ id, setCount, mypage }: Props) => {
+  const [storages, setStorages] = useState<IStorage[]>();
   const { openModal } = useNewStorageModal();
+  useEffect(() => {
+    const fetchData = async () => {
+      const storagesData = await getStoragesListUser(id);
+      setStorages(storagesData);
+      // userpage 경우
+      if (setCount) {
+        setCount(storagesData.length);
+      }
+    };
+    fetchData();
+  }, [id, setCount]);
 
   return (
     <div>
@@ -38,15 +44,7 @@ const StorageBoxList = ({ storages, mypage }: Props) => {
             </div>
           )}
           {storages.map(storage => (
-            <StorageBox
-              key={storage.link}
-              image={storage.image}
-              title={storage.title}
-              author={storage.author}
-              like={storage.like}
-              link={storage.link}
-              userId={storage.userId}
-            />
+            <StorageBox key={storage.id} storage={storage} />
           ))}
         </div>
       ) : (
