@@ -18,9 +18,11 @@ export interface IReviewCreate extends IReviewBase {
   webtoonId: number;
 }
 
-export interface IReview extends IReviewPatch {
+export interface IReview extends IReviewBase {
+  id: number;
   like: ILike;
   createdAt: Date;
+  isMine: boolean;
 }
 
 // 유저 페이지에서 리뷰
