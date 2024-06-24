@@ -1,3 +1,4 @@
+import { ILike } from './like';
 import { IWebtoonReview } from './review';
 import { IStorage } from './storage';
 import { ITag } from './tag';
@@ -23,7 +24,11 @@ export interface IWebtoonDetail extends IWebtoon {
   explain: string;
   viewCount: number;
   like: ILike;
-  tags: ITag[];
   storages: IStorage[];
   reviews: IWebtoonReview[];
+}
+
+export interface IStorageWebtoon extends IWebtoonBase {
+  like: ILike;
+  review: IWebtoonReview;
 }
