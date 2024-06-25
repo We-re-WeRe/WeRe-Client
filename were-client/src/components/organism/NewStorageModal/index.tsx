@@ -9,11 +9,17 @@ import NormalText from '@/components/atoms/NormalText';
 import WebtoonTag from '@/components/atoms/WebtoonTag';
 import AddTag from '@/components/molecules/AddTag';
 import InputTable from '@/components/atoms/InputTable';
+import { getStoragesListUser, postStorages } from '@/service/storage';
+import { IStorage } from '@/types/storage';
 import useNewStorageModal from './useNewStorageModal';
 import styles from './index.module.scss';
 import { IconPrivate, IconPublic } from '../../../../public/assets';
 
-const NewStorageModal = () => {
+interface Props {
+  setStorages: (storages: IStorage[]) => void;
+}
+
+const NewStorageModal = ({ setStorages }: Props) => {
   const { isShow, closeModal } = useNewStorageModal();
   const [tags, setTags] = useState<string[]>([]);
   const [privacy, setPrivacy] = useState<boolean | undefined>(undefined);
@@ -25,6 +31,19 @@ const NewStorageModal = () => {
       setPrivacy(isPrivacy);
     } else {
       setPrivacy(!privacy);
+    }
+  };
+
+  const handleCreateStorage = async () => {
+    if (NewStorageTextareaRef.current && NewStroageInputRef.current) {
+      const { value: titleValue } = NewStroageInputRef.current;
+      const { value: introduceValue } = NewStorageTextareaRef.current;
+
+      if (privacy) {
+        await postStorages(titleValue, introduceValue, privacy, tags);
+        setStorages(await getStoragesListUser());
+      }
+      closeModal();
     }
   };
 
@@ -96,7 +115,7 @@ const NewStorageModal = () => {
           >
             취소
           </TextButton>
-          <TextButton size="medium" design="primary">
+          <TextButton size="medium" design="primary" onClick={() => handleCreateStorage()}>
             만들기
           </TextButton>
         </div>

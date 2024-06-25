@@ -9,7 +9,7 @@ import NormalText from '@/components/atoms/NormalText';
 import ProfileBox from '@/components/molecules/ProfileBox';
 import TextButton from '@/components/atoms/TextButton';
 import LimitedInput from '@/components/molecules/LimitedInput';
-import { getUserDetailMyPage } from '@/service/user';
+import { getUserDetailMyPage, patchUser } from '@/service/user';
 import { getPointsSum } from '@/service/point';
 import { IUser } from '@/types/user';
 import { IPointSum } from '@/types/point';
@@ -36,14 +36,15 @@ const MyPageTopContents = () => {
     };
     fetchData();
   }, [user, point]);
+
   const MyPageNicknameRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
   const MyPageIntroduceRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
 
-  const handleModify = () => {
+  const handleModify = async () => {
     if (MyPageNicknameRef.current && MyPageIntroduceRef.current) {
       const { value: nicknameValue } = MyPageNicknameRef.current;
       const { value: introduceValue } = MyPageIntroduceRef.current;
-
+      await patchUser(nicknameValue, introduceValue);
       setEditCheck(!editCheck);
     }
   };
