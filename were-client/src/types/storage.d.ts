@@ -12,9 +12,7 @@ interface MetaData {
   tags: ITag[];
 }
 
-export interface IStorageCreate extends IStorageBase, MetaData {
-  userId: number;
-}
+export interface IStorageCreate extends IStorageBase, MetaData {}
 
 export interface IStorage extends IStorageBase {
   id: number;

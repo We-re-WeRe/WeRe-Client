@@ -33,35 +33,22 @@ const StorageBoxList = ({ id, setCount, mypage }: Props) => {
 
   return (
     <div>
-      {storages ? (
-        <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
-          {mypage && (
-            <div onClick={openModal} role="presentation">
-              <div className={clsx(styles.makeStorage)}>
-                <IconTagAdd />
-              </div>
-              <div className={clsx(styles.makeStorageText)}>새 보관함</div>
+      <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
+        {mypage && (
+          <div onClick={openModal} role="presentation">
+            <div className={clsx(styles.makeStorage)}>
+              <IconTagAdd />
             </div>
-          )}
-          {storages.map(storage => (
-            <StorageBox key={storage.id} storage={storage} />
-          ))}
-        </div>
-      ) : (
-        <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
-          {mypage ? (
-            <div onClick={openModal} role="presentation">
-              <div className={clsx(styles.makeStorage)}>
-                <IconTagAdd />
-              </div>
-              <div className={clsx(styles.makeStorageText)}>새 보관함</div>
-            </div>
-          ) : (
-            <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
-          )}
-        </div>
-      )}
-      <NewStorageModal />
+            <div className={clsx(styles.makeStorageText)}>새 보관함</div>
+          </div>
+        )}
+        {storages ? (
+          storages.map(storage => <StorageBox key={storage.id} storage={storage} />)
+        ) : (
+          <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
+        )}
+      </div>
+      <NewStorageModal setStorages={setStorages} />
     </div>
   );
 };
