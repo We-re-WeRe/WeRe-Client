@@ -1,4 +1,4 @@
-import { IWebtoon, IWebtoonDetail } from '@/types/webtoon';
+import { IStorageWebtoon, IWebtoon, IWebtoonDetail } from '@/types/webtoon';
 import apiBe from '.';
 
 export const getWebtoons = async (day: string, company: string): Promise<IWebtoon[]> => {
@@ -46,4 +46,11 @@ export const getNewWebtoons = async (): Promise<IWebtoon[]> => {
   return newWebtoons;
 };
 
-export const B = '';
+export const getStorageWebtoonList = async (storageId: number): Promise<IStorageWebtoon[]> => {
+  const storageWebtoons = await apiBe
+    .get(`/webtoons/list/storage?storageId=${storageId}`)
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+
+  return storageWebtoons;
+};

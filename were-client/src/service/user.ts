@@ -52,5 +52,3 @@ export const patchUnFollow = async (targetId: number): Promise<IUser> => {
 
   return unfollowPatch;
 };
-
-export const B = '';

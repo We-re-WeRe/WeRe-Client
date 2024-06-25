@@ -23,5 +23,3 @@ export const postStorages = async (
 
   return postStorage;
 };
-
-export const B = '';

@@ -1,4 +1,5 @@
-import { IUserReview } from '@/types/review';
+import { IReviewCreate, IReviewPatch, IUserReview } from '@/types/review';
+import { AxiosResponse } from 'axios';
 import apiBe from '.';
 
 export const getReviewsListUser = async (id: number): Promise<IUserReview[]> => {
@@ -6,15 +7,30 @@ export const getReviewsListUser = async (id: number): Promise<IUserReview[]> => 
     .get(`/reviews/list/user?ownerId=${id}`)
     .then(res => res.data)
     .catch(err => Promise.reject(err));
+  console.log(userReview);
   return userReview;
 };
 
-export const getReviewsListUserMyPage = async (): Promise<IUserReview[]> => {
-  const userReview = await apiBe
-    .get(`/reviews/list/user`)
-    .then(res => res.data)
+export const createReview = async (body: IReviewCreate): Promise<AxiosResponse> => {
+  const response = await apiBe
+    .post('/reviews', body)
+    .then(res => res)
     .catch(err => Promise.reject(err));
-  return userReview;
+  return response;
 };
 
-export const B = '';
+export const updateReview = async (body: IReviewPatch): Promise<AxiosResponse> => {
+  const response = await apiBe
+    .patch('/reviews', body)
+    .then(res => res)
+    .catch(err => Promise.reject(err));
+  return response;
+};
+
+export const deleteReview = async (reviewId: number): Promise<AxiosResponse> => {
+  const response = await apiBe
+    .delete(`/reviews?id=${reviewId}`)
+    .then(res => res)
+    .catch(err => Promise.reject(err));
+  return response;
+};

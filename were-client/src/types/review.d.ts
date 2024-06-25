@@ -15,16 +15,14 @@ export interface IReviewPatch extends IReviewBase {
 
 // review 생성
 export interface IReviewCreate extends IReviewBase {
-  userId: number;
   webtoonId: number;
 }
 
-export interface IReview extends IReviewPatch {
-  like: {
-    isLike: boolean;
-    count: number;
-  };
+export interface IReview extends IReviewBase {
+  id: number;
+  like: ILike;
   createdAt: Date;
+  isMine: boolean;
 }
 
 // 유저 페이지에서 리뷰
