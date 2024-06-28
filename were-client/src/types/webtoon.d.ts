@@ -1,7 +1,6 @@
 import { ILike } from './like';
 import { IWebtoonReview } from './review';
 import { IStorage } from './storage';
-import { ITag } from './tag';
 
 export interface IWebtoonBase {
   id: number;

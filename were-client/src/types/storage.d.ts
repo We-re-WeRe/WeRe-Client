@@ -1,5 +1,6 @@
 import { ITag } from './tag';
 import { IUser } from './user';
+import { ILike } from './like';
 
 export interface IStorageBase {
   name: string;
@@ -20,5 +21,6 @@ export interface IStorage extends IStorageBase {
 }
 
 export interface IStorageDetail extends IStorage, MetaData {
+  createdAt: Date;
   user: IUser;
 }

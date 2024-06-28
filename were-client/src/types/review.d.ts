@@ -1,5 +1,6 @@
 import { ITag } from './tag';
 import { IUserBase } from './user';
+import { ILike } from './like';
 import { IWebtoonBase } from './webtoon';
 
 export interface IReviewBase {
