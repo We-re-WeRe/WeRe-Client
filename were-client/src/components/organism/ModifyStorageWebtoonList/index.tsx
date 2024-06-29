@@ -2,30 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { StaticImageData } from 'next/image';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import TextButton from '@/components/atoms/TextButton';
+import { IStorageWebtoon } from '@/types/webtoon';
 import styles from './index.module.scss';
 import DraggableItem from './draggableItem';
 
-interface IWebtoonReview {
-  reviewStar: number;
-  reviewContent: string;
-  reviewLike: number;
-  webtoonLink: string;
-}
-
-interface IWebtoon {
-  webtoonId: string;
-  webtoonThumbnail: string | StaticImageData;
-  webtoonTitle: string;
-  webtoonAuthor: string;
-  webtoonLike: number;
-  webtoonReviewInfo?: IWebtoonReview;
-}
-
 interface Props {
-  webtoonInfos: IWebtoon[];
+  webtoonInfos: IStorageWebtoon[];
   selectIndex: number;
   handleCompleteButton: () => void;
   handleCancelButton: () => void;
@@ -42,9 +26,9 @@ const getItemStyle = (draggableStyle: any) => ({
 });
 
 const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteButton, handleCancelButton }: Props) => {
-  const [webtoonInfoState, setWebtoonInfoState] = useState<IWebtoon[]>(webtoonInfos);
+  const [webtoonInfoState, setWebtoonInfoState] = useState<IStorageWebtoon[]>(webtoonInfos);
   const [isHover, setIsHover] = useState<boolean[]>([]);
-  const [selectWebtoons, setSelectWebtoons] = useState<IWebtoon[]>([]);
+  const [selectWebtoons, setSelectWebtoons] = useState<IStorageWebtoon[]>([]);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
 
   /** 마우스 오버 */
@@ -62,8 +46,8 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
   };
 
   /** 개별 아이콘 클릭 시 삭제 기능 */
-  const handleDeleteClick = (webtoonId: string) => {
-    setWebtoonInfoState(webtoonInfoState.filter(webtoon => webtoon.webtoonId !== webtoonId));
+  const handleDeleteClick = (webtoonId: number) => {
+    setWebtoonInfoState(webtoonInfoState.filter(webtoon => webtoon.id !== webtoonId));
   };
 
   /** 전체 선택 */
@@ -77,7 +61,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
   };
 
   /** 개별 선택 */
-  const handleWebtoonToggle = (webtoon: IWebtoon) => {
+  const handleWebtoonToggle = (webtoon: IStorageWebtoon) => {
     const isSelected = selectWebtoons.some(item => item === webtoon);
 
     if (isSelected) {
@@ -95,7 +79,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
   };
 
   /** 드래그 후 재배열 */
-  const reorder = (list: IWebtoon[], startIndex: number, endIndex: number) => {
+  const reorder = (list: IStorageWebtoon[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -160,7 +144,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
             <div {...provided.droppableProps} ref={provided.innerRef} className={clsx(styles.webtoonInfoList)}>
               {webtoonInfoState.map((webtoonInfo, index) => (
                 <DraggableItem
-                  key={webtoonInfo.webtoonId}
+                  key={webtoonInfo.id}
                   webtoonInfo={webtoonInfo}
                   index={index}
                   isHover={isHover}

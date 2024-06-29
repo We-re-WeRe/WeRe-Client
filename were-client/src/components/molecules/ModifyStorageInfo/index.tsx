@@ -1,41 +1,24 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import WebtoonTag from '@/components/atoms/WebtoonTag';
 import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
+import Test from '@/../public/images/testThumbnail.png';
+import { IStorageDetail } from '@/types/storage';
 import styles from './index.module.scss';
 import LimitedInput from '../LimitedInput';
 import AddTag from '../AddTag';
 import { IconPrivate, IconPublic } from '../../../../public/assets';
 
-interface ITag {
-  tagName: string;
-  link?: string;
-}
-
 interface Props {
-  id: number;
-  imageURL: string | StaticImageData;
-  privacy: boolean;
-  title: string;
-  tagList?: ITag[];
-  introduce: string;
+  info: IStorageDetail;
   handleCancelButton: () => void;
   handleCompleteButton: () => void;
 }
 
-const ModifyStorageInfo = ({
-  id,
-  imageURL,
-  privacy,
-  title,
-  tagList,
-  introduce,
-  handleCancelButton,
-  handleCompleteButton,
-}: Props) => {
+const ModifyStorageInfo = ({ info, handleCancelButton, handleCompleteButton }: Props) => {
   const [tags, setTags] = useState<string[]>([]);
-  const [privacySetting, setPrivacySetting] = useState<boolean>(privacy);
+  const [privacySetting, setPrivacySetting] = useState<boolean>(info.isPublic);
   const StorageTitleRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
   const StorageIntroduceRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
 
@@ -45,16 +28,16 @@ const ModifyStorageInfo = ({
   };
 
   useEffect(() => {
-    if (tagList) {
-      const initialTags = tagList.map(tag => tag.tagName);
+    if (info.tags) {
+      const initialTags = info.tags.map(tag => tag.contents);
       setTags(initialTags);
     }
-  }, [tagList]);
+  }, [info.tags]);
 
   return (
     <div className={styles.modifyStorageInfoWrapper}>
       <div className={styles.imageUploadSection}>
-        <Image src={imageURL} alt="image" width={200} height={200} />
+        <Image src={info.imageURL ? info.imageURL : Test} alt="image" width={200} height={200} />
       </div>
       <div className={styles.textSection}>
         <div className={styles.privacySection}>
@@ -70,7 +53,7 @@ const ModifyStorageInfo = ({
           </div>
         </div>
         <div className={styles.titleSection}>
-          <LimitedInput className="titleSection" initialValue={title} maxLength={20} ref={StorageTitleRef} />
+          <LimitedInput className="titleSection" initialValue={info.name} maxLength={20} ref={StorageTitleRef} />
         </div>
         <div className={styles.tagsSection}>
           <AddTag addTag={setTags} tags={tags} />
@@ -85,7 +68,7 @@ const ModifyStorageInfo = ({
         <div className={styles.introduceSection}>
           <LimitedInput
             className="introduceSection"
-            initialValue={introduce}
+            initialValue={info.explain}
             maxLength={200}
             ref={StorageIntroduceRef}
           />

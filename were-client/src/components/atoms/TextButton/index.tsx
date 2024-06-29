@@ -8,7 +8,7 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
-  link?: string;
+  link?: number;
   size: 'small' | 'medium' | 'large';
   bold?: boolean;
   design?: 'none' | 'primary' | 'inverse' | 'privacy';
@@ -18,7 +18,7 @@ const TextButton = ({ children, onClick, disabled, type, link, size, bold, desig
   if (link) {
     return (
       <Link
-        href={link}
+        href={link.toString()}
         className={clsx(
           styles.textButton,
           styles[size ?? 'medium'],

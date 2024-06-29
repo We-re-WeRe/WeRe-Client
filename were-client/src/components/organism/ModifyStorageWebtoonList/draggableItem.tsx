@@ -3,36 +3,20 @@ import { Draggable } from '@hello-pangea/dnd';
 import clsx from 'clsx';
 import StorageWebtoonInfo from '@/components/molecules/StorageWebtoonInfo';
 import IconButton from '@/components/atoms/IconButton';
-import { StaticImageData } from 'next/image';
+import { IStorageWebtoon } from '@/types/webtoon';
 import { IconDelete } from '../../../../public/assets';
 import styles from './index.module.scss';
 
-interface IWebtoonReview {
-  reviewStar: number;
-  reviewContent: string;
-  reviewLike: number;
-  webtoonLink: string;
-}
-
-interface IWebtoon {
-  webtoonId: string;
-  webtoonThumbnail: string | StaticImageData;
-  webtoonTitle: string;
-  webtoonAuthor: string;
-  webtoonLike: number;
-  webtoonReviewInfo?: IWebtoonReview;
-}
-
 interface Props {
-  webtoonInfo: IWebtoon;
+  webtoonInfo: IStorageWebtoon;
   index: number;
   isHover: boolean[];
   handleIconOver: (index: number) => void;
   handleIconLeave: (index: number) => void;
-  handleDeleteClick: (webtoonId: string) => void;
+  handleDeleteClick: (webtoonId: number) => void;
   getItemStyle: (draggableStyle: any) => React.CSSProperties;
-  selectWebtoons: IWebtoon[];
-  handleWebtoonToggle: (webtoon: IWebtoon) => void;
+  selectWebtoons: IStorageWebtoon[];
+  handleWebtoonToggle: (webtoon: IStorageWebtoon) => void;
 }
 
 const DraggableItem = ({
@@ -47,7 +31,7 @@ const DraggableItem = ({
   handleWebtoonToggle,
 }: Props) => {
   return (
-    <Draggable key={webtoonInfo.webtoonId} draggableId={webtoonInfo.webtoonId} index={index}>
+    <Draggable key={webtoonInfo.id} draggableId={webtoonInfo.id.toString()} index={index}>
       {provided => (
         <div
           ref={provided.innerRef}
@@ -60,14 +44,9 @@ const DraggableItem = ({
             type="checkbox"
             checked={selectWebtoons?.includes(webtoonInfo)}
             onChange={() => handleWebtoonToggle(webtoonInfo)}
-            id={webtoonInfo.webtoonTitle}
+            id={webtoonInfo.id.toString()}
           />
-          <StorageWebtoonInfo
-            webtoonThumbnail={webtoonInfo.webtoonThumbnail}
-            webtoonTitle={webtoonInfo.webtoonTitle}
-            webtoonAuthor={webtoonInfo.webtoonAuthor}
-            webtoonLike={webtoonInfo.webtoonLike}
-          />
+          <StorageWebtoonInfo webtoon={webtoonInfo} reviewShow={false} />
           <div
             className={clsx(styles.deleteIcon)}
             onMouseOver={() => handleIconOver(index)}
@@ -76,7 +55,7 @@ const DraggableItem = ({
           >
             {isHover[index] ? (
               <div className={clsx(styles.hoverDelete)}>
-                <IconButton size={26} type="delete" onClick={() => handleDeleteClick(webtoonInfo.webtoonId)} />
+                <IconButton size={26} type="delete" onClick={() => handleDeleteClick(webtoonInfo.id)} />
               </div>
             ) : (
               <div>

@@ -9,7 +9,7 @@ export interface IStorageBase {
 
 interface MetaData {
   explain: string;
-  isPrivate: boolean;
+  isPublic: boolean;
   tags: ITag[];
 }
 
@@ -17,10 +17,11 @@ export interface IStorageCreate extends IStorageBase, MetaData {}
 
 export interface IStorage extends IStorageBase {
   id: number;
+  createdAt: Date;
   like: ILike;
 }
 
 export interface IStorageDetail extends IStorage, MetaData {
-  createdAt: Date;
+  isMine: boolean;
   user: IUser;
 }

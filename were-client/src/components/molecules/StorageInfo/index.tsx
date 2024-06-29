@@ -2,31 +2,23 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import NormalText from '@/components/atoms/NormalText';
 import TitleText from '@/components/atoms/TitleText';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import IconButton from '@/components/atoms/IconButton';
+import { IStorageDetail } from '@/types/storage';
+import Test from '@/../public/images/testThumbnail.png';
 import styles from './index.module.scss';
 import TagList from '../TagList';
 import IconText from '../IconText';
 import { IconUnLock, IconLock } from '../../../../public/assets';
 import ModifyStorageInfo from '../ModifyStorageInfo';
 
-interface TagInfo {
-  tagName: string;
-  link?: string;
-}
-
 interface Props {
-  thumbnail: string | StaticImageData;
-  open: boolean;
-  title: string;
-  tagList: TagInfo[];
-  introducing: string;
-  like: number;
-  date: string;
+  info: IStorageDetail;
 }
 
-const StorageInfo = ({ thumbnail, open, title, tagList, introducing, like, date }: Props) => {
+const StorageInfo = ({ info }: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const storageDate = new Date(info.createdAt);
 
   const handleEditCheck = () => {
     setIsEdit(true);
@@ -44,12 +36,7 @@ const StorageInfo = ({ thumbnail, open, title, tagList, introducing, like, date 
     <div>
       {isEdit ? (
         <ModifyStorageInfo
-          id={0}
-          imageURL={thumbnail}
-          privacy={open}
-          title={title}
-          tagList={tagList}
-          introduce={introducing}
+          info={info}
           handleCancelButton={handleCancelButton}
           handleCompleteButton={handleCompleteButton}
         />
@@ -57,35 +44,37 @@ const StorageInfo = ({ thumbnail, open, title, tagList, introducing, like, date 
         <div className={clsx(styles.storageInfo)}>
           <div className={clsx(styles.imagePart)}>
             <div className={clsx(styles.storageThumbnail)}>
-              <Image src={thumbnail} alt="thumbnail" width={200} height={200} />
+              <Image src={info.imageURL ? info.imageURL : Test} alt="thumbnail" width={200} height={200} />
             </div>
           </div>
           <div className={clsx(styles.textPart)}>
             <div className={clsx(styles.storagePublicSetting)}>
-              {open ? <IconUnLock /> : <IconLock />}
-              <div className={clsx(styles.setting, open ? styles.publicSet : styles.privateSet)}>
-                <NormalText color={open ? 'white' : 'black'} bold>
-                  {open ? 'public' : 'private'}
+              {info.isPublic ? <IconLock /> : <IconUnLock />}
+              <div className={clsx(styles.setting, info.isPublic ? styles.privateSet : styles.publicSet)}>
+                <NormalText color={info.isPublic ? 'black' : 'white'} bold>
+                  {info.isPublic ? 'private' : 'public'}
                 </NormalText>
               </div>
             </div>
             <div className={clsx(styles.storageTitle)}>
-              <TitleText size={title.trim().length >= 20 ? 'medium' : 'large'} color="white">
-                {title}
+              <TitleText size={info.name.trim().length >= 20 ? 'medium' : 'large'} color="white">
+                {info.name}
               </TitleText>
-              <div className={styles.editButton}>
-                <IconButton size={25} type="edit" onClick={handleEditCheck} />
-              </div>
+              {info.isMine && (
+                <div className={styles.editButton}>
+                  <IconButton size={25} type="edit" onClick={handleEditCheck} />
+                </div>
+              )}
             </div>
             <div className={clsx(styles.storageTags)}>
-              <TagList size="medium" tags={tagList} type="storage" />
+              <TagList size="medium" tags={info.tags} type="storage" />
             </div>
             <div className={clsx(styles.storageIntro)}>
-              <NormalText color="white">{introducing}</NormalText>
+              <NormalText color="white">{info.explain}</NormalText>
             </div>
             <div className={clsx(styles.storageInfoUnder)}>
-              <IconText type="like" text={like} size="sm" />
-              <NormalText color="white">{date}</NormalText>
+              <IconText type="like" text={info.like.count} size="sm" />
+              <NormalText color="white">{`${storageDate.getFullYear()}.${storageDate.getMonth()}.${storageDate.getDay()} ${storageDate.getHours()}:${storageDate.getMinutes()}`}</NormalText>
             </div>
           </div>
         </div>
