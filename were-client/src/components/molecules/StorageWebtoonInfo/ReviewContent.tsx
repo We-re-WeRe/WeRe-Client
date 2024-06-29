@@ -8,7 +8,7 @@ interface Props {
   reviewStar: number;
   reviewContent: string;
   reviewLike: number;
-  webtoonLink: string;
+  webtoonLink: number;
 }
 
 const ReviewContent = ({ reviewStar, reviewContent, reviewLike, webtoonLink }: Props) => {
