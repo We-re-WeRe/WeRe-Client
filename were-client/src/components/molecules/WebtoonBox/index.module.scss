@@ -3,13 +3,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  a:first-child {
-    font-weight: bold;
-  }
-
-  & > a {
-    width: fit-content;
-  }
 
   & > * {
     margin-bottom: 5px;
@@ -17,5 +10,31 @@
   & .addInfo {
     display: flex;
     justify-content: space-between;
+  }
+
+  & .titleSection {
+    width: 100%;
+    text-align: start;
+    overflow: hidden;
+    & > a {
+      width: 100%;
+      font-weight: bold;
+      display: inline-block;
+      text-align: start;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  & .authorSection {
+    & > a {
+      width: 100%;
+      display: inline-block;
+      text-align: start;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 }

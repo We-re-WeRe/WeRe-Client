@@ -17,21 +17,7 @@ const WebtoonList = () => {
     queryFn: (): Promise<IWebtoon[]> => getWebtoons(day, 'n'),
   });
 
-  return (
-    <div className={clsx(styles.webtoonList)}>
-      {webtoons?.map(webtoon => (
-        <WebtoonBox
-          key={webtoon.id}
-          title={webtoon.title}
-          author={webtoon.author[0]}
-          stars={webtoon.totalStarPoint}
-          reviews={webtoon.reviewCount}
-          link={`${webtoon.id}`}
-          imageUrl={webtoon.imageURL}
-        />
-      ))}
-    </div>
-  );
+  return <div className={clsx(styles.webtoonList)}>{webtoons?.map(webtoon => <WebtoonBox webtoon={webtoon} />)}</div>;
 };
 
 export default WebtoonList;
