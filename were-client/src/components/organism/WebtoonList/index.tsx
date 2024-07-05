@@ -2,36 +2,32 @@ import WebtoonBox from '@/components/molecules/WebtoonBox';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './index.module.scss';
+import { IWebtoon } from '@/types/webtoon';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getWebtoons } from '@/service/webtoon';
+import { useSearchParams } from 'next/navigation';
+import { validateDay } from '@/util/date';
 
-interface IWebtoon {
-  title: string;
-  author: string;
-  stars: number;
-  reviews: number;
-  imageUrl: string;
-  link: string;
-}
+const WebtoonList = () => {
+  const param = useSearchParams();
+  const day = validateDay(param.get('tab'));
 
-interface Props {
-  webtoons?: IWebtoon[];
-}
-
-const WebtoonList = ({ webtoons }: Props) => {
-  if (!webtoons) {
-    return <div className={clsx(styles.noWebtoons)}>불러올 웹툰 리스트가 없습니다.</div>;
-  }
+  const { data: webtoons } = useSuspenseQuery({
+    queryKey: ['webtoons', day],
+    queryFn: (): Promise<IWebtoon[]> => getWebtoons(day, 'n'),
+  });
 
   return (
     <div className={clsx(styles.webtoonList)}>
-      {webtoons.map(webtoon => (
+      {webtoons?.map(webtoon => (
         <WebtoonBox
-          key={webtoon.link}
+          key={webtoon.id}
           title={webtoon.title}
-          author={webtoon.author}
-          stars={webtoon.stars}
-          reviews={webtoon.reviews}
-          link={webtoon.link}
-          imageUrl={webtoon.imageUrl}
+          author={webtoon.author[0]}
+          stars={webtoon.totalStarPoint}
+          reviews={webtoon.reviewCount}
+          link={`${webtoon.id}`}
+          imageUrl={webtoon.imageURL}
         />
       ))}
     </div>
