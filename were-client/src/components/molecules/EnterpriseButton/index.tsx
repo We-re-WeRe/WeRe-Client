@@ -21,11 +21,7 @@ const enterpriseList: TenterpriseList = [
 ];
 
 const EnterpriseButton = () => {
-  const [selectedEnterprise, setSelectedEnterprise] = useState<boolean[]>([]);
-
-  useEffect(() => {
-    setSelectedEnterprise(enterpriseList.map(_ => true));
-  }, []);
+  const [selectedEnterprise, setSelectedEnterprise] = useState<boolean[]>([true, true]);
 
   const selectEnterprise = (id: number) => {
     if (selectedEnterprise[id]) {

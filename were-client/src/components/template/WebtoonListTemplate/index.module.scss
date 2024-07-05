@@ -3,7 +3,6 @@
 .webtoonListTemplate {
   @include m.wrapperBox;
   & .templateWrapper {
-    padding-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;

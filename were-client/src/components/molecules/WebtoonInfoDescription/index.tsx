@@ -14,48 +14,15 @@ interface Props {
   description: string;
 }
 
-const AUTHORS = ['임건우', '강성엽'];
-const PAINTERS = ['채승규', '강성엽'];
-
-const getDuplicatedAuthors = (authors: string[], painters: string[]) => {
-  const duplicatedAuthors: string[] = [];
-
-  authors.forEach(author => {
-    if (painters.includes(author)) {
-      duplicatedAuthors.push(author);
-    }
-  });
-
-  return {
-    duplicatedAuthors,
-    dAuthors: authors.filter(author => !duplicatedAuthors.includes(author)),
-    dPainters: painters.filter(painter => !duplicatedAuthors.includes(painter)),
-  };
-};
-
 const WebtoonInfoDescription = () => {
-  const { duplicatedAuthors, dAuthors, dPainters } = getDuplicatedAuthors(AUTHORS, PAINTERS);
+  const { duplicatedAuthors, dAuthors, dPainters } = { duplicatedAuthors: [], dAuthors: [], dPainters: [] };
 
   return (
     <div className={clsx(styles.webtoonInfoDescription)}>
       <TitleText size="large" color="white">
         김부장
       </TitleText>
-      <TagList
-        size="medium"
-        type="storage"
-        tags={[
-          { tagName: '먼치킨' },
-          { tagName: '아저씨' },
-          { tagName: '아빠복수극' },
-          { tagName: '먼치킨2' },
-          { tagName: '아저씨3' },
-          { tagName: '아빠복수극4' },
-          { tagName: '먼치킨5' },
-          { tagName: '아저씨6' },
-          { tagName: '아빠복수극7' },
-        ]}
-      />
+      <TagList size="medium" type="storage" tags={[]} />
       <div className={clsx(styles.authorSection)}>
         {/** 글/그림 */}
         {duplicatedAuthors.length > 0 && (
