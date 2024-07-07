@@ -1,48 +1,15 @@
 import SmallProfileBox from '@/components/molecules/SmallProfileBox';
 import StorageInfo from '@/components/molecules/StorageInfo';
 import StorageWebtoonInfoList from '@/components/organism/StorageWebtoonInfoList';
-import { StaticImageData } from 'next/image';
 import ColorThief from '@/lib/ColorThief';
 import CanvasImage from '@/lib/CanvasImage';
+import Test from '@/../public/images/testThumbnail.png';
 import React, { useEffect, useState } from 'react';
+import { IStorageWebtoon } from '@/types/webtoon';
+import { IStorageDetail } from '@/types/storage';
+import { getStoragesDetail } from '@/service/storage';
+import { getStorageWebtoonList } from '@/service/webtoon';
 import styles from './index.module.scss';
-
-interface ITag {
-  tagName: string;
-  link?: string;
-}
-
-interface IInfo {
-  thumbnail: StaticImageData;
-  open: boolean;
-  title: string;
-  tagList: ITag[];
-  introducing: string;
-  like: number;
-  date: string;
-}
-
-interface IProfile {
-  image: string | StaticImageData;
-  name: string;
-  follower: number;
-  link?: string;
-}
-
-interface IWebtoonReview {
-  reviewStar: number;
-  reviewContent: string;
-  reviewLike: number;
-  webtoonLink: string;
-}
-
-interface IWebtoon {
-  webtoonThumbnail: string | StaticImageData;
-  webtoonTitle: string;
-  webtoonAuthor: string;
-  webtoonLike: number;
-  webtoonReviewInfo?: IWebtoonReview;
-}
 
 interface IColor {
   r: number;
@@ -51,51 +18,68 @@ interface IColor {
 }
 
 interface Props {
-  info: IInfo;
-  profile: IProfile;
-  webtoons: IWebtoon[];
+  id: number;
 }
 
-const StorageInfoTemplate = ({ info, profile, webtoons }: Props) => {
+const StorageInfoTemplate = ({ id }: Props) => {
   const [colors, setColors] = useState<IColor[]>([]);
-  useEffect(() => {
-    const image = new Image();
-    image.src = info.thumbnail.src;
+  const [info, setInfo] = useState<IStorageDetail>();
+  const [webtoons, setWebtoons] = useState<IStorageWebtoon[]>();
 
-    image.onload = () => {
-      setColors(ColorThief.getPalette(new CanvasImage(image), 2));
+  useEffect(() => {
+    const fetchData = async () => {
+      const storageInfoData = await getStoragesDetail(id);
+      const storageWebtoonsData = await getStorageWebtoonList(id);
+
+      setInfo(storageInfoData);
+      setWebtoons(storageWebtoonsData);
     };
-  }, [info.thumbnail.src]);
+
+    fetchData();
+  }, [id, info?.createdAt]);
+
+  useEffect(() => {
+    if (info?.imageURL) {
+      const image = new Image();
+      image.src = info.imageURL;
+
+      image.onload = () => {
+        setColors(ColorThief.getPalette(new CanvasImage(image), 2));
+      };
+    }
+  });
 
   return (
-    <div className={styles.storageInfoContent}>
-      <div
-        className={styles.topContentWrapper}
-        style={{
-          background:
-            colors.length > 0
-              ? `linear-gradient(135deg, rgb(${colors[0].r / 2},${colors[0].g / 2},${colors[0].b / 2}) 0%,rgb(${colors[1].r / 2},${colors[1].g / 2},${colors[1].b / 2}) 100%)`
-              : '',
-        }}
-      >
-        <StorageInfo
-          thumbnail={info.thumbnail}
-          open={info.open}
-          title={info.title}
-          tagList={info.tagList}
-          introducing={info.introducing}
-          like={info.like}
-          date={info.date}
-        />
-      </div>
-      <div className={styles.bottomContentsWrapper}>
-        <div className={styles.profileContent}>
-          <SmallProfileBox image={profile.image} name={profile.name} follower={profile.follower} />
+    <div>
+      {info ? (
+        <div className={styles.storageInfoContent}>
+          <div
+            className={styles.topContentWrapper}
+            style={{
+              background:
+                colors.length > 0
+                  ? `linear-gradient(135deg, rgb(${colors[0].r / 2},${colors[0].g / 2},${colors[0].b / 2}) 0%,rgb(${colors[1].r / 2},${colors[1].g / 2},${colors[1].b / 2}) 100%)`
+                  : '',
+            }}
+          >
+            <StorageInfo info={info} />
+          </div>
+          <div className={styles.bottomContentsWrapper}>
+            <div className={styles.profileContent}>
+              <SmallProfileBox
+                image={info.user.imageURL ? info.user.imageURL : Test}
+                name={info.user.nickname}
+                follower={info.user.totalFollowers}
+              />
+            </div>
+            <div className={styles.webtoonListContent}>
+              <StorageWebtoonInfoList webtoonInfos={webtoons} edit={info.user.isMine} />
+            </div>
+          </div>
         </div>
-        <div className={styles.webtoonListContent}>
-          <StorageWebtoonInfoList webtoonInfos={webtoons} edit={false} />
-        </div>
-      </div>
+      ) : (
+        <div>해당 보관함은 존재하지 않습니다.</div>
+      )}
     </div>
   );
 };

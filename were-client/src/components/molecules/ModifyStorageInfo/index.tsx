@@ -5,6 +5,7 @@ import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
 import Test from '@/../public/images/testThumbnail.png';
 import { IStorageDetail } from '@/types/storage';
+import { patchStorages } from '@/service/storage';
 import styles from './index.module.scss';
 import LimitedInput from '../LimitedInput';
 import AddTag from '../AddTag';
@@ -12,11 +13,10 @@ import { IconPrivate, IconPublic } from '../../../../public/assets';
 
 interface Props {
   info: IStorageDetail;
-  handleCancelButton: () => void;
-  handleCompleteButton: () => void;
+  setIsEdit: (b: boolean) => void;
 }
 
-const ModifyStorageInfo = ({ info, handleCancelButton, handleCompleteButton }: Props) => {
+const ModifyStorageInfo = ({ info, setIsEdit }: Props) => {
   const [tags, setTags] = useState<string[]>([]);
   const [privacySetting, setPrivacySetting] = useState<boolean>(info.isPublic);
   const StorageTitleRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
@@ -25,6 +25,17 @@ const ModifyStorageInfo = ({ info, handleCancelButton, handleCompleteButton }: P
   const deleteTag = (target: string) => {
     const deletedTag = tags.filter(tag2 => target !== tag2);
     setTags(deletedTag);
+  };
+
+  const handleModify = async () => {
+    if (StorageTitleRef.current && StorageIntroduceRef.current) {
+      const { value: nameValue } = StorageTitleRef.current;
+      const { value: explainValue } = StorageIntroduceRef.current;
+
+      await patchStorages(info.id, nameValue, info.imageURL, explainValue, privacySetting, tags);
+
+      setIsEdit(false);
+    }
   };
 
   useEffect(() => {
@@ -41,14 +52,14 @@ const ModifyStorageInfo = ({ info, handleCancelButton, handleCompleteButton }: P
       </div>
       <div className={styles.textSection}>
         <div className={styles.privacySection}>
-          <div className={clsx(styles.publicButton, privacySetting && styles.clickedButton)}>
-            <TextButton size="small" design="privacy" onClick={() => setPrivacySetting(true)}>
-              <IconPublic /> Public
-            </TextButton>
-          </div>
-          <div className={clsx(styles.privateButton, !privacySetting && styles.clickedButton)}>
+          <div className={clsx(styles.publicButton, !privacySetting && styles.clickedButton)}>
             <TextButton size="small" design="privacy" onClick={() => setPrivacySetting(false)}>
               <IconPrivate /> Private
+            </TextButton>
+          </div>
+          <div className={clsx(styles.privateButton, privacySetting && styles.clickedButton)}>
+            <TextButton size="small" design="privacy" onClick={() => setPrivacySetting(true)}>
+              <IconPublic /> Public
             </TextButton>
           </div>
         </div>
@@ -76,10 +87,10 @@ const ModifyStorageInfo = ({ info, handleCancelButton, handleCompleteButton }: P
       </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.buttonArea}>
-          <TextButton type="button" size="medium" design="inverse" onClick={handleCancelButton}>
+          <TextButton type="button" size="medium" design="inverse" onClick={() => setIsEdit(false)}>
             취소
           </TextButton>
-          <TextButton size="medium" design="primary" onClick={handleCompleteButton}>
+          <TextButton size="medium" design="primary" onClick={handleModify}>
             완료
           </TextButton>
         </div>

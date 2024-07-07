@@ -1,38 +1,51 @@
-'use client';
-
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import NormalText from '@/components/atoms/NormalText';
+import { IStorageWebtoon } from '@/types/webtoon';
+import Test from '@/../public/images/testThumbnail.png';
+import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
 import IconText from '../IconText';
 import ReviewContent from './ReviewContent';
 
-interface IReview {
-  reviewStar: number;
-  reviewContent: string;
-  reviewLike: number;
-  webtoonLink: string;
-}
-
 interface Props {
-  webtoonThumbnail: string | StaticImageData;
-  webtoonTitle: string;
-  webtoonAuthor: string;
-  webtoonLike: number;
-  reviewInfo?: IReview;
-  reviewShow?: boolean;
+  webtoon: IStorageWebtoon;
+  reviewShow: boolean;
 }
 
-const StorageWebtoonInfo = ({
-  webtoonThumbnail,
-  webtoonTitle,
-  webtoonAuthor,
-  webtoonLike,
-  reviewInfo,
-  reviewShow,
-}: Props) => {
+const StorageWebtoonInfo = ({ webtoon, reviewShow }: Props) => {
   const [check, setCheck] = useState(false);
+
+  /**
+   *
+   * @param author 글 작가
+   * @param painter 그림 작가
+   * @returns 같으면 동시 출력 다르면 역할별 출력
+   */
+  const handleAuthorFusion = (author: string[], painter: string[]) => {
+    const copyAuthor: string[] = [...author];
+    const copyPainter: string[] = [...painter];
+    const fusion: string[] = [];
+    let authorIndex = 0;
+    while (copyAuthor.length !== authorIndex) {
+      let painterIndex = 0;
+      while (copyPainter.length !== painterIndex) {
+        if (copyAuthor[authorIndex] === copyPainter[painterIndex]) {
+          fusion.push(copyAuthor[authorIndex]);
+
+          delete copyAuthor[authorIndex];
+          delete copyPainter[painterIndex];
+        }
+        painterIndex += 1;
+      }
+      authorIndex += 1;
+    }
+    console.log('fu:', fusion, 'ca:', copyAuthor, 'cp:', copyPainter);
+    const print: string[] = [];
+
+    return '';
+  };
 
   /**
    * @returns 리뷰창 표시or숨김
@@ -57,29 +70,36 @@ const StorageWebtoonInfo = ({
     <div className={clsx(styles.storageWebtoonElement)}>
       <div className={clsx(styles.swInfo)} onClick={onClickInfo} role="button" tabIndex={0}>
         <div className={clsx(styles.swThumbnail)}>
-          <Image src={webtoonThumbnail} alt="thumbnail" width={50} height={50} />
+          <Image src={webtoon.imageURL ? webtoon.imageURL : Test} alt="thumbnail" width={50} height={50} />
         </div>
         <div className={clsx(styles.swTitle)}>
-          <NormalText>{narrowTitle(webtoonTitle)}</NormalText>
+          <NormalText>{narrowTitle(webtoon.title)}</NormalText>
         </div>
         <div className={clsx(styles.swAuthor)}>
-          <NormalText>{webtoonAuthor}</NormalText>
+          <NormalText>{handleAuthorFusion(webtoon.author, webtoon.painter)}</NormalText>
         </div>
         <div className={clsx(styles.swLike)}>
-          <IconText type="like" text={webtoonLike} size="sm" />
+          <IconText type="like" text={webtoon.like.count} size="sm" />
         </div>
       </div>
       {reviewShow && (
         <div className={clsx(check ? styles.swReviewExpose : styles.swReviewHide)}>
-          {reviewInfo ? (
+          {webtoon.review.contents ? (
             <ReviewContent
-              reviewStar={reviewInfo.reviewStar}
-              reviewContent={reviewInfo.reviewContent}
-              reviewLike={reviewInfo.reviewLike}
-              webtoonLink={reviewInfo.webtoonLink}
+              reviewStar={webtoon.review.starPoint}
+              reviewContent={webtoon.review.contents}
+              reviewLike={webtoon.review.like.count}
+              webtoonLink={webtoon.id}
             />
           ) : (
-            <div className={styles.emptyReview}>작성된 리뷰가 없습니다.</div>
+            <div className={styles.emptyReview}>
+              <div className={styles.webtoonLink}>
+                <TextButton size="small" link={webtoon.id}>
+                  웹툰 보러가기 →
+                </TextButton>
+              </div>
+              <NormalText>작성된 리뷰가 없습니다.</NormalText>
+            </div>
           )}
         </div>
       )}

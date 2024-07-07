@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import NormalText from '@/components/atoms/NormalText';
 import TitleText from '@/components/atoms/TitleText';
@@ -24,22 +24,10 @@ const StorageInfo = ({ info }: Props) => {
     setIsEdit(true);
   };
 
-  const handleCancelButton = () => {
-    setIsEdit(false);
-  };
-
-  const handleCompleteButton = () => {
-    setIsEdit(false);
-  };
-
   return (
     <div>
       {isEdit ? (
-        <ModifyStorageInfo
-          info={info}
-          handleCancelButton={handleCancelButton}
-          handleCompleteButton={handleCompleteButton}
-        />
+        <ModifyStorageInfo info={info} setIsEdit={setIsEdit} />
       ) : (
         <div className={clsx(styles.storageInfo)}>
           <div className={clsx(styles.imagePart)}>
@@ -49,10 +37,10 @@ const StorageInfo = ({ info }: Props) => {
           </div>
           <div className={clsx(styles.textPart)}>
             <div className={clsx(styles.storagePublicSetting)}>
-              {info.isPublic ? <IconLock /> : <IconUnLock />}
-              <div className={clsx(styles.setting, info.isPublic ? styles.privateSet : styles.publicSet)}>
-                <NormalText color={info.isPublic ? 'black' : 'white'} bold>
-                  {info.isPublic ? 'private' : 'public'}
+              {info.isPublic ? <IconUnLock /> : <IconLock />}
+              <div className={clsx(styles.setting, info.isPublic ? styles.publicSet : styles.privateSet)}>
+                <NormalText color={info.isPublic ? 'white' : 'black'} bold>
+                  {info.isPublic ? 'public' : 'private'}
                 </NormalText>
               </div>
             </div>

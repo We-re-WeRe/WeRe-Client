@@ -2,28 +2,13 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { StaticImageData } from 'next/image';
 import StorageWebtoonInfo from '@/components/molecules/StorageWebtoonInfo';
+import { IStorageWebtoon } from '@/types/webtoon';
 import styles from './index.module.scss';
 import ModifyStorageWebtoonList from '../ModifyStorageWebtoonList';
 
-interface IWebtoonReview {
-  reviewStar: number;
-  reviewContent: string;
-  reviewLike: number;
-  webtoonLink: string;
-}
-
-interface IWebtoon {
-  webtoonThumbnail: string | StaticImageData;
-  webtoonTitle: string;
-  webtoonAuthor: string;
-  webtoonLike: number;
-  webtoonReviewInfo?: IWebtoonReview;
-}
-
 interface Props {
-  webtoonInfos?: IWebtoon[];
+  webtoonInfos?: IStorageWebtoon[];
   edit: boolean;
 }
 
@@ -61,30 +46,27 @@ const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
   return (
     <div>
       {isCheck ? (
-        <ModifyStorageWebtoonList
-          webtoonInfos={webtoonInfos}
-          selectIndex={selectIndex}
-          handleCompleteButton={handleCompleteButton}
-          handleCancelButton={handleCancelButton}
-        />
+        webtoonInfos && (
+          <ModifyStorageWebtoonList
+            webtoonInfos={webtoonInfos}
+            selectIndex={selectIndex}
+            handleCompleteButton={handleCompleteButton}
+            handleCancelButton={handleCancelButton}
+          />
+        )
       ) : (
         <div className={styles.swiListWrapper}>
           {webtoonInfos ? (
             <div className={clsx(styles.swiList)}>
               {webtoonInfos.map((webtoonInfo, index) => (
-                <div key={webtoonInfo.webtoonAuthor} className={clsx(styles.swiListElement)}>
-                  <div className={clsx(styles.hoverCheckbox)}>
-                    <input type="checkbox" onChange={() => handleCheckboxChange(index)} />
-                  </div>
+                <div key={webtoonInfo.id} className={clsx(styles.swiListElement)}>
+                  {edit && (
+                    <div className={clsx(styles.hoverCheckbox)}>
+                      <input type="checkbox" onChange={() => handleCheckboxChange(index)} />
+                    </div>
+                  )}
                   <div className={styles.webtoonContainer}>
-                    <StorageWebtoonInfo
-                      webtoonThumbnail={webtoonInfo.webtoonThumbnail}
-                      webtoonTitle={webtoonInfo.webtoonTitle}
-                      webtoonAuthor={webtoonInfo.webtoonAuthor}
-                      webtoonLike={webtoonInfo.webtoonLike}
-                      reviewInfo={webtoonInfo.webtoonReviewInfo}
-                      reviewShow={!edit}
-                    />
+                    <StorageWebtoonInfo webtoon={webtoonInfo} reviewShow={!edit} />
                   </div>
                 </div>
               ))}

@@ -68,14 +68,16 @@ export const postStorages = async (
 
 // update storage
 export const patchStorages = async (
-  nameValue: string,
-  imageURLValue: string,
-  explainValue: string,
-  isPublicValue: boolean,
-  tagsValue: string[],
+  storageId: number,
+  nameValue?: string,
+  imageURLValue?: string,
+  explainValue?: string,
+  isPublicValue?: boolean,
+  tagsValue?: string[],
 ): Promise<IStorageCreate> => {
   const patchStorage = await apiBe
     .patch('/storages', {
+      id: storageId,
       name: nameValue,
       imageURL: imageURLValue,
       explain: explainValue,
