@@ -4,14 +4,13 @@ import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
 import React from 'react';
 import DAYS from '@/constant/day';
-import { getToday } from '@/util/date';
 import { useSearchParams } from 'next/navigation';
 import styles from './index.module.scss';
+import { validateDay } from '@/util/date';
 
 const DayFilter = () => {
   const param = useSearchParams();
-  const today = param.get('tab') ? param.get('tab') : getToday().id;
-
+  let today = validateDay(param.get('tab'));
   return (
     <div className={clsx(styles.dayFilter)}>
       {DAYS.map(day => (

@@ -1,5 +1,6 @@
+export type Tday = 'sun' | 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat';
 interface IDay {
-  id: string;
+  id: Tday;
   text: string;
 }
 
@@ -11,7 +12,6 @@ const DAYS: IDay[] = [
   { id: 'thu', text: '목' },
   { id: 'fri', text: '금' },
   { id: 'sat', text: '토' },
-  { id: 'all', text: '전체' },
 ];
 
 export default DAYS;
