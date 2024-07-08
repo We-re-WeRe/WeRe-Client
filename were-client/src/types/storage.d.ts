@@ -3,6 +3,7 @@ import { IUser } from './user';
 import { ILike } from './like';
 
 export interface IStorageBase {
+  id: number;
   name: string;
   imageURL: string;
 }
@@ -16,7 +17,6 @@ interface MetaData {
 export interface IStorageCreate extends IStorageBase, MetaData {}
 
 export interface IStorage extends IStorageBase {
-  id: number;
   createdAt: Date;
   like: ILike;
 }
