@@ -1,14 +1,18 @@
+import React, { useEffect, useState } from 'react';
+
 import SmallProfileBox from '@/components/molecules/SmallProfileBox';
 import StorageInfo from '@/components/molecules/StorageInfo';
 import StorageWebtoonInfoList from '@/components/organism/StorageWebtoonInfoList';
+
 import ColorThief from '@/lib/ColorThief';
 import CanvasImage from '@/lib/CanvasImage';
+
 import Test from '@/../public/images/testThumbnail.png';
-import React, { useEffect, useState } from 'react';
-import { IStorageWebtoon } from '@/types/webtoon';
+
 import { IStorageDetail } from '@/types/storage';
 import { getStoragesDetail } from '@/service/storage';
-import { getStorageWebtoonList } from '@/service/webtoon';
+import { useSuspenseQuery } from '@tanstack/react-query';
+
 import styles from './index.module.scss';
 
 interface IColor {
@@ -23,35 +27,27 @@ interface Props {
 
 const StorageInfoTemplate = ({ id }: Props) => {
   const [colors, setColors] = useState<IColor[]>([]);
-  const [info, setInfo] = useState<IStorageDetail>();
-  const [webtoons, setWebtoons] = useState<IStorageWebtoon[]>();
+  console.log(colors);
+
+  const { data: infoStorage } = useSuspenseQuery({
+    queryKey: ['storages', id],
+    queryFn: (): Promise<IStorageDetail> => getStoragesDetail(id),
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const storageInfoData = await getStoragesDetail(id);
-      const storageWebtoonsData = await getStorageWebtoonList(id);
-
-      setInfo(storageInfoData);
-      setWebtoons(storageWebtoonsData);
-    };
-
-    fetchData();
-  }, [id, info?.createdAt]);
-
-  useEffect(() => {
-    if (info?.imageURL) {
+    if (infoStorage.imageURL) {
       const image = new Image();
-      image.src = info.imageURL;
+      image.src = infoStorage.imageURL;
 
       image.onload = () => {
         setColors(ColorThief.getPalette(new CanvasImage(image), 2));
       };
     }
-  });
+  }, []);
 
   return (
     <div>
-      {info ? (
+      {infoStorage ? (
         <div className={styles.storageInfoContent}>
           <div
             className={styles.topContentWrapper}
@@ -62,18 +58,18 @@ const StorageInfoTemplate = ({ id }: Props) => {
                   : '',
             }}
           >
-            <StorageInfo info={info} />
+            <StorageInfo info={infoStorage} />
           </div>
           <div className={styles.bottomContentsWrapper}>
             <div className={styles.profileContent}>
               <SmallProfileBox
-                image={info.user.imageURL ? info.user.imageURL : Test}
-                name={info.user.nickname}
-                follower={info.user.totalFollowers}
+                image={infoStorage.user.imageURL ? infoStorage.user.imageURL : Test}
+                name={infoStorage.user.nickname}
+                follower={infoStorage.user.totalFollowers}
               />
             </div>
             <div className={styles.webtoonListContent}>
-              <StorageWebtoonInfoList webtoonInfos={webtoons} edit={info.user.isMine} />
+              <StorageWebtoonInfoList id={infoStorage.id} edit={infoStorage.isMine} />
             </div>
           </div>
         </div>

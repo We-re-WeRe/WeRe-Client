@@ -6,41 +6,25 @@ import StorageWebtoonInfo from '@/components/molecules/StorageWebtoonInfo';
 import { IStorageWebtoon } from '@/types/webtoon';
 import styles from './index.module.scss';
 import ModifyStorageWebtoonList from '../ModifyStorageWebtoonList';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getStorageWebtoonList } from '@/service/webtoon';
 
 interface Props {
-  webtoonInfos?: IStorageWebtoon[];
+  id: number;
   edit: boolean;
 }
 
-const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
+const StorageWebtoonInfoList = ({ id, edit }: Props) => {
   const [isCheck, setIsCheck] = useState<boolean>(false);
   const [selectIndex, setSelectIndex] = useState<number>(-1);
+  const { data: webtoonInfos } = useSuspenseQuery({
+    queryKey: ['storages'],
+    queryFn: (): Promise<IStorageWebtoon[]> => getStorageWebtoonList(id),
+  });
 
-  /**
-   *
-   * @param index : 클릭한 webtoon
-   *
-   * 선택한 웹툰의 checkbox가 표시되고 수정 컴포넌트로 바뀜.
-   */
   const handleCheckboxChange = (index: number) => {
     setSelectIndex(index);
     setIsCheck(true);
-  };
-
-  /**
-   * 완료 버튼
-   * 클릭 시 삭제가 완료된 상태로 돌아감.
-   */
-  const handleCompleteButton = () => {
-    setIsCheck(false);
-  };
-
-  /**
-   * 취소 버튼
-   * 클릭 시 삭제가 되지않은 원상태로 돌아감.
-   */
-  const handleCancelButton = () => {
-    setIsCheck(false);
   };
 
   return (
@@ -48,10 +32,10 @@ const StorageWebtoonInfoList = ({ webtoonInfos, edit }: Props) => {
       {isCheck ? (
         webtoonInfos && (
           <ModifyStorageWebtoonList
+            storageId={id}
             webtoonInfos={webtoonInfos}
             selectIndex={selectIndex}
-            handleCompleteButton={handleCompleteButton}
-            handleCancelButton={handleCancelButton}
+            setIsCheck={setIsCheck}
           />
         )
       ) : (
