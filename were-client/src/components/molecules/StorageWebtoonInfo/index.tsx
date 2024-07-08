@@ -8,6 +8,7 @@ import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
 import IconText from '../IconText';
 import ReviewContent from './ReviewContent';
+import { authorsInWebtoonList } from '@/util/author';
 
 interface Props {
   webtoon: IStorageWebtoon;
@@ -16,36 +17,6 @@ interface Props {
 
 const StorageWebtoonInfo = ({ webtoon, reviewShow }: Props) => {
   const [check, setCheck] = useState(false);
-
-  /**
-   *
-   * @param author 글 작가
-   * @param painter 그림 작가
-   * @returns 같으면 동시 출력 다르면 역할별 출력
-   */
-  const handleAuthorFusion = (author: string[], painter: string[]) => {
-    const copyAuthor: string[] = [...author];
-    const copyPainter: string[] = [...painter];
-    const fusion: string[] = [];
-    let authorIndex = 0;
-    while (copyAuthor.length !== authorIndex) {
-      let painterIndex = 0;
-      while (copyPainter.length !== painterIndex) {
-        if (copyAuthor[authorIndex] === copyPainter[painterIndex]) {
-          fusion.push(copyAuthor[authorIndex]);
-
-          delete copyAuthor[authorIndex];
-          delete copyPainter[painterIndex];
-        }
-        painterIndex += 1;
-      }
-      authorIndex += 1;
-    }
-    console.log('fu:', fusion, 'ca:', copyAuthor, 'cp:', copyPainter);
-    const print: string[] = [];
-
-    return '';
-  };
 
   /**
    * @returns 리뷰창 표시or숨김
@@ -76,7 +47,7 @@ const StorageWebtoonInfo = ({ webtoon, reviewShow }: Props) => {
           <NormalText>{narrowTitle(webtoon.title)}</NormalText>
         </div>
         <div className={clsx(styles.swAuthor)}>
-          <NormalText>{handleAuthorFusion(webtoon.author, webtoon.painter)}</NormalText>
+          <NormalText>{authorsInWebtoonList(webtoon.author, webtoon.painter)}</NormalText>
         </div>
         <div className={clsx(styles.swLike)}>
           <IconText type="like" text={webtoon.like.count} size="sm" />

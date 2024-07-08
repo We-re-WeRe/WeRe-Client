@@ -7,12 +7,13 @@ import TextButton from '@/components/atoms/TextButton';
 import { IStorageWebtoon } from '@/types/webtoon';
 import styles from './index.module.scss';
 import DraggableItem from './draggableItem';
+import { deleteWebtoonStorages } from '@/service/storage';
 
 interface Props {
+  storageId: number;
   webtoonInfos: IStorageWebtoon[];
   selectIndex: number;
-  handleCompleteButton: () => void;
-  handleCancelButton: () => void;
+  setIsCheck: (b: boolean) => void;
 }
 
 /**
@@ -25,20 +26,18 @@ const getItemStyle = (draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteButton, handleCancelButton }: Props) => {
+const ModifyStorageWebtoonList = ({ storageId, webtoonInfos, selectIndex, setIsCheck }: Props) => {
   const [webtoonInfoState, setWebtoonInfoState] = useState<IStorageWebtoon[]>(webtoonInfos);
   const [isHover, setIsHover] = useState<boolean[]>([]);
   const [selectWebtoons, setSelectWebtoons] = useState<IStorageWebtoon[]>([]);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
 
-  /** 마우스 오버 */
   const handleIconOver = (index: number) => {
     const tmp = [...isHover];
     tmp[index] = true;
     setIsHover(tmp);
   };
 
-  /** 마우스 리브 */
   const handleIconLeave = (index: number) => {
     const tmp = [...isHover];
     tmp[index] = false;
@@ -50,7 +49,6 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
     setWebtoonInfoState(webtoonInfoState.filter(webtoon => webtoon.id !== webtoonId));
   };
 
-  /** 전체 선택 */
   const handleSelectAll = () => {
     if (isAllSelected) {
       setSelectWebtoons([]);
@@ -71,14 +69,26 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
     }
   };
 
-  /** 선택 삭제 버튼 기능 */
   const handleDeleteButton = () => {
     const updatedWebtoonInfoState = webtoonInfoState.filter(webtoon => !selectWebtoons.includes(webtoon));
     setWebtoonInfoState(updatedWebtoonInfoState);
     setSelectWebtoons([]); // 선택 해제
   };
 
-  /** 드래그 후 재배열 */
+  const handleCompleteButton = () => {
+    useEffect(() => {
+      const fetchData = () => {
+        selectWebtoons.map(async selectWebtoon => {
+          await deleteWebtoonStorages(storageId, selectWebtoon.id);
+        });
+      };
+
+      fetchData();
+    }, []);
+
+    setIsCheck(false);
+  };
+
   const reorder = (list: IStorageWebtoon[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -129,7 +139,7 @@ const ModifyStorageWebtoonList = ({ webtoonInfos, selectIndex, handleCompleteBut
         </div>
         <div className={clsx(styles.buttonWrapper)}>
           <div className={clsx(styles.buttonArea)}>
-            <TextButton size="small" design="inverse" onClick={handleCancelButton}>
+            <TextButton size="small" design="inverse" onClick={() => setIsCheck(false)}>
               취소
             </TextButton>
             <TextButton size="small" design="primary" onClick={handleDeleteButton}>
