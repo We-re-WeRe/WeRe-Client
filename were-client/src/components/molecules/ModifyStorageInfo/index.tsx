@@ -1,15 +1,29 @@
+import Test from '@/../public/images/testThumbnail.png';
+
 import React, { RefObject, useEffect, useRef, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+
 import WebtoonTag from '@/components/atoms/WebtoonTag';
 import TextButton from '@/components/atoms/TextButton';
-import clsx from 'clsx';
-import Test from '@/../public/images/testThumbnail.png';
-import { IStorageDetail } from '@/types/storage';
-import { patchStorages } from '@/service/storage';
-import styles from './index.module.scss';
 import LimitedInput from '../LimitedInput';
 import AddTag from '../AddTag';
+import { IStorageCreate, IStorageDetail } from '@/types/storage';
+import { patchStorages } from '@/service/storage';
+
 import { IconPrivate, IconPublic } from '../../../../public/assets';
+
+import clsx from 'clsx';
+import styles from './index.module.scss';
+
+interface PatchStorageParams {
+  storageId: number;
+  nameValue?: string;
+  imageURLValue?: string;
+  explainValue?: string;
+  isPublicValue?: boolean;
+  tagsValue?: string[];
+}
 
 interface Props {
   info: IStorageDetail;
@@ -27,14 +41,30 @@ const ModifyStorageInfo = ({ info, setIsEdit }: Props) => {
     setTags(deletedTag);
   };
 
-  const handleModify = async () => {
-    if (StorageTitleRef.current && StorageIntroduceRef.current) {
-      const { value: nameValue } = StorageTitleRef.current;
-      const { value: explainValue } = StorageIntroduceRef.current;
-
-      await patchStorages(info.id, nameValue, info.imageURL, explainValue, privacySetting, tags);
-
+  const mutation = useMutation({
+    mutationFn: ({ storageId, nameValue, imageURLValue, explainValue, isPublicValue, tagsValue }: PatchStorageParams) =>
+      patchStorages(storageId, nameValue, imageURLValue, explainValue, isPublicValue, tagsValue),
+    onSuccess: () => {
       setIsEdit(false);
+    },
+    onError: error => {
+      console.error('Error updating storage:', error);
+    },
+  });
+
+  const handleModify = () => {
+    if (StorageTitleRef.current && StorageIntroduceRef.current) {
+      const { value: nameRef } = StorageTitleRef.current;
+      const { value: explainRef } = StorageIntroduceRef.current;
+
+      mutation.mutate({
+        storageId: info.id,
+        nameValue: nameRef,
+        imageURLValue: info.imageURL,
+        explainValue: explainRef,
+        isPublicValue: privacySetting,
+        tagsValue: tags,
+      });
     }
   };
 
