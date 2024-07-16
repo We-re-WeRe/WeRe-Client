@@ -10,16 +10,18 @@ export const getNewAccessToken = async () => {
     .catch(err => {
       if (isAxiosError(err)) {
         if (err.response?.status === 401) {
-          alert('리프레시 토큰 만료');
+          //alert('리프레시 토큰 만료');
           // window.location.replace('/login');
           return Promise.reject(err);
         }
       }
       return Promise.reject(err);
     });
-  apiBe.interceptors.request.use(config => {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-    return config;
-  });
+  if (accessToken) {
+    apiBe.interceptors.request.use(config => {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+      return config;
+    });
+  }
   return accessToken;
 };
