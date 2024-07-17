@@ -14,9 +14,16 @@ apiBe.interceptors.response.use(
   // Response Error
   async error => {
     if (axios.isAxiosError(error)) {
+      // 401 Error : AccessToken 재발급 or RefreshToken 만료
       if (error.response?.status === 401) {
+        //refreshToken 만료
+        if (error.response.data.cause === 'Refresh Token is unvalid.') {
+          return Promise.reject(error);
+        }
+        // AccessToken 만료 / 재발급 RaceCondition 처리
         if (!isTokenRefreshing) {
           isTokenRefreshing = true;
+          console.log(error);
           const accessToken = await getNewAccessToken();
           //  console.log(error.response.config);
           apiBe.interceptors.request.use(config => {
@@ -28,6 +35,7 @@ apiBe.interceptors.response.use(
         }
         return Promise.reject(error);
       }
+
       return Promise.reject(error);
     }
     return Promise.reject(error);

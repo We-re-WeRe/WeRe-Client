@@ -8,6 +8,8 @@ import { FormInput, PasswordInput } from '@/components/molecules/FormInput';
 import { loginApi } from '@/service/auth';
 import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
+import { getUserProfile } from '@/service/user';
+import useUserState from '@/hooks/useUserState';
 
 interface LoginSchema {
   id: string;
@@ -21,11 +23,14 @@ const LoginForm = () => {
       pw: '',
     },
   });
+  const { setUser } = useUserState();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginSchema> = async data => {
     loginApi({ account: data.id, password: data.pw })
-      .then(() => {
+      .then(async () => {
+        const user = await getUserProfile();
+        setUser(user);
         router.push('/');
       })
       .catch(err => {

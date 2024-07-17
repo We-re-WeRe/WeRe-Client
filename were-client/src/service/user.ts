@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user';
+import { IUser, IUserBase } from '@/types/user';
 import apiBe from '.';
 
 export const getUserDetail = async (id: number): Promise<IUser> => {
@@ -51,4 +51,12 @@ export const patchUnFollow = async (targetId: number): Promise<IUser> => {
     .catch(err => Promise.reject(err));
 
   return unfollowPatch;
+};
+
+export const getUserProfile = async (): Promise<IUserBase> => {
+  const userProfile = await apiBe
+    .get('/users/my-profile-image')
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+  return userProfile;
 };
