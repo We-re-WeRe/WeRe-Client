@@ -7,9 +7,9 @@ import SearchBar from '@/components/molecules/SearchBar';
 import TextButton from '@/components/atoms/TextButton';
 import ProfilePopup from '@/components/molecules/ProfilePopup';
 import styles from './index.module.scss';
+import HeaderRight from './HeaderRight';
 
 const Header = () => {
-  const isLogin = true;
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const [transparent, setTransparent] = useState(false);
   useEffect(() => {
@@ -42,14 +42,7 @@ const Header = () => {
     <div className={clsx(styles.headerWrapper, { [styles.scrolling]: transparent })}>
       <nav className={clsx(styles.header)}>
         <NavigationBar />
-        <div className={clsx(styles.headerRight)}>
-          <ul className={clsx(styles.userItems)}>
-            <li>
-              <SearchBar />
-            </li>
-            <li>{!isLogin ? <TextButton size="medium">로그인</TextButton> : <ProfilePopup />}</li>
-          </ul>
-        </div>
+        <HeaderRight />
       </nav>
     </div>
   );
