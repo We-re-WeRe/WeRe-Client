@@ -3,25 +3,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import ProfileButton from '@/components/atoms/ProfileButton';
-import PopupBox, { TItem } from './PopupBox';
+import PopupBox from './PopupBox';
 import styles from './index.module.scss';
+import { IUserBase } from '@/types/user';
 
-const popupItems: TItem[] = [
-  {
-    link: '/my',
-    text: '마이프로필',
-    icon: 'user',
-  },
-  {
-    text: '로그아웃',
-    clickHandler: () => {
-      alert('리뷰');
-    },
-    icon: 'logout',
-  },
-];
+interface Props {
+  user: IUserBase;
+}
 
-const ProfilePopup = () => {
+const ProfilePopup = ({ user }: Props) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const popupBoxRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -39,8 +29,8 @@ const ProfilePopup = () => {
 
   return (
     <div className={clsx(styles.profilePopup)}>
-      <ProfileButton imgSrc="/images/image 9.png" usage="header" onClick={() => setIsShow(true)} />
-      <PopupBox items={popupItems} isShow={isShow} ref={popupBoxRef} />
+      <ProfileButton imgSrc={user.imageURL} usage="header" onClick={() => setIsShow(true)} />
+      <PopupBox isShow={isShow} ref={popupBoxRef} />
     </div>
   );
 };

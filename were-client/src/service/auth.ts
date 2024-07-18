@@ -53,3 +53,7 @@ export const loginApi = async ({ account, password }: IUserLogin): Promise<strin
 
   return token;
 };
+
+export const logoutApi = async () => {
+  await apiBe.post('/auth/logout', undefined, { withCredentials: true }).catch(err => Promise.reject(err));
+};
