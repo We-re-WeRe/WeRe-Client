@@ -3,19 +3,27 @@ import apiBe from '@/service';
 import { getNewAccessToken } from '@/service/token';
 import { getUserProfile } from '@/service/user';
 import React, { useEffect } from 'react';
+import Spinner from '../Spinner';
 
 const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const { user, setUser, clearUser } = useUserState();
+  const { user, setLoading, setUser, clearUser } = useUserState();
 
   useEffect(() => {
     const getUser = async () => {
       const accessToken = await getNewAccessToken().catch(err => {
         console.log('Not Logined');
+        setLoading(false);
       });
 
       if (accessToken) {
-        const data = await getUserProfile();
-        setUser(data);
+        await getUserProfile()
+          .then(res => {
+            setUser(res);
+            setLoading(false);
+          })
+          .catch(err => {
+            setLoading(false);
+          });
       }
     };
     getUser();
