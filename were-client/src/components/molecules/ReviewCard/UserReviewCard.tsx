@@ -14,7 +14,7 @@ interface Props {
   userReview: IUserReview;
 }
 
-const ReviewCard = ({ userReview }: Props) => {
+const UserReviewCard = ({ userReview }: Props) => {
   const [like, setLike] = useState<boolean>(userReview.like.isLike);
   const reviewDate = new Date(userReview.createdAt);
 
@@ -56,4 +56,4 @@ const ReviewCard = ({ userReview }: Props) => {
   );
 };
 
-export default ReviewCard;
+export default UserReviewCard;
