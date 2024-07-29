@@ -3,41 +3,108 @@
 .webtoonInfoBackground {
   width: 100%;
   height: 340px;
-  @include m.wrapperBox;
+  position: relative;
 
   .webtoonInfoWrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: fit-content;
-    width: 100%;
-
-    & .leftSection {
-      flex: 1;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 0 20px;
-      align-self: stretch;
-      @media only screen and (max-width: 1440px) {
-        display: none;
-      }
-    }
+    width: 1024px;
+    height: 100%;
+    margin: 0 auto;
 
     & .webtoonInfoArea {
       display: flex;
       column-gap: 24px;
-    }
+      position: relative;
 
-    & .userItemsArea {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      @media only screen and (max-width: 1440px) {
-        display: none;
+      & .backButton {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translateY(-150%);
       }
     }
+  }
+  & .userItemsArea {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translate(-25%, -50%);
+
+    @media only screen and (max-width: 1440px) {
+      display: none;
+    }
+  }
+}
+
+/* skeleton */
+.skeletonWrapper {
+  width: 100%;
+  height: 340px;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: skeletonFade 0.8s ease-in-out infinite;
+  & > div {
+    display: flex;
+    align-items: center;
+    width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+    column-gap: 24px;
+    & > .imgBox {
+      width: 200px;
+      height: 240px;
+      background-color: var(--skeleton-bg);
+    }
+
+    & > .infoBox {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 240px;
+      row-gap: 10px;
+      & > * {
+        border-radius: 5px;
+      }
+      & > h2 {
+        background-color: var(--skeleton-bg);
+        height: 45px;
+        //animation: skeletonFade 1s ease-in-out infinite;
+      }
+      & > div {
+        display: flex;
+        column-gap: 5px;
+        & .tag {
+          width: 10%;
+          height: 26px;
+          background-color: var(--skeleton-bg);
+          //  animation: skeletonFade 0.2s ease-in-out infinite;
+          border-radius: 10px;
+        }
+      }
+      & > span {
+        background-color: var(--skeleton-bg);
+        //  animation: skeletonFade 0.2s ease-in-out infinite;
+        height: 16px;
+      }
+
+      & > p {
+        flex: 1;
+        background-color: var(--skeleton-bg);
+        // animation: skeletonFade 0.2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes skeletonFade {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0.3;
   }
 }
