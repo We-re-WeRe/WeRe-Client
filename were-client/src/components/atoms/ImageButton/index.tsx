@@ -47,14 +47,7 @@ const ImageButton = ({ onClick, disabled, type, imgSrc, link, usage, className }
   if (link) {
     return (
       <Link href={link} className={clsx(styles.imageButton, styles[usage], className)}>
-        <Image
-          loader={externalImageLoader}
-          unoptimized
-          src={imgSrc}
-          alt="no Image"
-          width={usageSize[usage].width}
-          height={usageSize[usage].height}
-        />
+        <Image src={imgSrc} alt="no Image" width={usageSize[usage].width} height={usageSize[usage].height} />
       </Link>
     );
   }
