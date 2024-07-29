@@ -1,12 +1,9 @@
 .contentsWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
+  min-width: 1024px;
+  width: 1024px;
   .contents {
     padding: 20px;
-    min-width: 1024px;
-    width: 1024px;
     display: flex;
     flex-direction: column;
     row-gap: 40px;
