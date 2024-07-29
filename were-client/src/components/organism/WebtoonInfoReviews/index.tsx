@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { getWebtoonReview } from '@/service/review';
 import { IWebtoonReview } from '@/types/review';
 import { WebtoonReviewCard } from '@/components/molecules/ReviewCard';
-import TestImage from '../../../../public/images/image 9.png';
+
 const WebtoonInfoReviews = () => {
   const titleId = parseInt(useSearchParams().get('titleId')!);
   const { data } = useSuspenseQuery({
@@ -21,7 +21,12 @@ const WebtoonInfoReviews = () => {
         리뷰
       </TitleText>
       <ul className={clsx(styles.reviewList)}>
-        <li>
+        {data.map(review => (
+          <li>
+            <WebtoonReviewCard review={review} key={review.id} />
+          </li>
+        ))}
+        {/* <li>
           <WebtoonReviewCard
             review={{
               contents:
@@ -42,7 +47,7 @@ const WebtoonInfoReviews = () => {
               },
             }}
           />
-        </li>
+        </li> */}
       </ul>
     </div>
   );
