@@ -24,7 +24,11 @@ const WebtoonBox = ({ webtoon }: Props) => {
 
   return (
     <div>
-      <ImageButton usage="thumbnail" imgSrc={imageURL} link={`${id}`} />
+      <ImageButton
+        usage="thumbnail"
+        imgSrc={`${process.env.NEXT_PUBLIC_IMG_PROXY_URL}${imageURL}`}
+        link={`/webtoon/info/list?titleId=${id}`}
+      />
       <div className={clsx(styles.webtoonBoxInfo)}>
         <div className={styles.titleSection}>
           <TextButton size="medium" link={' '}>

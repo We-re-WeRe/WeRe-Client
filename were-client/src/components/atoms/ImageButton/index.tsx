@@ -3,7 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import styles from './index.module.scss';
-import externalImageLoader from '@/util/loader';
 
 interface Props {
   onClick?: () => void;
@@ -47,14 +46,7 @@ const ImageButton = ({ onClick, disabled, type, imgSrc, link, usage, className }
   if (link) {
     return (
       <Link href={link} className={clsx(styles.imageButton, styles[usage], className)}>
-        <Image
-          loader={externalImageLoader}
-          unoptimized
-          src={imgSrc}
-          alt="no Image"
-          width={usageSize[usage].width}
-          height={usageSize[usage].height}
-        />
+        <Image src={imgSrc} alt="no Image" width={usageSize[usage].width} height={usageSize[usage].height} />
       </Link>
     );
   }

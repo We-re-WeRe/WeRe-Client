@@ -8,6 +8,14 @@
     align-items: center;
   }
 
+  & .header.skeleton {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
   & .storageList {
     display: flex;
     justify-content: space-between;

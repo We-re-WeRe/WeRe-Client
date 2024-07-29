@@ -1,3 +1,4 @@
+'use client';
 import Modal from '@/components/molecules/Modal';
 import React from 'react';
 import clsx from 'clsx';

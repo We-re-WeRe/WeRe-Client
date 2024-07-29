@@ -1,12 +1,22 @@
+'use client';
 import TextButton from '@/components/atoms/TextButton';
 import TitleText from '@/components/atoms/TitleText';
 import StorageBox from '@/components/molecules/StorageBox';
 import React from 'react';
 import clsx from 'clsx';
-import Test from '../../../../public/images/test3.jpg';
 import styles from './index.module.scss';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
+import { getStoragesWithWebtoon } from '@/service/storage';
+import { IStorage } from '@/types/storage';
+import Skeleton from './Skeleton';
 
 const WebtoonInfoStorageList = () => {
+  const titleId = parseInt(useSearchParams().get('titleId')!);
+  const { data } = useSuspenseQuery({
+    queryKey: ['webtoon', titleId, 'storage'],
+    queryFn: (): Promise<IStorage[]> => getStoragesWithWebtoon(titleId),
+  });
   return (
     <div className={clsx(styles.webtoonInfoStorageList)}>
       <div className={clsx(styles.header)}>
@@ -18,11 +28,9 @@ const WebtoonInfoStorageList = () => {
         </TextButton>
       </div>
       <li className={clsx(styles.storageList)}>
-        <StorageBox image="" author="뀨니언" title="뀨니언의 정글 가이드" like={23} link="qw" userId="csk6314" />
-        <StorageBox image="" author="뀨니언" title="뀨니언의 정글 가이드" like={23} link="qw" userId="csk6314" />
-        <StorageBox image="" author="뀨니언" title="뀨니언의 정글 가이드" like={23} link="qw" userId="csk6314" />
-        <StorageBox image="" author="뀨니언" title="뀨니언의 정글 가이드" like={23} link="qw" userId="csk6314" />
-        <StorageBox image="" author="뀨니언" title="뀨니언의 정글 가이드" like={23} link="qw" userId="csk6314" />
+        {data.map(storage => (
+          <StorageBox storage={storage} key={storage.id} />
+        ))}
       </li>
     </div>
   );

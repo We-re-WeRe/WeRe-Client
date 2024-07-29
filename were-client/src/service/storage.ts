@@ -21,6 +21,16 @@ export const getStoragesList = async (): Promise<IStorage[]> => {
   return allStorages;
 };
 
+// get storages with specific webtoon
+export const getStoragesWithWebtoon = async (webtoonId: number): Promise<IStorage[]> => {
+  const storages = await apiBe
+    .get(`/storages/list/webtoon?webtoonId=${webtoonId}`)
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+
+  return storages;
+};
+
 // mypage&userpage storages
 export const getStoragesListUser = async (id?: number): Promise<IStorage[]> => {
   const userStorages = await apiBe

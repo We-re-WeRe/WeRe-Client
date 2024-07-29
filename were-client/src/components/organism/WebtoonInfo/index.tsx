@@ -1,5 +1,5 @@
+'use client';
 import WebtoonInfoDescription from '@/components/molecules/WebtoonInfoDescription';
-import NextImage from 'next/image';
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import CanvasImage from '@/lib/CanvasImage';
@@ -7,7 +7,10 @@ import ColorThief from '@/lib/ColorThief';
 import WebtoonInfoUserItems from '@/components/molecules/WebtoonInfoUserItems';
 import IconButton from '@/components/atoms/IconButton';
 import styles from './index.module.scss';
-import testImage from '../../../../public/images/test3.jpg';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
+import { IWebtoonDetail } from '@/types/webtoon';
+import { getWebtoonDetail } from '@/service/webtoon';
 
 interface IColor {
   r: number;
@@ -22,13 +25,22 @@ const WEBTOON_IMAGE_SIZE = {
 
 const WebtoonInfo = () => {
   const [colors, setColors] = useState<IColor[]>([]);
-  useEffect(() => {
-    const image = new Image();
-    image.src = testImage.src;
+  const titleId = parseInt(useSearchParams().get('titleId')!);
 
-    image.onload = () => {
-      setColors(ColorThief.getPalette(new CanvasImage(image), 2));
-    };
+  const { data: info } = useSuspenseQuery({
+    queryKey: ['webtoon', titleId],
+    queryFn: (): Promise<IWebtoonDetail> => getWebtoonDetail(titleId),
+  });
+
+  useEffect(() => {
+    if (info) {
+      const image = new Image();
+      image.crossOrigin = 'anonymous';
+      image.src = `${process.env.NEXT_PUBLIC_IMG_PROXY_URL}${info.imageURL}`;
+      image.onload = () => {
+        setColors(ColorThief.getPalette(new CanvasImage(image), 2));
+      };
+    }
   }, []);
 
   return (
@@ -38,26 +50,38 @@ const WebtoonInfo = () => {
         background:
           colors.length > 0
             ? `linear-gradient(135deg, rgb(${colors[0].r / 2},${colors[0].g / 2},${colors[0].b / 2}) 0%,rgb(${colors[1].r / 2},${colors[1].g / 2},${colors[1].b / 2}) 100%)`
-            : '',
+            : 'linear-gradient(330deg,rgb(255,255,255,0.5),rgb(255,255,255,0)',
       }}
     >
       <div className={clsx(styles.webtoonInfoWrapper)}>
-        <div className={clsx(styles.leftSection)}>
-          <IconButton
-            size={36}
-            type="back"
-            onClick={() => {
-              window.history.go(-1);
-            }}
-          />
-        </div>
         <div className={clsx(styles.webtoonInfoArea)}>
-          <NextImage src={testImage} alt="" width={WEBTOON_IMAGE_SIZE.width} height={WEBTOON_IMAGE_SIZE.height} />
-          <WebtoonInfoDescription />
+          <img
+            src={`${process.env.NEXT_PUBLIC_IMG_PROXY_URL}${info.imageURL}`}
+            alt=""
+            width={WEBTOON_IMAGE_SIZE.width}
+            height={WEBTOON_IMAGE_SIZE.height}
+          />
+          <WebtoonInfoDescription
+            title={info.title}
+            description={info.explain}
+            authors={info.author}
+            painters={info.painter}
+            tags={[]}
+            genre={info.genre}
+          />
+          <div className={clsx(styles.backButton)}>
+            <IconButton
+              size={24}
+              type="back"
+              onClick={() => {
+                window.history.go(-1);
+              }}
+            />
+          </div>
         </div>
-        <div className={clsx(styles.userItemsArea)}>
-          <WebtoonInfoUserItems />
-        </div>
+      </div>
+      <div className={clsx(styles.userItemsArea)}>
+        <WebtoonInfoUserItems />
       </div>
     </div>
   );

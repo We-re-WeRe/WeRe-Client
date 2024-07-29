@@ -24,8 +24,6 @@ export interface IWebtoonDetail extends IWebtoon {
   explain: string;
   viewCount: number;
   like: ILike;
-  storages: IStorage[];
-  reviews: IWebtoonReview[];
 }
 
 export interface IStorageWebtoon extends IWebtoonBase {
