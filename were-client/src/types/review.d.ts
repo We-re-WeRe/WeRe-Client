@@ -1,3 +1,4 @@
+import { ILike } from './like';
 import { ITag } from './tag';
 import { IUserBase } from './user';
 import { IWebtoonBase } from './webtoon';
