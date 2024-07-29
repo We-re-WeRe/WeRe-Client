@@ -3,7 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import styles from './index.module.scss';
-import externalImageLoader from '@/util/loader';
 
 interface Props {
   onClick?: () => void;
