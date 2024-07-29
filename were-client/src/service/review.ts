@@ -1,4 +1,4 @@
-import { IReviewCreate, IReviewPatch, IUserReview } from '@/types/review';
+import { IReviewCreate, IReviewPatch, IUserReview, IWebtoonReview } from '@/types/review';
 import { AxiosResponse } from 'axios';
 import apiBe from '.';
 
@@ -31,6 +31,14 @@ export const deleteReview = async (reviewId: number): Promise<AxiosResponse> => 
   const response = await apiBe
     .delete(`/reviews?id=${reviewId}`)
     .then(res => res)
+    .catch(err => Promise.reject(err));
+  return response;
+};
+
+export const getWebtoonReview = async (webtoonId: number): Promise<IWebtoonReview[]> => {
+  const response = await apiBe
+    .get(`/reviews/list/webtoon?webtoonId=${webtoonId}`)
+    .then(res => res.data)
     .catch(err => Promise.reject(err));
   return response;
 };
