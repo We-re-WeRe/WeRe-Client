@@ -6,19 +6,28 @@ import Stars from '@/components/molecules/Stars';
 import NormalText from '@/components/atoms/NormalText';
 import AddTag from '@/components/molecules/AddTag';
 import WebtoonTag from '@/components/atoms/WebtoonTag';
-import LimitedInput from '@/components/molecules/LimitedInput';
+import LimitedInput, { ILimitedInput } from '@/components/molecules/LimitedInput';
 import TextButton from '@/components/atoms/TextButton';
 import useReviewModal from './useReviewModal';
 import styles from './index.module.scss';
+import { useCreateReview } from '@/hooks/useReview';
+import { useSearchParams } from 'next/navigation';
 
 const ReviewModal = () => {
   const { isShow, closeModal } = useReviewModal();
   const [point, setPoint] = useState<number>(5);
   const [tags, setTags] = useState<string[]>([]);
-  const reviewRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
+  const reviewRef: RefObject<ILimitedInput> = useRef<ILimitedInput>(null);
+
+  const titleId = parseInt(useSearchParams().get('titleId')!);
+  const { mutate } = useCreateReview(titleId, () => {
+    alert('리뷰를 작성하셨습니다.');
+    closeModal();
+  });
 
   useEffect(() => {
     return () => {
+      setTags([]);
       setPoint(5);
     };
   }, [isShow]);
@@ -53,10 +62,21 @@ const ReviewModal = () => {
 
       <div className={clsx(styles.buttonWrapper)}>
         <div className={clsx(styles.buttonArea)}>
-          <TextButton size="medium" design="inverse">
+          <TextButton size="medium" design="inverse" onClick={closeModal}>
             취소
           </TextButton>
-          <TextButton size="medium" design="primary">
+          <TextButton
+            size="medium"
+            design="primary"
+            onClick={() => {
+              mutate({
+                starPoint: point,
+                contents: reviewRef.current!.getText,
+                tags: tags.map(tag => ({ id: Math.random() * 1000000, contents: tag })),
+                webtoonId: titleId,
+              });
+            }}
+          >
             만들기
           </TextButton>
         </div>

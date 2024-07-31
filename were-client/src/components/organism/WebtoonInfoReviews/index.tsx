@@ -22,8 +22,8 @@ const WebtoonInfoReviews = () => {
       </TitleText>
       <ul className={clsx(styles.reviewList)}>
         {data.map(review => (
-          <li>
-            <WebtoonReviewCard review={review} key={review.id} />
+          <li key={review.id}>
+            <WebtoonReviewCard review={review} />
           </li>
         ))}
         {/* <li>

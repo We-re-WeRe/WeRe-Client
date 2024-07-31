@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, TextareaHTMLAttributes, useState } from 'react';
+import React, { ChangeEvent, TextareaHTMLAttributes, useImperativeHandle, useState } from 'react';
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   maxLength: number;
@@ -8,32 +8,41 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   className: string;
 }
 
-const LimitedInput = React.forwardRef<HTMLTextAreaElement, Props>(
-  ({ maxLength, initialValue, className, ...attr }, ref) => {
-    const [text, setText] = useState<string>(initialValue || '');
+export interface ILimitedInput {
+  clearText: () => void;
+  getText: string;
+}
 
-    return (
-      <div className={className}>
-        <textarea
-          value={text}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-            const { value } = e.target;
-            if (value.length > maxLength) {
-              return;
-            }
-            setText(value);
-          }}
-          maxLength={maxLength}
-          spellCheck="false"
-          ref={ref}
-          {...attr}
-        />
-        <div>
-          <span>{`${text.length}/${maxLength}`}</span>
-        </div>
+const LimitedInput = React.forwardRef<ILimitedInput, Props>(({ maxLength, initialValue, className, ...attr }, ref) => {
+  const [text, setText] = useState<string>(initialValue || '');
+
+  useImperativeHandle(ref, () => {
+    return {
+      clearText: () => setText(''),
+      getText: text,
+    };
+  });
+
+  return (
+    <div className={className}>
+      <textarea
+        value={text}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+          const { value } = e.target;
+          if (value.length > maxLength) {
+            return;
+          }
+          setText(value);
+        }}
+        maxLength={maxLength}
+        spellCheck="false"
+        {...attr}
+      />
+      <div>
+        <span>{`${text.length}/${maxLength}`}</span>
       </div>
-    );
-  },
-);
+    </div>
+  );
+});
 
 export default LimitedInput;
