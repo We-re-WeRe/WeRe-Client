@@ -62,5 +62,12 @@
       background-color: var(--color-red);
       color: var(--color-white);
     }
+
+    & > button:disabled {
+      background-color: var(--color-red-disabled);
+      color: var(--color-white);
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
   }
 }

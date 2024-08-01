@@ -4,6 +4,8 @@ export interface ILike {
 }
 
 export interface LikeParams {
-  targetType: string;
+  targetType: TARGET_TPYES;
   targetId: number;
 }
+
+type TARGET_TPYES = 'webtoon' | 'storage' | 'review';

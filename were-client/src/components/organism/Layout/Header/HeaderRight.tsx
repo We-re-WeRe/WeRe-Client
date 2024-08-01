@@ -6,14 +6,14 @@ import ProfilePopup from '@/components/molecules/ProfilePopup';
 import Link from 'next/link';
 
 const HeaderRight = () => {
-  const { user, isLoading } = useUserState();
+  const { user } = useUserState();
   return (
     <div className={styles.headerRight}>
       <ul className={styles.userItems}>
         <li>
           <SearchBar />
         </li>
-        {!isLoading && <li>{user ? <ProfilePopup user={user} /> : <Link href="/login">로그인</Link>}</li>}
+        <li>{user ? <ProfilePopup user={user} /> : <Link href="/login">로그인</Link>}</li>
       </ul>
     </div>
   );
