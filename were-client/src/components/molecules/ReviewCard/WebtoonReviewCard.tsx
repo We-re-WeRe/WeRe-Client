@@ -1,19 +1,23 @@
 'use client';
 import { IWebtoonReview } from '@/types/review';
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './index.module.scss';
 import TextButton from '@/components/atoms/TextButton';
 import ProfileButton from '@/components/atoms/ProfileButton';
 import IconText from '../IconText';
 import TagList from '../TagList';
+import { useLikeReview } from '@/hooks/useLike';
+import { useSearchParams } from 'next/navigation';
 
 interface Props {
   review: IWebtoonReview;
 }
 
 const WebtoonReviewCard = ({ review }: Props) => {
-  const [like, setLike] = useState<boolean>(review.like.isLike);
+  //const [like, setLike] = useState<boolean>(review.like.isLike);
   const reviewDate = new Date(review.createdAt);
+  const titleId = parseInt(useSearchParams().get('titleId')!);
+  const { mutate, isPending } = useLikeReview(titleId);
 
   return (
     <div className={styles.reviewCard}>
@@ -23,7 +27,6 @@ const WebtoonReviewCard = ({ review }: Props) => {
           {review.user.nickname}
         </TextButton>
       </div>
-
       <div className={styles.addtionalInfo}>
         <IconText type="star" size="md" text={review.starPoint} />
         {`${reviewDate.getFullYear()}.${reviewDate.getMonth()}.${reviewDate.getDay()} ${reviewDate.getHours()}:${reviewDate.getMinutes()}:${reviewDate.getSeconds()}`}
@@ -32,15 +35,17 @@ const WebtoonReviewCard = ({ review }: Props) => {
       <div className={styles.tagContents}>
         <TagList size="small" tags={review.tags} type="review" />
       </div>
+
       <div className={styles.likeArea}>
         <button
           role="checkbox"
-          aria-checked={like}
+          aria-checked={review.like.isLike}
+          disabled={isPending}
           onClick={() => {
-            setLike(!like);
+            mutate({ targetType: 'review', targetId: review.id, currentLike: review.like.isLike });
           }}
         >
-          ♥ {review.like.count + (like ? 1 : 0)}
+          ♥ {review.like.count}
         </button>
       </div>
     </div>
