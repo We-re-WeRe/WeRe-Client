@@ -2,7 +2,7 @@ import { createReview, getWebtoonReview } from '@/service/review';
 import { IReviewCreate, IWebtoonReview } from '@/types/review';
 import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const webtoonReviewOptions = (webtoonId: number) =>
+export const webtoonReviewOptions = (webtoonId: number) =>
   queryOptions({
     queryKey: ['webtoon', webtoonId, 'review'],
     queryFn: (): Promise<IWebtoonReview[]> => getWebtoonReview(webtoonId),
