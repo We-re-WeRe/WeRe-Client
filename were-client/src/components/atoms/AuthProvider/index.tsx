@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import Spinner from '../Spinner';
 
 const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const { user, setLoading, setUser, clearUser } = useUserState();
+  const { user, setLoading, setUser, clearUser, isLoading } = useUserState();
 
   useEffect(() => {
     const getUser = async () => {
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => 
     }
   }, [user]);
 
-  return <>{children}</>;
+  return <>{!isLoading && children}</>;
 };
 
 export default AuthProvider;
