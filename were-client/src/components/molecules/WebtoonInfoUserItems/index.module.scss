@@ -45,6 +45,12 @@
     border: 1px solid var(--color-red);
   }
 
+  & > .likeButton:disabled {
+    background-color: var(--color-red-disabled);
+    color: var(--color-white);
+    border: 1px solid transparent;
+  }
+
   & .addStorageButton {
     background: none;
     color: var(--color-white);
