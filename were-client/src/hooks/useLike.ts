@@ -1,11 +1,12 @@
 import { likePost, unlikePost } from '@/service/like';
 import { LikeParams } from '@/types/like';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { webtoonReviewOptions } from './useReview';
+import { userReviewOptions, webtoonReviewOptions } from './useReview';
 
-export const useLikeReview = (webtoonId: number) => {
+type Tusage = 'user' | 'webtoon';
+export const useLikeReview = (id: number, usage: Tusage) => {
   const client = useQueryClient();
-  const reviewQueryOpt = webtoonReviewOptions(webtoonId);
+  const reviewQueryOpt = usage === 'user' ? userReviewOptions(id) : webtoonReviewOptions(id);
 
   return useMutation({
     mutationFn: async ({ targetType, targetId, currentLike }: LikeParams & { currentLike: boolean }) => {
@@ -25,7 +26,6 @@ export const useLikeReview = (webtoonId: number) => {
           if (review.id === targetId) {
             const updatedLike = !currentLike;
             const updatedCount: number = currentLike ? Number(review.like.count) - 1 : Number(review.like.count) + 1;
-            console.log(updatedLike, updatedCount);
             return {
               ...review,
               like: {
@@ -36,7 +36,7 @@ export const useLikeReview = (webtoonId: number) => {
           }
           return review;
         });
-        client.setQueryData(reviewQueryOpt.queryKey, updatedList);
+        client.setQueryData(reviewQueryOpt.queryKey, updatedList as any);
       }
       return { prevReviewList };
     },
