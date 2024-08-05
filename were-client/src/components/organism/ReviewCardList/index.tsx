@@ -1,37 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { IUserReview } from '@/types/review';
-import ReviewCard from '@/components/molecules/ReviewCard';
-import { getReviewsListUserMyPage } from '@/service/review';
+import { UserReviewCard as ReviewCard } from '@/components/molecules/ReviewCard';
+import { getReviewsListUser } from '@/service/review';
 import styles from './index.module.scss';
+import useUserState from '@/hooks/useUserState';
+import { useUserReview } from '@/hooks/useReview';
 
 interface Props {
-  id?: number;
-  setCount?: (count: number) => void;
   mypage?: boolean;
 }
 
-const ReviewCardList = ({ id, setCount, mypage }: Props) => {
-  const [reviews, setReviews] = useState<IUserReview[]>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const reviewsData = await getReviewsListUserMyPage();
-      setReviews(reviewsData);
-      // userpage 경우
-      if (setCount) {
-        setCount(reviewsData.length);
-      }
-    };
-    fetchData();
-  }, [id, setCount]);
+const ReviewCardList = ({ mypage }: Props) => {
+  const { user } = useUserState();
+  const { data: reviews } = useUserReview(user!.id);
 
   return (
     <div>
       {reviews ? (
         <div className={clsx(mypage ? styles.mypageReviewList : styles.userReviewList)}>
           {reviews.map(review => (
-            <ReviewCard key={review.id} userReview={review} />
+            <ReviewCard key={review.id} userReview={review} userId={user!.id} />
           ))}
         </div>
       ) : (
