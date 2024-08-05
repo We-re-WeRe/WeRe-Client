@@ -81,7 +81,7 @@ const WebtoonInfo = () => {
         </div>
       </div>
       <div className={clsx(styles.userItemsArea)}>
-        <WebtoonInfoUserItems />
+        <WebtoonInfoUserItems titleId={info.id} like={info.like} />
       </div>
     </div>
   );

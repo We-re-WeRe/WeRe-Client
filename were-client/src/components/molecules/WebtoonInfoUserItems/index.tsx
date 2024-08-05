@@ -5,19 +5,28 @@ import useReviewModal from '@/components/organism/ReviewModal/useReviewModal';
 import useStorageListModal from '@/components/organism/StorageListModal/useStorageListModal';
 import styles from './index.module.scss';
 import { IconTagAdd } from '../../../../public/assets';
+import { ILike } from '@/types/like';
+import { useLikeWebtoon } from '@/hooks/useLike';
 
-const WebtoonInfoUserItems = () => {
-  const [like, setLike] = useState(false);
+interface Props {
+  like: ILike;
+  titleId: number;
+}
+
+const WebtoonInfoUserItems = ({ titleId, like }: Props) => {
   const { openModal } = useReviewModal();
   const { openModal: openStorageModal } = useStorageListModal();
+  const { isPending, mutate } = useLikeWebtoon(titleId);
+
   return (
     <div className={clsx(styles.webtoonInfoUserItems)}>
       <button
         role="checkbox"
-        aria-checked={like}
+        aria-checked={like.isLike}
+        disabled={isPending}
         className={clsx(styles.likeButton)}
         onClick={() => {
-          setLike(!like);
+          mutate({ targetId: titleId, targetType: 'webtoon', currentLike: like.isLike });
         }}
       >
         좋아요 {like ? '♥' : '♡'}
