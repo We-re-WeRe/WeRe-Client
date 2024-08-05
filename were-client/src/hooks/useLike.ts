@@ -1,23 +1,29 @@
 import { likePost, unlikePost } from '@/service/like';
 import { LikeParams } from '@/types/like';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 import { userReviewOptions, webtoonReviewOptions } from './useReview';
+import { IWebtoonDetail } from '@/types/webtoon';
+import { getWebtoonDetail } from '@/service/webtoon';
 
 type Tusage = 'user' | 'webtoon';
-export const useLikeReview = (id: number, usage: Tusage) => {
+type mutateParams = LikeParams & { currentLike: boolean };
+
+const toggleLikeApi = async ({ targetType, targetId, currentLike }: mutateParams) => {
+  if (!currentLike) {
+    await likePost({ targetType: targetType, targetId });
+    return;
+  }
+
+  await unlikePost({ targetType: targetType, targetId });
+};
+
+export const useLikeReview = (userId: number, webtoonId: number, usage: Tusage) => {
   const client = useQueryClient();
-  const reviewQueryOpt = usage === 'user' ? userReviewOptions(id) : webtoonReviewOptions(id);
+  const reviewQueryOpt = usage === 'user' ? userReviewOptions(userId) : webtoonReviewOptions(webtoonId);
 
   return useMutation({
-    mutationFn: async ({ targetType, targetId, currentLike }: LikeParams & { currentLike: boolean }) => {
-      if (!currentLike) {
-        await likePost({ targetType, targetId });
-        return;
-      }
-
-      await unlikePost({ targetType, targetId });
-    },
-    onMutate: async ({ targetType, targetId, currentLike }: LikeParams & { currentLike: boolean }) => {
+    mutationFn: toggleLikeApi,
+    onMutate: async ({ targetId, currentLike }: mutateParams) => {
       await client.cancelQueries(reviewQueryOpt);
       const prevReviewList = client.getQueryData(reviewQueryOpt.queryKey);
 
@@ -46,7 +52,47 @@ export const useLikeReview = (id: number, usage: Tusage) => {
       }
     },
     onSettled: () => {
-      client.invalidateQueries({ queryKey: reviewQueryOpt.queryKey });
+      client.invalidateQueries({ queryKey: userReviewOptions(userId).queryKey });
+      client.invalidateQueries({ queryKey: webtoonReviewOptions(webtoonId).queryKey });
+    },
+  });
+};
+
+export const useLikeWebtoon = (titleId: number) => {
+  const client = useQueryClient();
+  const webtoonQueryOpt = queryOptions({
+    queryKey: ['webtoon', titleId],
+    queryFn: (): Promise<IWebtoonDetail> => getWebtoonDetail(titleId),
+  });
+
+  return useMutation({
+    mutationFn: toggleLikeApi,
+    onMutate: async () => {
+      await client.cancelQueries(webtoonQueryOpt);
+      const prevData = client.getQueryData(webtoonQueryOpt.queryKey);
+
+      if (prevData) {
+        const currentLike = prevData.like.isLike;
+        const cnt = prevData.like.count;
+        const newData = {
+          ...prevData,
+          like: {
+            isLike: !prevData.like.isLike,
+            count: currentLike ? Number(cnt) - 1 : Number(cnt) + 1,
+          },
+        };
+
+        client.setQueryData(webtoonQueryOpt.queryKey, newData);
+        return { prevData };
+      }
+    },
+    onError: (err, variables, context) => {
+      if (context?.prevData) {
+        client.setQueryData(webtoonQueryOpt.queryKey, context.prevData);
+      }
+    },
+    onSettled: () => {
+      client.invalidateQueries(webtoonQueryOpt);
     },
   });
 };
