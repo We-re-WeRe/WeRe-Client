@@ -17,7 +17,7 @@ const WebtoonReviewCard = ({ review }: Props) => {
   //const [like, setLike] = useState<boolean>(review.like.isLike);
   const reviewDate = new Date(review.createdAt);
   const titleId = parseInt(useSearchParams().get('titleId')!);
-  const { mutate, isPending } = useLikeReview(titleId);
+  const { mutate, isPending } = useLikeReview(titleId, 'webtoon');
 
   return (
     <div className={styles.reviewCard}>

@@ -9,29 +9,33 @@ import { IUserReview } from '@/types/review';
 import styles from './index.module.scss';
 import IconText from '../IconText';
 import TagList from '../TagList';
+import { useLikeReview } from '@/hooks/useLike';
 
 interface Props {
   userReview: IUserReview;
+  userId: number;
 }
 
-const UserReviewCard = ({ userReview }: Props) => {
-  const [like, setLike] = useState<boolean>(userReview.like.isLike);
+const UserReviewCard = ({ userReview, userId }: Props) => {
   const reviewDate = new Date(userReview.createdAt);
+  const { mutate, isPending } = useLikeReview(userId, 'user');
 
   return (
     <div className={clsx(styles.reviewCard)}>
-      <div className={clsx(userReview && styles.reviewHeader)}>
+      <div className={styles.reviewHeader}>
         <div className={clsx(styles.profileArea)}>
-          {userReview.webtoon.imageURL && <ImageButton imgSrc={userReview.webtoon.imageURL} usage="filter" />}
-          <TextButton link={`${userReview.webtoon.id}`} size="medium">
+          <ImageButton
+            imgSrc={`${process.env.NEXT_PUBLIC_IMG_PROXY_URL}${userReview.webtoon.imageURL}`}
+            usage="filter"
+          />
+          <TextButton link={`/webtoon/info/list?titleId=${userReview.webtoon.id}`} size="medium">
             {userReview.webtoon.title}
           </TextButton>
         </div>
-        {userReview && (
-          <div className={clsx(styles.shortcut)}>
-            <IconButton size={24} type="shortcut" />
-          </div>
-        )}
+
+        {/* <div className={clsx(styles.shortcut)}>
+          <IconButton size={24} type="shortcut" />
+        </div> */}
       </div>
       <div className={clsx(styles.addtionalInfo)}>
         <IconText type="star" size="md" text={userReview.starPoint} />
@@ -41,15 +45,16 @@ const UserReviewCard = ({ userReview }: Props) => {
       <div className={clsx(styles.tagContents)}>
         <TagList size="small" tags={userReview.tags} type="review" />
       </div>
-      <div className={clsx(styles.likeArea)}>
+      <div className={styles.likeArea}>
         <button
           role="checkbox"
-          aria-checked={like}
+          aria-checked={userReview.like.isLike}
+          disabled={isPending}
           onClick={() => {
-            setLike(!like);
+            mutate({ targetType: 'review', targetId: userReview.id, currentLike: userReview.like.isLike });
           }}
         >
-          ♥ {userReview.like.count + (like ? 1 : 0)}
+          ♥ {userReview.like.count}
         </button>
       </div>
     </div>

@@ -7,7 +7,7 @@ export const getReviewsListUser = async (id: number): Promise<IUserReview[]> => 
     .get(`/reviews/list/user?ownerId=${id}`)
     .then(res => res.data)
     .catch(err => Promise.reject(err));
-  console.log(userReview);
+  // console.log(userReview);
   return userReview;
 };
 
