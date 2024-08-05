@@ -18,7 +18,7 @@ interface Props {
 
 const UserReviewCard = ({ userReview, userId }: Props) => {
   const reviewDate = new Date(userReview.createdAt);
-  const { mutate, isPending } = useLikeReview(userId, 'user');
+  const { mutate, isPending } = useLikeReview(userId, userReview.webtoon.id, 'user');
 
   return (
     <div className={clsx(styles.reviewCard)}>

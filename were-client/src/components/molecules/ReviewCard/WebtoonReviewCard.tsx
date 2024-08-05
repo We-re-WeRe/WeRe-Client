@@ -8,16 +8,17 @@ import IconText from '../IconText';
 import TagList from '../TagList';
 import { useLikeReview } from '@/hooks/useLike';
 import { useSearchParams } from 'next/navigation';
+import useUserState from '@/hooks/useUserState';
 
 interface Props {
   review: IWebtoonReview;
 }
 
 const WebtoonReviewCard = ({ review }: Props) => {
-  //const [like, setLike] = useState<boolean>(review.like.isLike);
+  const { user } = useUserState();
   const reviewDate = new Date(review.createdAt);
   const titleId = parseInt(useSearchParams().get('titleId')!);
-  const { mutate, isPending } = useLikeReview(titleId, 'webtoon');
+  const { mutate, isPending } = useLikeReview(user!.id, titleId, 'webtoon');
 
   return (
     <div className={styles.reviewCard}>
