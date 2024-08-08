@@ -4,7 +4,7 @@ import Modal from '@/components/molecules/Modal';
 import React, { RefObject, useRef, useState } from 'react';
 import TextButton from '@/components/atoms/TextButton';
 import clsx from 'clsx';
-import LimitedInput from '@/components/molecules/LimitedInput';
+import LimitedInput, { ILimitedInput } from '@/components/molecules/LimitedInput';
 import NormalText from '@/components/atoms/NormalText';
 import WebtoonTag from '@/components/atoms/WebtoonTag';
 import AddTag from '@/components/molecules/AddTag';
@@ -23,7 +23,7 @@ const NewStorageModal = ({ setStorages }: Props) => {
   const { isShow, closeModal } = useNewStorageModal();
   const [tags, setTags] = useState<string[]>([]);
   const [privacy, setPrivacy] = useState<boolean | undefined>(undefined);
-  const NewStorageTextareaRef: RefObject<HTMLTextAreaElement> = useRef<HTMLTextAreaElement>(null);
+  const NewStorageTextareaRef: RefObject<ILimitedInput> = useRef<ILimitedInput>(null);
   const NewStroageInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
   const onClickPrivacy = (isPrivacy: boolean) => {
@@ -37,9 +37,10 @@ const NewStorageModal = ({ setStorages }: Props) => {
   const handleCreateStorage = async () => {
     if (NewStorageTextareaRef.current && NewStroageInputRef.current) {
       const { value: titleValue } = NewStroageInputRef.current;
-      const { value: introduceValue } = NewStorageTextareaRef.current;
+      const introduceValue = NewStorageTextareaRef.current.getText;
 
       if (privacy) {
+        console.log(titleValue, introduceValue, privacy, tags);
         await postStorages(titleValue, introduceValue, privacy, tags);
         setStorages(await getStoragesListUser());
       }
