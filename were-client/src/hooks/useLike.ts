@@ -1,9 +1,8 @@
 import { likePost, unlikePost } from '@/service/like';
 import { LikeParams } from '@/types/like';
-import { queryOptions, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { userReviewOptions, webtoonReviewOptions } from './useReview';
-import { IWebtoonDetail } from '@/types/webtoon';
-import { getWebtoonDetail } from '@/service/webtoon';
+import { webtoonDetailOptions, webtoonLikedOptions } from './useWebtoon';
 
 type Tusage = 'user' | 'webtoon';
 type mutateParams = LikeParams & { currentLike: boolean };
@@ -60,10 +59,7 @@ export const useLikeReview = (userId: number, webtoonId: number, usage: Tusage) 
 
 export const useLikeWebtoon = (titleId: number) => {
   const client = useQueryClient();
-  const webtoonQueryOpt = queryOptions({
-    queryKey: ['webtoon', titleId],
-    queryFn: (): Promise<IWebtoonDetail> => getWebtoonDetail(titleId),
-  });
+  const webtoonQueryOpt = webtoonDetailOptions(titleId);
 
   return useMutation({
     mutationFn: toggleLikeApi,
@@ -93,6 +89,7 @@ export const useLikeWebtoon = (titleId: number) => {
     },
     onSettled: () => {
       client.invalidateQueries(webtoonQueryOpt);
+      client.invalidateQueries(webtoonLikedOptions());
     },
   });
 };
