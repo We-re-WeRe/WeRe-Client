@@ -41,7 +41,7 @@ const MyPageUnderContents = () => {
       <div className={clsx(styles.selectedContents)}>
         {preIndex === 0 && <StorageBoxList mypage />}
         {preIndex === 1 && <ReviewCardList mypage />}
-        {preIndex === 2 && <WebtoonList />}
+        {preIndex === 2 && <WebtoonList type="liked" />}
       </div>
     </div>
   );

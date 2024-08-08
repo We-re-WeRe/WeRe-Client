@@ -7,10 +7,8 @@ import ColorThief from '@/lib/ColorThief';
 import WebtoonInfoUserItems from '@/components/molecules/WebtoonInfoUserItems';
 import IconButton from '@/components/atoms/IconButton';
 import styles from './index.module.scss';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { IWebtoonDetail } from '@/types/webtoon';
-import { getWebtoonDetail } from '@/service/webtoon';
+import { useWebtoonDetail } from '@/hooks/useWebtoon';
 
 interface IColor {
   r: number;
@@ -27,10 +25,7 @@ const WebtoonInfo = () => {
   const [colors, setColors] = useState<IColor[]>([]);
   const titleId = parseInt(useSearchParams().get('titleId')!);
 
-  const { data: info } = useSuspenseQuery({
-    queryKey: ['webtoon', titleId],
-    queryFn: (): Promise<IWebtoonDetail> => getWebtoonDetail(titleId),
-  });
+  const { data: info } = useWebtoonDetail(titleId);
 
   useEffect(() => {
     if (info) {
