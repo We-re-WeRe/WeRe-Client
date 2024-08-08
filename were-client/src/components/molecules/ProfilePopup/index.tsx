@@ -30,7 +30,7 @@ const ProfilePopup = ({ user }: Props) => {
   return (
     <div className={clsx(styles.profilePopup)}>
       <ProfileButton imgSrc={user.imageURL} usage="header" onClick={() => setIsShow(true)} />
-      <PopupBox isShow={isShow} ref={popupBoxRef} />
+      <PopupBox isShow={isShow} setIsShow={setIsShow} ref={popupBoxRef} />
     </div>
   );
 };

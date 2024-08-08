@@ -8,15 +8,17 @@ import { logoutApi } from '@/service/auth';
 
 interface Props {
   isShow: boolean;
+  setIsShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PopupBox = React.forwardRef<HTMLDivElement, Props>(({ isShow }, ref) => {
+const PopupBox = React.forwardRef<HTMLDivElement, Props>(({ isShow, setIsShow }, ref) => {
   const { clearUser } = useUserState();
 
   const logoutHandler = async () => {
     await logoutApi()
       .then(() => {
         clearUser();
+        setIsShow(false);
       })
       .catch(err => console.log(err));
   };
@@ -24,7 +26,13 @@ const PopupBox = React.forwardRef<HTMLDivElement, Props>(({ isShow }, ref) => {
   return (
     isShow && (
       <div className={clsx(styles.popupWrapper)} ref={ref}>
-        <Link href="/my" className={clsx(styles.popupItem)}>
+        <Link
+          href="/my"
+          className={clsx(styles.popupItem)}
+          onClick={() => {
+            setIsShow(false);
+          }}
+        >
           <IconText type="user" text="마이프로필" size="sm" />
         </Link>
         <div className={clsx(styles.popupItem)} onClick={logoutHandler} role="presentation">
