@@ -44,9 +44,11 @@ const MyPageCategoryTitle = ({ tabIdx, setTabIdx }: Props) => {
     const moveFloatingMenu = () => {
       if (transSide && floatingMenu.current) {
         floatingMenu.current.style.transform = `translateY(calc(${window.scrollY + window.innerHeight / 2}px - 50%))`;
+        return;
       }
-      if (!transSide && floatingMenu.current) {
+      if (floatingMenu.current) {
         floatingMenu.current.style.transform = `translateY(0px)`;
+        return;
       }
     };
 
