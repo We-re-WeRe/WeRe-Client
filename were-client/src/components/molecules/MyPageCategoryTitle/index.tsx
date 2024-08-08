@@ -26,7 +26,7 @@ interface Props {
 const MyPageCategoryTitle = ({ tabIdx, setTabIdx }: Props) => {
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const [transSide, setTransSide] = useState<boolean>(false);
-
+  const floatingMenu = useRef<HTMLDivElement | null>(null);
   /**
    * 스크롤 시 탭 카테고리가 사이드로 옮겨짐
    */
@@ -36,14 +36,24 @@ const MyPageCategoryTitle = ({ tabIdx, setTabIdx }: Props) => {
         setTransSide(true);
         return;
       }
-      if (window.scrollY < 350 && transSide) {
+      if (window.scrollY <= 400 && transSide) {
         setTransSide(false);
+      }
+    };
+
+    const moveFloatingMenu = () => {
+      if (transSide && floatingMenu.current) {
+        floatingMenu.current.style.transform = `translateY(calc(${window.scrollY + window.innerHeight / 2}px - 50%))`;
+      }
+      if (!transSide && floatingMenu.current) {
+        floatingMenu.current.style.transform = `translateY(0px)`;
       }
     };
 
     const throttleScroll = () => {
       if (!throttleTimeout.current) {
         throttleTimeout.current = setTimeout(() => {
+          moveFloatingMenu();
           handleScroll();
           throttleTimeout.current = null;
         }, 50);
@@ -58,9 +68,9 @@ const MyPageCategoryTitle = ({ tabIdx, setTabIdx }: Props) => {
 
   return (
     <div className={styles.commonCategoryTitle}>
-      <div className={clsx(styles.title, { [styles.scrollTitle]: transSide })}>
+      <div className={clsx({ [styles.title]: !transSide }, { [styles.scrollTitle]: transSide })} ref={floatingMenu}>
         {CATEGORY_LIST.map(category => (
-          <div key={category.tabIndex} className={styles.tapTitle}>
+          <div key={category.tabIndex} className={styles.tabTitle}>
             <TextButton
               size={tabIdx === category.tabIndex ? 'large' : 'medium'}
               bold={tabIdx === category.tabIndex}
