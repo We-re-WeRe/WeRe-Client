@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { IUserReview } from '@/types/review';
 import { UserReviewCard as ReviewCard } from '@/components/molecules/ReviewCard';
-import { getReviewsListUser } from '@/service/review';
 import styles from './index.module.scss';
 import useUserState from '@/hooks/useUserState';
 import { useUserReview } from '@/hooks/useReview';
