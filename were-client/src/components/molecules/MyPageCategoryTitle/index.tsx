@@ -3,17 +3,27 @@ import clsx from 'clsx';
 import TextButton from '@/components/atoms/TextButton';
 import styles from './index.module.scss';
 
-interface ITapState {
-  category: string;
-  selected: boolean;
-}
+const CATEGORY_LIST = [
+  {
+    tabIndex: 0,
+    category: '보관함',
+  },
+  {
+    tabIndex: 1,
+    category: '리뷰',
+  },
+  {
+    tabIndex: 2,
+    category: '좋아요',
+  },
+];
 
 interface Props {
-  tapStates: ITapState[];
-  onClickTitle: (index: number) => void;
+  tabIdx: number;
+  setTabIdx: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const MyPageCategoryTitle = ({ tapStates, onClickTitle }: Props) => {
+const MyPageCategoryTitle = ({ tabIdx, setTabIdx }: Props) => {
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
   const [transSide, setTransSide] = useState<boolean>(false);
 
@@ -47,16 +57,16 @@ const MyPageCategoryTitle = ({ tapStates, onClickTitle }: Props) => {
   }, [transSide]);
 
   return (
-    <div className={clsx(styles.commonCategoryTitle)}>
+    <div className={styles.commonCategoryTitle}>
       <div className={clsx(styles.title, { [styles.scrollTitle]: transSide })}>
-        {tapStates.map((tapState, index) => (
-          <div key={tapState.category} className={clsx(styles.tapTitle, { [styles.tapClick]: tapState.selected })}>
+        {CATEGORY_LIST.map(category => (
+          <div key={category.tabIndex} className={styles.tapTitle}>
             <TextButton
-              size={tapStates[index].selected ? 'large' : 'small'}
-              bold={tapStates[index].selected}
-              onClick={() => onClickTitle(index)}
+              size={tabIdx === category.tabIndex ? 'large' : 'medium'}
+              bold={tabIdx === category.tabIndex}
+              onClick={() => setTabIdx(category.tabIndex)}
             >
-              {tapState.category}
+              {category.category}
             </TextButton>
           </div>
         ))}
