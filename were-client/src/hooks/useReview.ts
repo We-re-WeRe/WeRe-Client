@@ -1,5 +1,5 @@
 import { createReview, getReviewsListUser, getWebtoonReview } from '@/service/review';
-import { IReviewCreate, IUserReview, IWebtoonReview } from '@/types/review';
+import { IUserReview, IWebtoonReview } from '@/types/review';
 import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 export const webtoonReviewOptions = (webtoonId: number) =>
@@ -14,17 +14,15 @@ export const userReviewOptions = (userId: number) =>
     queryFn: async (): Promise<IUserReview[]> => await getReviewsListUser(userId),
   });
 
-export const useCreateReview = (webtoonId: number, successCb: () => void) => {
+export const useCreateReview = (webtoonId: number) => {
   const client = useQueryClient();
 
   const reviewQueryOptions = webtoonReviewOptions(webtoonId);
 
   return useMutation({
-    mutationFn: async (review: IReviewCreate) => createReview(review),
+    mutationFn: createReview,
 
     onSettled: () => {
-      successCb();
-
       client.invalidateQueries({ queryKey: reviewQueryOptions.queryKey });
     },
     onError: err => console.log(`${err} , 다시 시도해주세요.`),
