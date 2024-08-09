@@ -3,18 +3,13 @@ import React from 'react';
 import TitleText from '@/components/atoms/TitleText';
 import clsx from 'clsx';
 import styles from './index.module.scss';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { getWebtoonReview } from '@/service/review';
-import { IWebtoonReview } from '@/types/review';
 import { WebtoonReviewCard } from '@/components/molecules/ReviewCard';
+import { useWebtoonReview } from '@/hooks/useReview';
 
 const WebtoonInfoReviews = () => {
   const titleId = parseInt(useSearchParams().get('titleId')!);
-  const { data } = useSuspenseQuery({
-    queryKey: ['webtoon', titleId, 'review'],
-    queryFn: (): Promise<IWebtoonReview[]> => getWebtoonReview(titleId),
-  });
+  const { data } = useWebtoonReview(titleId);
   return (
     <div className={clsx(styles.webtoonInfoReviews)}>
       <TitleText size="medium" color="white">
