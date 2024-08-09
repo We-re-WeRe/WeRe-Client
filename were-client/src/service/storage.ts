@@ -1,8 +1,8 @@
-import { IStorage, IStorageCreate, IStorageDetail } from '@/types/storage';
+import { IStorage, IStorageBase, IStorageCreate } from '@/types/storage';
 import apiBe from '.';
 
 // storage info
-export const getStoragesDetail = async (storageId: number): Promise<IStorageDetail> => {
+export const getStoragesDetail = async (storageId: number): Promise<IStorage> => {
   const infoStorage = await apiBe
     .get(`/storages/detail?id=${storageId}`)
     .then(res => res.data)
@@ -12,7 +12,7 @@ export const getStoragesDetail = async (storageId: number): Promise<IStorageDeta
 };
 
 // all of the storages
-export const getStoragesList = async (): Promise<IStorage[]> => {
+export const getStoragesList = async (): Promise<IStorageBase[]> => {
   const allStorages = await apiBe
     .get('/storages/list/')
     .then(res => res.data)
@@ -22,7 +22,7 @@ export const getStoragesList = async (): Promise<IStorage[]> => {
 };
 
 // get storages with specific webtoon
-export const getStoragesWithWebtoon = async (webtoonId: number): Promise<IStorage[]> => {
+export const getStoragesWithWebtoon = async (webtoonId: number): Promise<IStorageBase[]> => {
   const storages = await apiBe
     .get(`/storages/list/webtoon?webtoonId=${webtoonId}`)
     .then(res => res.data)
@@ -32,7 +32,7 @@ export const getStoragesWithWebtoon = async (webtoonId: number): Promise<IStorag
 };
 
 // mypage&userpage storages
-export const getStoragesListUser = async (id?: number): Promise<IStorage[]> => {
+export const getStoragesListUser = async (id?: number): Promise<IStorageBase[]> => {
   const userStorages = await apiBe
     .get(`/storages/list/user?userId=${id}`)
     .then(res => res.data)
@@ -41,7 +41,7 @@ export const getStoragesListUser = async (id?: number): Promise<IStorage[]> => {
 };
 
 // webtoon storages
-export const getStoragesListMine = async (id: number): Promise<IStorage> => {
+export const getStoragesListMine = async (id: number): Promise<IStorageBase[]> => {
   const webtoonStorages = await apiBe
     .get(`/storages/list/mine?webtoonId?=${id}`)
     .then(res => res.data)
@@ -51,7 +51,7 @@ export const getStoragesListMine = async (id: number): Promise<IStorage> => {
 };
 
 // liked storages
-export const getStoragesListLiked = async (): Promise<IStorage> => {
+export const getStoragesListLiked = async (): Promise<IStorageBase[]> => {
   const likedStorages = await apiBe
     .get('/storages/list/liked')
     .then(res => res.data)
@@ -61,15 +61,9 @@ export const getStoragesListLiked = async (): Promise<IStorage> => {
 };
 
 // mypage create storages
-export const postStorages = async (
-  nameValue: string,
-  explainValue: string,
-  isPublicValue: boolean,
-  tagsValue: string[],
-): Promise<IStorageCreate> => {
-  console.log(nameValue);
+export const postStorages = async ({ name, explain, isPublic, tags, imageURL }: IStorageCreate): Promise<IStorage> => {
   const postStorage = await apiBe
-    .post('/storages', { name: nameValue, explain: explainValue, isPublic: isPublicValue, tags: tagsValue })
+    .post('/storages', { name, explain, isPublic, tags, imageURL: undefined })
     .then(res => res.data)
     .catch(err => Promise.reject(err));
 
@@ -77,20 +71,22 @@ export const postStorages = async (
 };
 
 // update storage
-export const patchStorages = async (
-  nameValue: string,
-  imageURLValue: string,
-  explainValue: string,
-  isPublicValue: boolean,
-  tagsValue: string[],
-): Promise<IStorageCreate> => {
+export const patchStorages = async ({
+  name,
+  imageURL,
+  explain,
+  isPublic,
+  tags,
+  id,
+}: IStorageCreate & { id: number }): Promise<IStorage> => {
   const patchStorage = await apiBe
     .patch('/storages', {
-      name: nameValue,
-      imageURL: imageURLValue,
-      explain: explainValue,
-      isPublic: isPublicValue,
-      tags: tagsValue,
+      id,
+      name,
+      imageURL,
+      explain,
+      isPublic,
+      tags,
     })
     .then(res => res.data)
     .catch(err => Promise.reject(err));
@@ -98,18 +94,8 @@ export const patchStorages = async (
   return patchStorage;
 };
 
-// storage delete
-export const deleteStorages = async (storageId: number) => {
-  const deleteStorage = await apiBe
-    .delete(`/storages?id=${storageId}`)
-    .then(res => res.status)
-    .catch(err => Promise.reject(err));
-
-  return deleteStorage;
-};
-
 // stroage update webtoon
-export const patchWebtoonStorages = async (storageId: number, webtoonInputId: number): Promise<IStorageDetail> => {
+export const patchWebtoonStorages = async (storageId: number, webtoonInputId: number): Promise<IStorage> => {
   const patchWebtoonStorage = await apiBe
     .patch(`/storages/webtoon?id=${storageId}?webtoonId=${webtoonInputId}`, {
       id: storageId,
@@ -122,7 +108,7 @@ export const patchWebtoonStorages = async (storageId: number, webtoonInputId: nu
 };
 
 // storage delete webtoon
-export const deleteWebtoonStorages = async (storagesId: number, webtoonInputId: number): Promise<IStorageDetail> => {
+export const deleteWebtoonStorages = async (storagesId: number, webtoonInputId: number): Promise<IStorage> => {
   const deleteWebtoonStorage = await apiBe
     .delete(`/storages/webtoon?id=${storagesId}?webtoonId=${webtoonInputId}`)
     .then(res => res.data)
