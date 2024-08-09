@@ -5,19 +5,19 @@ import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 const webtoonListOptions = (day: Tday, company: string) =>
   queryOptions({
-    queryKey: ['webtoons', day],
+    queryKey: ['webtoon', 'list', { day, company }],
     queryFn: (): Promise<IWebtoon[]> => getWebtoons(day, company),
   });
 
 export const webtoonDetailOptions = (titleId: number) =>
   queryOptions({
-    queryKey: ['webtoon', titleId],
+    queryKey: ['webtoon', 'detail', titleId],
     queryFn: (): Promise<IWebtoonDetail> => getWebtoonDetail(titleId),
   });
 
 export const webtoonLikedOptions = () =>
   queryOptions({
-    queryKey: ['webtoon', 'my', { liked: true }],
+    queryKey: ['webtoon', 'list', { liked: true }],
     queryFn: (): Promise<IWebtoon[]> => getWebtoonsLiked(),
   });
 

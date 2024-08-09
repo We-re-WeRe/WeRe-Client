@@ -4,13 +4,13 @@ import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@ta
 
 export const webtoonReviewOptions = (webtoonId: number) =>
   queryOptions({
-    queryKey: ['webtoon', webtoonId, 'review'],
+    queryKey: ['review', { type: 'webtoon', id: webtoonId }],
     queryFn: (): Promise<IWebtoonReview[]> => getWebtoonReview(webtoonId),
   });
 
 export const userReviewOptions = (userId: number) =>
   queryOptions({
-    queryKey: ['user', userId, 'review'],
+    queryKey: ['review', { type: 'user', id: userId }],
     queryFn: async (): Promise<IUserReview[]> => await getReviewsListUser(userId),
   });
 
@@ -34,3 +34,5 @@ export const useCreateReview = (webtoonId: number, successCb: () => void) => {
 export const useUserReview = (userId: number) => {
   return useSuspenseQuery(userReviewOptions(userId));
 };
+
+export const useWebtoonReview = (webtoonId: number) => useSuspenseQuery(webtoonReviewOptions(webtoonId));
