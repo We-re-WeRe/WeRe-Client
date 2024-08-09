@@ -1,6 +1,6 @@
 import { getStoragesListUser, postStorages } from '@/service/storage';
 import { IStorageBase } from '@/types/storage';
-import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 const userStorageOptions = (userId: number) =>
   queryOptions({
@@ -8,7 +8,7 @@ const userStorageOptions = (userId: number) =>
     queryFn: ({ queryKey }): Promise<IStorageBase[]> => getStoragesListUser(queryKey[2].id),
   });
 
-export const useUserStorageList = (userId: number) => useQuery(userStorageOptions(userId));
+export const useUserStorageList = (userId: number) => useSuspenseQuery(userStorageOptions(userId));
 
 export const useCreateStorage = () => {
   const client = useQueryClient();
