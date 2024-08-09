@@ -1,54 +1,42 @@
 'use client';
 
 import StorageBox from '@/components/molecules/StorageBox';
-import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
-import { IStorage } from '@/types/storage';
-import { getStoragesListUser } from '@/service/storage';
+import React from 'react';
 import useNewStorageModal from '../NewStorageModal/useNewStorageModal';
 import styles from './index.module.scss';
 import { IconTagAdd } from '../../../../public/assets';
 import NewStorageModal from '../NewStorageModal';
+import { useUserStorageList } from '@/hooks/useStorage';
+import useUserState from '@/hooks/useUserState';
 
 interface Props {
-  id?: number;
   setCount?: (count: number) => void;
   mypage?: boolean;
 }
 
-const StorageBoxList = ({ id, setCount, mypage }: Props) => {
-  const [storages, setStorages] = useState<IStorage[]>();
+const StorageBoxList = ({ setCount, mypage }: Props) => {
   const { openModal } = useNewStorageModal();
-  useEffect(() => {
-    const fetchData = async () => {
-      const storagesData = await getStoragesListUser(id);
-      setStorages(storagesData);
-      // userpage 경우
-      if (setCount) {
-        setCount(storagesData.length);
-      }
-    };
-    fetchData();
-  }, [id, setCount]);
+  const { user } = useUserState();
+  const { data: storages } = useUserStorageList(user!.id);
 
   return (
     <div>
-      <div className={clsx(mypage ? styles.mypageStorageList : styles.storageList)}>
+      <div className={mypage ? styles.mypageStorageList : styles.storageList}>
         {mypage && (
           <div onClick={openModal} role="presentation">
-            <div className={clsx(styles.makeStorage)}>
+            <div className={styles.makeStorage}>
               <IconTagAdd />
             </div>
-            <div className={clsx(styles.makeStorageText)}>새 보관함</div>
+            <div className={styles.makeStorageText}>새 보관함</div>
           </div>
         )}
         {storages ? (
           storages.map(storage => <StorageBox key={storage.id} storage={storage} />)
         ) : (
-          <div className={clsx(styles.emptyStorages)}>보관함이 없습니다.</div>
+          <div className={styles.emptyStorages}>보관함이 없습니다.</div>
         )}
       </div>
-      <NewStorageModal setStorages={setStorages} />
+      <NewStorageModal />
     </div>
   );
 };

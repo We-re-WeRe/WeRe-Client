@@ -51,8 +51,7 @@ export const useLikeReview = (userId: number, webtoonId: number, usage: Tusage) 
       }
     },
     onSettled: () => {
-      client.invalidateQueries({ queryKey: userReviewOptions(userId).queryKey });
-      client.invalidateQueries({ queryKey: webtoonReviewOptions(webtoonId).queryKey });
+      client.invalidateQueries({ queryKey: ['review'] });
     },
   });
 };
@@ -88,8 +87,8 @@ export const useLikeWebtoon = (titleId: number) => {
       }
     },
     onSettled: () => {
-      client.invalidateQueries(webtoonQueryOpt);
-      client.invalidateQueries(webtoonLikedOptions());
+      client.invalidateQueries({ queryKey: webtoonQueryOpt.queryKey });
+      client.invalidateQueries({ queryKey: webtoonLikedOptions().queryKey });
     },
   });
 };

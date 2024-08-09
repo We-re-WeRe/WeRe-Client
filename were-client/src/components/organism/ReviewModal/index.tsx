@@ -20,10 +20,7 @@ const ReviewModal = () => {
   const reviewRef: RefObject<ILimitedInput> = useRef<ILimitedInput>(null);
 
   const titleId = parseInt(useSearchParams().get('titleId')!);
-  const { mutate } = useCreateReview(titleId, () => {
-    alert('리뷰를 작성하셨습니다.');
-    closeModal();
-  });
+  const { mutate } = useCreateReview(titleId);
 
   useEffect(() => {
     return () => {
@@ -69,12 +66,20 @@ const ReviewModal = () => {
             size="medium"
             design="primary"
             onClick={() => {
-              mutate({
-                starPoint: point,
-                contents: reviewRef.current!.getText,
-                tags: tags.map(tag => ({ id: Math.random() * 1000000, contents: tag })),
-                webtoonId: titleId,
-              });
+              mutate(
+                {
+                  starPoint: point,
+                  contents: reviewRef.current!.getText,
+                  tags: tags.map(tag => ({ id: Math.random() * 1000000, contents: tag })),
+                  webtoonId: titleId,
+                },
+                {
+                  onSuccess: () => {
+                    alert('리뷰를 작성하셨습니다.');
+                    closeModal();
+                  },
+                },
+              );
             }}
           >
             만들기
