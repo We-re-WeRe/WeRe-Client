@@ -14,38 +14,33 @@ import { IStorage } from '@/types/storage';
 import useNewStorageModal from './useNewStorageModal';
 import styles from './index.module.scss';
 import { IconPrivate, IconPublic } from '../../../../public/assets';
+import { useCreateStorage } from '@/hooks/useStorage';
 
-interface Props {
-  setStorages: (storages: IStorage[]) => void;
-}
-
-const NewStorageModal = ({ setStorages }: Props) => {
+const NewStorageModal = () => {
   const { isShow, closeModal } = useNewStorageModal();
   const [tags, setTags] = useState<string[]>([]);
-  const [privacy, setPrivacy] = useState<boolean | undefined>(undefined);
+  const [isPublic, setIsPublic] = useState<boolean>(true);
   const NewStorageTextareaRef: RefObject<ILimitedInput> = useRef<ILimitedInput>(null);
   const NewStroageInputRef: RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
-
-  const onClickPrivacy = (isPrivacy: boolean) => {
-    if (privacy === undefined) {
-      setPrivacy(isPrivacy);
-    } else {
-      setPrivacy(!privacy);
-    }
-  };
+  const { mutate } = useCreateStorage();
 
   const handleCreateStorage = async () => {
     if (NewStorageTextareaRef.current && NewStroageInputRef.current) {
       const { value: titleValue } = NewStroageInputRef.current;
       const introduceValue = NewStorageTextareaRef.current.getText;
-
-      if (privacy) {
-        console.log(titleValue, introduceValue, privacy, tags);
-        await postStorages(titleValue, introduceValue, privacy, tags);
-        setStorages(await getStoragesListUser());
-      }
-      closeModal();
+      mutate(
+        { name: titleValue, explain: introduceValue, imageURL: '', isPublic, tags: [] },
+        {
+          onError: () => {
+            alert('리뷰를 생성하지 못하였습니다.');
+          },
+          onSuccess: () => {
+            alert('리뷰를 생성하였습니다.');
+          },
+        },
+      );
     }
+    closeModal();
   };
 
   const deleteTag = (target: string) => {
@@ -91,13 +86,13 @@ const NewStorageModal = ({ setStorages }: Props) => {
         <div className={clsx(styles.privacySection)}>
           <NormalText color="white">공개 설정</NormalText>
           <div className={clsx(styles.buttonSection)}>
-            <div className={clsx(styles.publicButton, privacy === true && styles.clickedButton)}>
-              <TextButton size="small" design="privacy" onClick={() => onClickPrivacy(true)}>
+            <div className={clsx(styles.publicButton, isPublic === true && styles.clickedButton)}>
+              <TextButton size="small" design="privacy" onClick={() => setIsPublic(true)}>
                 <IconPublic /> Public
               </TextButton>
             </div>
-            <div className={clsx(styles.privateButton, privacy === false && styles.clickedButton)}>
-              <TextButton size="small" design="privacy" onClick={() => onClickPrivacy(false)}>
+            <div className={clsx(styles.privateButton, isPublic === false && styles.clickedButton)}>
+              <TextButton size="small" design="privacy" onClick={() => setIsPublic(false)}>
                 <IconPrivate /> Private
               </TextButton>
             </div>
